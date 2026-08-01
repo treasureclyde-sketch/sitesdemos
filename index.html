@@ -199,6 +199,45 @@
   </div>
 </section>
 
+<!-- ============ 3D TOUR ============ -->
+<section class="section" id="tour" style="padding-top:0">
+  <div class="container">
+    <div class="tour-wrap">
+      <div class="mv-stage reveal">
+        <!-- 3D model auto-activates when /assets/3d/pilot.glb is present; until then shows the photo -->
+        <model-viewer id="pilotModel"
+          data-src="/assets/3d/pilot.glb"
+          poster="/assets/img/photos/budni.jpeg"
+          alt="3D-модель пилота в потоке аэротрубы Free Fly"
+          camera-controls touch-action="pan-y"
+          auto-rotate auto-rotate-delay="0" rotation-per-second="16deg"
+          camera-orbit="0deg 82deg 110%" min-field-of-view="25deg" max-field-of-view="45deg"
+          shadow-intensity="1" exposure="1.1" environment-image="neutral"
+          ar ar-modes="webxr scene-viewer quick-look" reveal="auto" loading="lazy">
+          <img slot="poster" src="/assets/img/photos/budni.jpeg" alt="">
+        </model-viewer>
+        <img class="mv-fallback" src="/assets/img/photos/budni.jpeg" alt="Полёт в аэротрубе Free Fly">
+        <span class="mv-badge">3D · 360°</span>
+        <span class="mv-hint">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9"/><path d="M3 4v5h5"/></svg>
+          Перетащите, чтобы вращать
+        </span>
+      </div>
+      <div class="reveal d1">
+        <span class="eyebrow">3D · рассмотри поближе</span>
+        <h2 class="section-title">Загляни внутрь <span class="grad-text">полёта</span></h2>
+        <p class="section-sub">Вот в какой позе тебя держит поток воздуха. Покрути модель со всех сторон — и почувствуй, каково это, ещё до первого полёта.</p>
+        <ul class="tour-points">
+          <li><span class="n">01</span><span><b>Поза свободного падения</b>Прогиб в пояснице, руки и ноги в потоке — тело парит само.</span></li>
+          <li><span class="n">02</span><span><b>Полная экипировка</b>Комбинезон Free Fly, шлем с визором, очки и защита — всё выдаём на месте.</span></li>
+          <li><span class="n">03</span><span><b>Поток 250 км/ч</b>Мощный вертикальный воздух поднимает пилота на высоту до 5 метров.</span></li>
+        </ul>
+        <a class="btn btn-blue btn-lg" href="#tariffs">Выбрать полёт</a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ============ TARIFFS ============ -->
 <section class="section" id="tariffs" style="padding-top:0">
   <div class="container">
@@ -515,6 +554,7 @@
   </div>
 </footer>
 
+<script type="module" src="https://cdn.jsdelivr.net/npm/@google/model-viewer@3.5.0/dist/model-viewer.min.js"></script>
 <script src="/assets/js/main.js"></script>
 </body>
 </html>

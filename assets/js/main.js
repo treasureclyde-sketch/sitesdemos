@@ -173,6 +173,20 @@
     });
   }
 
+  /* ---------- 3D model: activate only if the .glb actually exists ---------- */
+  var pilot = document.getElementById('pilotModel');
+  if (pilot && pilot.dataset.src) {
+    fetch(pilot.dataset.src, { method: 'HEAD' })
+      .then(function (r) {
+        if (r.ok) {
+          pilot.setAttribute('src', pilot.dataset.src);
+          var stage = pilot.closest('.mv-stage');
+          if (stage) stage.classList.add('has3d');
+        }
+      })
+      .catch(function () { /* no model yet — poster/photo stays */ });
+  }
+
   /* ---------- Footer year ---------- */
   var y = document.getElementById('year');
   if (y) y.textContent = new Date().getFullYear();
