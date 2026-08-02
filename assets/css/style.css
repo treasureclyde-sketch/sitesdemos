@@ -215,15 +215,16 @@ section[id], main[id] { scroll-margin-top: 92px; }
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 2px;
   list-style: none;
   margin: 0; padding: 0;
 }
 .nav-links a {
-  padding: 9px 15px;
+  padding: 9px 13px;
   border-radius: 100px;
   font-size: 15px;
   font-weight: 600;
+  white-space: nowrap;
   color: var(--muted);
   transition: color 0.25s, background 0.25s;
 }
@@ -238,6 +239,21 @@ section[id], main[id] { scroll-margin-top: 92px; }
 }
 .nav-phone:hover { color: var(--amber-2); }
 .nav-cta { padding: 11px 22px; font-size: 15px; }
+.theme-toggle {
+  width: 42px; height: 42px; flex-shrink: 0;
+  border-radius: 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  display: grid; place-items: center;
+  transition: background 0.25s, border-color 0.25s, color 0.25s, transform 0.25s;
+}
+.theme-toggle:hover { background: var(--surface-2); border-color: var(--border-2); transform: translateY(-2px); }
+.theme-toggle svg { width: 19px; height: 19px; }
+.theme-toggle .i-moon { display: none; }
+.theme-toggle .i-sun { display: block; }
+:root[data-theme="light"] .theme-toggle .i-sun { display: none; }
+:root[data-theme="light"] .theme-toggle .i-moon { display: block; }
 .nav-burger {
   display: none;
   width: 46px; height: 46px;
@@ -973,3 +989,77 @@ section[id], main[id] { scroll-margin-top: 92px; }
   .footer-top { grid-template-columns: 1fr; }
   .marquee-track span { font-size: 18px; }
 }
+
+/* collapse desktop nav a bit earlier so labels never wrap */
+@media (max-width: 1060px) {
+  .nav-links, .nav-right .nav-phone, .nav-right .nav-cta { display: none; }
+  .nav-burger { display: flex; }
+}
+
+/* ============================================================
+   LIGHT THEME
+   ============================================================ */
+:root[data-theme="light"] {
+  --bg:        #eef2fa;
+  --bg-2:      #e7edf8;
+  --bg-3:      #dde5f3;
+  --surface:   rgba(255, 255, 255, 0.72);
+  --surface-2: rgba(255, 255, 255, 0.95);
+  --border:    rgba(20, 40, 80, 0.10);
+  --border-2:  rgba(20, 40, 80, 0.18);
+
+  --text:      #101d33;
+  --muted:     #4f5d76;
+  --muted-2:   #8290a8;
+
+  --amber-2:   #b26a00;
+
+  --grad-txt:  linear-gradient(100deg, #e07b00 0%, #2563eb 100%);
+  --grad-hot:  linear-gradient(100deg, #f59e0b 0%, #ff6a3d 55%, #ff3d63 100%);
+
+  --shadow:       0 30px 70px -34px rgba(30, 55, 110, 0.30);
+  --shadow-blue:  0 24px 60px -28px rgba(46, 125, 255, 0.38);
+  --shadow-amber: 0 24px 60px -28px rgba(255, 150, 20, 0.38);
+}
+
+/* ambient background tints for light */
+:root[data-theme="light"] body::before {
+  background:
+    radial-gradient(58% 48% at 84% -5%, rgba(46, 125, 255, 0.14), transparent 60%),
+    radial-gradient(44% 40% at 6% 6%, rgba(56, 208, 248, 0.10), transparent 60%),
+    radial-gradient(60% 60% at 50% 112%, rgba(255, 176, 32, 0.10), transparent 60%),
+    linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 45%, var(--bg) 100%);
+}
+
+/* navbar / menus */
+:root[data-theme="light"] .nav.scrolled {
+  background: rgba(255, 255, 255, 0.82);
+  border-bottom-color: var(--border);
+}
+:root[data-theme="light"] .mobile-menu { background: rgba(238, 242, 250, 0.97); }
+
+/* hero: lighten the scrim, keep the photo airy */
+:root[data-theme="light"] .hero-bg::after {
+  background:
+    linear-gradient(95deg, var(--bg) 6%, rgba(238, 242, 250, 0.88) 36%, rgba(238, 242, 250, 0.32) 70%, rgba(238, 242, 250, 0.62) 100%),
+    linear-gradient(180deg, rgba(238, 242, 250, 0.5) 0%, transparent 22%, transparent 52%, var(--bg) 99%);
+}
+:root[data-theme="light"] .hero-glow.g1 { background: rgba(46, 125, 255, 0.22); }
+:root[data-theme="light"] .hero-glow.g2 { background: rgba(255, 176, 32, 0.18); }
+:root[data-theme="light"] .wind i { background: linear-gradient(to top, transparent, rgba(46, 125, 255, 0.35)); }
+
+/* fix hardcoded white text so it stays visible on light */
+:root[data-theme="light"] .hero-stat b,
+:root[data-theme="light"] .tcard .price .num { color: var(--text); }
+
+/* form inputs on light */
+:root[data-theme="light"] .field input,
+:root[data-theme="light"] .field textarea { background: rgba(20, 40, 80, 0.035); }
+:root[data-theme="light"] .field input:focus,
+:root[data-theme="light"] .field textarea:focus { background: rgba(46, 125, 255, 0.06); }
+
+/* about badge glass on light */
+:root[data-theme="light"] .about-badge { background: rgba(255, 255, 255, 0.82); }
+
+/* softer selection on light */
+:root[data-theme="light"] ::selection { background: rgba(255, 176, 32, 0.30); color: #101d33; }

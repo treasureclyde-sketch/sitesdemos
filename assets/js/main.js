@@ -173,6 +173,17 @@
     });
   }
 
+  /* ---------- Theme toggle (light / dark) ---------- */
+  var themeToggle = document.getElementById('themeToggle');
+  if (themeToggle) {
+    themeToggle.addEventListener('click', function () {
+      var cur = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+      var next = cur === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', next);
+      try { localStorage.setItem('ff-theme', next); } catch (e) {}
+    });
+  }
+
   /* ---------- 3D model: activate only if the .glb actually exists ---------- */
   var pilot = document.getElementById('pilotModel');
   if (pilot && pilot.dataset.src) {
