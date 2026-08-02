@@ -74,7 +74,7 @@
       p.style.height = (50 + Math.random() * 90) + 'px';
       p.style.animationDuration = dur + 's';
       p.style.animationDelay = (-Math.random() * dur) + 's';
-      p.style.opacity = (0.25 + Math.random() * 0.5).toFixed(2);
+      p.style.opacity = (0.4 + Math.random() * 0.5).toFixed(2);
       frag.appendChild(p);
     }
     wind.appendChild(frag);
