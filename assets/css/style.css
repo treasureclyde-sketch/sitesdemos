@@ -80,19 +80,7 @@ body::before {
     radial-gradient(60% 60% at 50% 110%, rgba(255, 176, 32, 0.08), transparent 60%),
     linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 45%, var(--bg) 100%);
 }
-/* subtle grid texture */
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.022) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.022) 1px, transparent 1px);
-  background-size: 64px 64px;
-  mask-image: radial-gradient(circle at 50% 30%, #000 0%, transparent 80%);
-}
+/* (grid texture removed for a cleaner look) */
 
 img { max-width: 100%; display: block; }
 a { color: inherit; text-decoration: none; }
@@ -330,19 +318,8 @@ section[id], main[id] { scroll-margin-top: 92px; }
     linear-gradient(95deg, var(--bg) 12%, rgba(6, 9, 18, 0.82) 40%, rgba(6, 9, 18, 0.35) 70%, rgba(6, 9, 18, 0.7) 100%),
     linear-gradient(180deg, rgba(6, 9, 18, 0.55) 0%, transparent 25%, transparent 55%, var(--bg) 99%);
 }
-/* glass tunnel strips */
-.hero-strips {
-  position: absolute; inset: 0; z-index: -2;
-  pointer-events: none;
-  background-image: repeating-linear-gradient(
-    90deg,
-    transparent 0, transparent 118px,
-    rgba(255, 255, 255, 0.05) 118px, rgba(255, 255, 255, 0.05) 119px,
-    transparent 119px, transparent 120px
-  );
-  mask-image: linear-gradient(90deg, transparent, #000 30%, #000 70%, transparent);
-  opacity: 0.6;
-}
+/* glass tunnel strips removed for a cleaner look */
+.hero-strips { display: none; }
 /* glow blobs */
 .hero-glow {
   position: absolute; z-index: -2; border-radius: 50%;
@@ -595,28 +572,20 @@ section[id], main[id] { scroll-margin-top: 92px; }
     radial-gradient(60% 60% at 50% 110%, rgba(255,176,32,0.14), transparent 60%),
     var(--bg-2);
 }
-/* vertical light strips inside the stage (tunnel glass) */
-.mv-stage::before {
-  content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
-  background-image: repeating-linear-gradient(90deg,
-    transparent 0, transparent 78px,
-    rgba(255,255,255,0.05) 78px, rgba(255,255,255,0.05) 79px,
-    transparent 79px, transparent 80px);
-  mask-image: linear-gradient(90deg, transparent, #000 25%, #000 75%, transparent);
-}
 .mv-stage model-viewer {
   position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2;
   opacity: 0; transition: opacity 0.6s var(--ease);
   --poster-color: transparent;
   background-color: transparent;
 }
-.mv-stage model-viewer:defined { opacity: 1; }
+/* model-viewer stays hidden until a REAL model is loaded (has3d);
+   until then the cover photo below fills the whole stage */
+.mv-stage.has3d model-viewer { opacity: 1; }
 .mv-fallback {
   position: absolute; inset: 0; z-index: 2;
   width: 100%; height: 100%; object-fit: cover;
 }
-/* once model-viewer is upgraded, its poster/model takes over — hide the plain img */
-.mv-stage model-viewer:defined ~ .mv-fallback { display: none; }
+.mv-stage.has3d model-viewer ~ .mv-fallback { display: none; }
 .mv-hint {
   position: absolute; left: 50%; bottom: 18px; transform: translateX(-50%);
   z-index: 4; display: none; align-items: center; gap: 8px;
@@ -796,6 +765,19 @@ section[id], main[id] { scroll-margin-top: 92px; }
   background: var(--grad-txt); -webkit-background-clip: text; background-clip: text; color: transparent;
 }
 .proof .pv span { display: block; color: var(--muted); margin-top: 8px; font-size: 15px; }
+
+/* ============================================================
+   REVIEWS
+   ============================================================ */
+.reviews-box {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  padding: clamp(18px, 3vw, 32px);
+  min-height: 220px;
+}
+.reviews-box review-lab { display: block; }
+.reviews-fallback { color: var(--muted); text-align: center; margin: 0; }
 
 /* ============================================================
    FAQ
