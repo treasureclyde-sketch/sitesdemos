@@ -140,18 +140,8 @@ section[id], main[id] { scroll-margin-top: 92px; }
 }
 .section-sub { color: var(--muted); font-size: clamp(16px, 1.6vw, 19px); }
 
-.grad-text {
-  background: var(--grad-txt);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-.hot-text {
-  background: var(--grad-hot);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
+.grad-text { color: var(--amber); }
+.hot-text  { color: var(--amber); }
 
 /* ---------- Buttons ---------- */
 .btn {
@@ -239,21 +229,6 @@ section[id], main[id] { scroll-margin-top: 92px; }
 }
 .nav-phone:hover { color: var(--amber-2); }
 .nav-cta { padding: 11px 22px; font-size: 15px; }
-.theme-toggle {
-  width: 42px; height: 42px; flex-shrink: 0;
-  border-radius: 12px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  color: var(--text);
-  display: grid; place-items: center;
-  transition: background 0.25s, border-color 0.25s, color 0.25s, transform 0.25s;
-}
-.theme-toggle:hover { background: var(--surface-2); border-color: var(--border-2); transform: translateY(-2px); }
-.theme-toggle svg { width: 19px; height: 19px; }
-.theme-toggle .i-moon { display: none; }
-.theme-toggle .i-sun { display: block; }
-:root[data-theme="light"] .theme-toggle .i-sun { display: none; }
-:root[data-theme="light"] .theme-toggle .i-moon { display: block; }
 .nav-burger {
   display: none;
   width: 46px; height: 46px;
@@ -566,8 +541,7 @@ section[id], main[id] { scroll-margin-top: 92px; }
   font-family: 'Unbounded', sans-serif;
   font-size: clamp(34px, 5vw, 52px);
   line-height: 1;
-  background: var(--grad-txt);
-  -webkit-background-clip: text; background-clip: text; color: transparent;
+  color: var(--amber);
 }
 .spec .unit { font-family: 'Unbounded'; font-size: 20px; color: var(--amber-2); }
 .spec span.lbl { display: block; margin-top: 12px; color: var(--muted); font-size: 15px; }
@@ -737,9 +711,8 @@ section[id], main[id] { scroll-margin-top: 92px; }
   counter-increment: step;
   content: "0" counter(step);
   font-family: 'Unbounded'; font-size: 44px; font-weight: 700;
-  background: var(--grad-sky);
-  -webkit-background-clip: text; background-clip: text; color: transparent;
-  opacity: 0.85;
+  color: #4f96ff;
+  opacity: 0.9;
 }
 .step h3 { font-size: 19px; margin: 14px 0 10px; }
 .step p { color: var(--muted); font-size: 14.5px; margin: 0; }
@@ -778,7 +751,7 @@ section[id], main[id] { scroll-margin-top: 92px; }
 }
 .proof .pv b {
   font-family: 'Unbounded'; font-size: clamp(32px, 4vw, 46px);
-  background: var(--grad-txt); -webkit-background-clip: text; background-clip: text; color: transparent;
+  color: var(--amber);
 }
 .proof .pv span { display: block; color: var(--muted); margin-top: 8px; font-size: 15px; }
 
@@ -995,91 +968,3 @@ section[id], main[id] { scroll-margin-top: 92px; }
   .nav-links, .nav-right .nav-phone, .nav-right .nav-cta { display: none; }
   .nav-burger { display: flex; }
 }
-
-/* ============================================================
-   LIGHT THEME
-   ============================================================ */
-:root[data-theme="light"] {
-  --bg:        #eef2fa;
-  --bg-2:      #e7edf8;
-  --bg-3:      #dde5f3;
-  --surface:   rgba(255, 255, 255, 0.72);
-  --surface-2: rgba(255, 255, 255, 0.95);
-  --border:    rgba(20, 40, 80, 0.10);
-  --border-2:  rgba(20, 40, 80, 0.18);
-
-  --text:      #101d33;
-  --muted:     #4f5d76;
-  --muted-2:   #8290a8;
-
-  --amber-2:   #b26a00;
-
-  /* cohesive, vivid gradients that never pass through muddy grey on white */
-  --grad-txt:  linear-gradient(105deg, #2f6bff 0%, #1391c9 55%, #0e8aa8 100%);
-  --grad-hot:  linear-gradient(100deg, #f59e0b 0%, #ff6a3d 55%, #ff3d63 100%);
-  --grad-sky:  linear-gradient(120deg, #0891b2 0%, #2563eb 55%, #6d4bff 100%);
-
-  --shadow:       0 30px 70px -34px rgba(30, 55, 110, 0.30);
-  --shadow-blue:  0 24px 60px -28px rgba(46, 125, 255, 0.38);
-  --shadow-amber: 0 24px 60px -28px rgba(255, 150, 20, 0.38);
-}
-
-/* ambient background tints for light */
-:root[data-theme="light"] body::before {
-  background:
-    radial-gradient(58% 48% at 84% -5%, rgba(46, 125, 255, 0.14), transparent 60%),
-    radial-gradient(44% 40% at 6% 6%, rgba(56, 208, 248, 0.10), transparent 60%),
-    radial-gradient(60% 60% at 50% 112%, rgba(255, 176, 32, 0.10), transparent 60%),
-    linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 45%, var(--bg) 100%);
-}
-
-/* navbar / menus */
-:root[data-theme="light"] .nav.scrolled {
-  background: rgba(255, 255, 255, 0.82);
-  border-bottom-color: var(--border);
-}
-:root[data-theme="light"] .mobile-menu { background: rgba(238, 242, 250, 0.97); }
-
-/* hero: lighten the scrim, keep the photo airy */
-:root[data-theme="light"] .hero-bg::after {
-  background:
-    linear-gradient(95deg, var(--bg) 6%, rgba(238, 242, 250, 0.88) 36%, rgba(238, 242, 250, 0.32) 70%, rgba(238, 242, 250, 0.62) 100%),
-    linear-gradient(180deg, rgba(238, 242, 250, 0.5) 0%, transparent 22%, transparent 52%, var(--bg) 99%);
-}
-:root[data-theme="light"] .hero-glow.g1 { background: rgba(46, 125, 255, 0.26); }
-:root[data-theme="light"] .hero-glow.g2 { background: rgba(255, 176, 32, 0.20); }
-/* clearer air streaks on light */
-:root[data-theme="light"] .wind i {
-  width: 3px;
-  background: linear-gradient(to top, transparent, rgba(37, 99, 235, 0.9));
-  box-shadow: 0 0 9px rgba(37, 99, 235, 0.3);
-}
-
-/* logo is built for dark backgrounds — seat it on a dark chip in light mode */
-:root[data-theme="light"] .nav-brand {
-  background: linear-gradient(135deg, #111c38, #0a1122);
-  padding: 8px 13px;
-  border-radius: 13px;
-  box-shadow: 0 8px 22px -10px rgba(20, 40, 90, 0.4);
-}
-:root[data-theme="light"] .footer-brand img {
-  background: linear-gradient(135deg, #111c38, #0a1122);
-  padding: 10px 14px;
-  border-radius: 13px;
-}
-
-/* fix hardcoded white text so it stays visible on light */
-:root[data-theme="light"] .hero-stat b,
-:root[data-theme="light"] .tcard .price .num { color: var(--text); }
-
-/* form inputs on light */
-:root[data-theme="light"] .field input,
-:root[data-theme="light"] .field textarea { background: rgba(20, 40, 80, 0.035); }
-:root[data-theme="light"] .field input:focus,
-:root[data-theme="light"] .field textarea:focus { background: rgba(46, 125, 255, 0.06); }
-
-/* about badge glass on light */
-:root[data-theme="light"] .about-badge { background: rgba(255, 255, 255, 0.82); }
-
-/* softer selection on light */
-:root[data-theme="light"] ::selection { background: rgba(255, 176, 32, 0.30); color: #101d33; }
