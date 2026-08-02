@@ -604,6 +604,11 @@ section[id], main[id] { scroll-margin-top: 92px; }
 }
 .tour-points b { display: block; }
 .tour-points span { color: var(--muted); font-size: 14.5px; }
+/* 3D section — single blue accent (eyebrow, heading, button all match) */
+#tour .eyebrow { color: #7db4ff; }
+#tour .eyebrow::before { background: #57a5ff; box-shadow: 0 0 12px 2px rgba(87, 165, 255, 0.7); }
+#tour .grad-text { color: #57a5ff; }
+#tour .tour-points .n { color: #7db4ff; }
 /* model-viewer AR / progress polish */
 .mv-stage model-viewer::part(default-progress-bar) { height: 3px; background: var(--amber); }
 
