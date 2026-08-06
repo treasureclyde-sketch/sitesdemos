@@ -180,6 +180,9 @@ section[id], main[id] { scroll-margin-top: 92px; }
 }
 .btn-blue:hover { transform: translateY(-3px); box-shadow: 0 30px 80px -20px rgba(46, 125, 255, 0.75); }
 .btn-lg { padding: 19px 38px; font-size: 17px; }
+/* tactile press feedback (transform-only, fast — per animation restraint) */
+.btn:active { transform: scale(0.97); transition-duration: 0.12s; }
+.svc:active, .tcard:active { transform: scale(0.99); }
 
 /* ============================================================
    NAVBAR
@@ -541,9 +544,9 @@ section[id], main[id] { scroll-margin-top: 92px; }
   font-family: 'Unbounded', sans-serif;
   font-size: clamp(34px, 5vw, 52px);
   line-height: 1;
-  color: var(--amber);
+  color: #57a5ff;
 }
-.spec .unit { font-family: 'Unbounded'; font-size: 20px; color: var(--amber-2); }
+.spec .unit { font-family: 'Unbounded'; font-size: 20px; color: #7db4ff; }
 .spec span.lbl { display: block; margin-top: 12px; color: var(--muted); font-size: 15px; }
 
 /* ============================================================
@@ -604,11 +607,27 @@ section[id], main[id] { scroll-margin-top: 92px; }
 }
 .tour-points b { display: block; }
 .tour-points span { color: var(--muted); font-size: 14.5px; }
-/* 3D section — single blue accent (eyebrow, heading, button all match) */
-#tour .eyebrow { color: #7db4ff; }
-#tour .eyebrow::before { background: #57a5ff; box-shadow: 0 0 12px 2px rgba(87, 165, 255, 0.7); }
-#tour .grad-text { color: #57a5ff; }
-#tour .tour-points .n { color: #7db4ff; }
+/* ============================================================
+   PER-SECTION ACCENT — alternating amber / blue down the page
+   (amber is the default; .accent-blue flips a whole section)
+   ============================================================ */
+.accent-blue .eyebrow { color: #7db4ff; }
+.accent-blue .eyebrow::before { background: #57a5ff; box-shadow: 0 0 12px 2px rgba(87, 165, 255, 0.7); }
+.accent-blue .grad-text,
+.accent-blue .hot-text { color: #57a5ff; }
+.accent-blue .about-list .ic { color: #7db4ff; }
+.accent-blue .btn-primary {
+  background: var(--grad-sky); color: #04101f; box-shadow: var(--shadow-blue);
+}
+.accent-blue .btn-primary:hover { box-shadow: 0 30px 80px -20px rgba(46, 125, 255, 0.75); }
+.accent-blue .tcard.feat {
+  background: linear-gradient(160deg, rgba(46, 125, 255, 0.16), rgba(56, 208, 248, 0.10)), var(--surface);
+  border-color: rgba(87, 165, 255, 0.4);
+  box-shadow: var(--shadow-blue);
+}
+.accent-blue .tcard.feat .tcard-tag { background: var(--grad-sky); color: #04101f; }
+.accent-blue .faq-q .plus::before,
+.accent-blue .faq-q .plus::after { background: #57a5ff; }
 /* model-viewer AR / progress polish */
 .mv-stage model-viewer::part(default-progress-bar) { height: 3px; background: var(--amber); }
 
@@ -655,6 +674,42 @@ section[id], main[id] { scroll-margin-top: 92px; }
 .tcard .price .per { color: var(--muted); font-size: 14px; }
 .tcard .price .old { color: var(--muted-2); text-decoration: line-through; font-size: 16px; }
 .tcard .btn { width: 100%; }
+
+/* full price list */
+.price-table {
+  margin-top: 34px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  overflow: hidden;
+}
+.price-table-head {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 16px;
+  padding: 22px 28px; border-bottom: 1px solid var(--border);
+}
+.price-table-head h3 { font-size: 21px; }
+.price-table-head span { color: var(--muted); font-size: 14px; }
+.pt-row {
+  display: grid; grid-template-columns: 92px 1fr auto; align-items: center; gap: 18px;
+  padding: 16px 28px; border-bottom: 1px solid var(--border);
+  transition: background 0.2s;
+}
+.pt-row:last-child { border-bottom: none; }
+.pt-row:hover { background: var(--surface-2); }
+.pt-min { font-family: 'Unbounded', sans-serif; font-size: 15px; color: #7db4ff; }
+.pt-desc { color: var(--muted); font-size: 15px; }
+.pt-desc .akc {
+  display: inline-block; margin-left: 8px; font-size: 10.5px; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase; color: #ff6a82;
+  border: 1px solid rgba(255, 84, 112, 0.4); border-radius: 100px;
+  padding: 2px 8px; vertical-align: middle;
+}
+.pt-price { font-family: 'Unbounded', sans-serif; font-size: 18px; color: #fff; white-space: nowrap; }
+@media (max-width: 620px) {
+  .pt-row { grid-template-columns: 60px 1fr; row-gap: 4px; }
+  .pt-price { grid-column: 2; justify-self: start; }
+  .pt-min { font-size: 13px; }
+}
 
 /* ============================================================
    SERVICES (use cases with photos)
@@ -756,7 +811,7 @@ section[id], main[id] { scroll-margin-top: 92px; }
 }
 .proof .pv b {
   font-family: 'Unbounded'; font-size: clamp(32px, 4vw, 46px);
-  color: var(--amber);
+  color: #57a5ff;
 }
 .proof .pv span { display: block; color: var(--muted); margin-top: 8px; font-size: 15px; }
 
