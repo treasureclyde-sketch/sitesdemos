@@ -59,6 +59,7 @@
     joy4_t:"Samopouzdanje i radost pobeda", joy4_d:"Vaspitači podržavaju i primećuju uspehe deteta, pomažući mu da veruje u sebe.",
     team_eyebrow:"Sa ljubavlju i brigom", team_title:"Naši vaspitači",
     team_sub:"Četiri vaspitača i administrator koji dan deteta drže mirnim, toplim i razumljivim.", team_ask:"Postavite pitanje",
+    tm1_name:"Olimpija Georgiju", tm2_name:"Jelena Kirilišina", tm3_name:"Tetjana Šepina", tm4_name:"Nikol Matvijenko",
     tm1_a:"IB PYP sertifikat", tm1_b:"Izvorni govornik engleskog",
     tm1_bio:"Izvorni govornik sa pedagoškom diplomom po IB PYP metodi. Gradi stranojezičko okruženje kroz istraživanje, igru i projekte — bez pritiska i bubanja.",
     tm2_a:"Metodičar", tm2_b:"Projektna nastava",
@@ -131,6 +132,7 @@
     joy4_t:"Confidence and the joy of wins", joy4_d:"Teachers support and notice each child's progress, helping them believe in themselves.",
     team_eyebrow:"With love and care", team_title:"Our teachers",
     team_sub:"Four teachers and an administrator who keep a child's day calm, warm and clear.", team_ask:"Ask a question",
+    tm1_name:"Olympia Georgiou", tm2_name:"Elena Kirillishina", tm3_name:"Tetiana Shepina", tm4_name:"Nicol Matvienko",
     tm1_a:"IB PYP certified", tm1_b:"Native English speaker",
     tm1_bio:"A native speaker with a teaching diploma in the IB PYP method. Builds a foreign-language environment through inquiry, play and projects — no pressure or rote learning.",
     tm2_a:"Methodologist", tm2_b:"Project-based learning",
@@ -218,7 +220,7 @@
     if (!n) return;
 
     var START = 210;     // 07:00 — the hand points at the 7 (morning arrival)
-    var STEP = 2600;     // ms each event stays lit — calm, not too fast/slow
+    var STEP = 1650;     // ms each event stays lit — brisk but readable
     var mqSmall = window.matchMedia('(max-width: 900px)');
     var inView = false, timer = null, i = 0, primed = false;
 
@@ -242,7 +244,7 @@
         tick();
         if (hand) {
           void hand.getBoundingClientRect();
-          hand.style.transition = 'transform 1s cubic-bezier(.45,.05,.35,1)';
+          hand.style.transition = 'transform .55s cubic-bezier(.45,.05,.35,1)';
         }
         primed = true;
       }
