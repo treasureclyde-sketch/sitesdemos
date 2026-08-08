@@ -173,61 +173,63 @@
     setTimeout(function () { rev.forEach(function (el) { var r = el.getBoundingClientRect(); if (r.top < innerHeight && r.bottom > 0) el.classList.add('in'); }); }, 2400);
   } else { rev.forEach(function (el) { el.classList.add('in'); }); }
 
-  /* ---------- radial day clock ---------- */
+  /* ---------- radial day clock — rotating spotlight ---------- */
   (function () {
     var clock = document.getElementById('dayClock');
     if (!clock) return;
-    var items = clock.querySelectorAll('.ev.clk-item');
-    var dots = clock.querySelectorAll('.cd');
+    var items = Array.prototype.slice.call(clock.querySelectorAll('.ev.clk-item'));
+    var dots = Array.prototype.slice.call(clock.querySelectorAll('.cd'));
     var hand = clock.querySelector('.clk-hand');
     var minute = clock.querySelector('.clk-min');
-    if (!items.length) return;
+    var n = items.length;
+    if (!n) return;
 
-    var START = 210;               // 07:00 — hour hand points at the 7
-    var SWEEP = 360;               // one full turn: 07:00 → 19:00, back to the 7
-    var LEAD = 8;                  // reveal a card just before the hand reaches it
+    var START = 210;     // 07:00 — the hand points at the 7 (morning arrival)
+    var STEP = 2400;     // ms each event stays lit before the hand moves on
+    var mqSmall = window.matchMedia('(max-width: 900px)');
+    var inView = false, timer = null, i = 0;
 
     function setHands(h) {
       if (hand) hand.style.transform = 'rotate(' + h + 'deg)';
       if (minute) minute.style.transform = 'rotate(' + (h * 12) + 'deg)';
     }
-    function revealAll() {
-      items.forEach(function (i) { i.classList.add('on'); });
+    // one event at a time: the hand arrives, the card appears; the hand moves
+    // on, that card fades out as the next one appears.
+    function tick() {
+      var idx = ((i % n) + n) % n;
+      items.forEach(function (el, j) { el.classList.toggle('on', j === idx); });
+      dots.forEach(function (d, j) { d.classList.toggle('pulse', j === idx); });
+      setHands(START + i * 30);   // i only grows → the hand always advances clockwise
+      i++;
+    }
+    function stop() { if (timer) { clearInterval(timer); timer = null; } }
+    function loop() { if (timer) return; tick(); timer = setInterval(tick, STEP); }
+
+    // static, fully-readable fallback (mobile list / reduced motion)
+    function showAll() {
+      stop();
+      items.forEach(function (el) { el.classList.add('on'); });
       dots.forEach(function (d) { d.classList.add('pulse'); });
-    }
-    function idle(from) {
-      var a = from, last = null;
-      function t(ts) { if (!last) last = ts; a += (ts - last) * 0.006; last = ts; setHands(a); requestAnimationFrame(t); }
-      requestAnimationFrame(t);
-    }
-    function run() {
-      if (reduce) { revealAll(); setHands(START); return; }
-      var dur = 5400, start = null, shown = 0;
       setHands(START);
-      function frame(ts) {
-        if (!start) start = ts;
-        var p = Math.min((ts - start) / dur, 1);
-        var e = p < .5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
-        var swept = e * SWEEP;
-        setHands(START + swept);
-        while (shown < items.length && swept + LEAD >= shown * 30) {
-          items[shown].classList.add('on');
-          if (dots[shown]) dots[shown].classList.add('pulse');
-          shown++;
-        }
-        if (p < 1) requestAnimationFrame(frame);
-        else { revealAll(); idle(START + SWEEP); }
-      }
-      requestAnimationFrame(frame);
     }
 
-    if ('IntersectionObserver' in window && !reduce) {
-      var co = new IntersectionObserver(function (es) {
-        es.forEach(function (e) { if (e.isIntersecting) { co.disconnect(); run(); } });
-      }, { threshold: 0.3 });
-      co.observe(clock);
-      setTimeout(function () { if (!items[0].classList.contains('on')) { co.disconnect(); run(); } }, 3000);
-    } else { run(); }
+    function apply() {
+      if (reduce || mqSmall.matches) { showAll(); return; }
+      if (hand) hand.style.transition = 'transform .75s cubic-bezier(.34,1.56,.64,1)';
+      if (minute) minute.style.transition = 'transform .75s cubic-bezier(.34,1.56,.64,1)';
+      if (inView) loop(); else stop();
+    }
+
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) {
+        es.forEach(function (e) { inView = e.isIntersecting; });
+        if (!reduce && !mqSmall.matches) { if (inView) loop(); else stop(); }
+      }, { threshold: 0.25 }).observe(clock);
+    } else { inView = true; }
+
+    if (mqSmall.addEventListener) mqSmall.addEventListener('change', apply);
+    else if (mqSmall.addListener) mqSmall.addListener(apply);
+    apply();
   })();
 
   /* ---------- phone mask ---------- */
