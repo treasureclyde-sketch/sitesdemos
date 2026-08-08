@@ -46,8 +46,11 @@
     day_eyebrow:"Kako izgleda dan", day_title:"360° razvoj — svaki dan sa interesovanjem",
     day_text:"Osmislili smo svaki sat dana da se dete razvija skladno, sa zadovoljstvom i svojim tempom.",
     day_quote_t:"Svaki trenutak je važan", day_quote_d:"Briga, pažnja i podrška — osnova srećnog detinjstva.",
-    tl1:"Jutarnji prijem, vežbanje i doručak", tl2:"Aktivnosti po višejezičnom programu", tl3:"Zanimljiva šetnja na svežem vazduhu",
-    tl4:"Dnevni odmor i relaksacija", tl5:"Večera, sekcije, šetnja i ispraćaj",
+    day_hours:"07:00 – 18:00", day_meals:"5 obroka dnevno",
+    clk1:"Jutarnji prijem, pozdrav i vežbanje", clk2:"Ukusan doručak", clk3:"Aktivnosti po višejezičnom programu",
+    clk4:"Voćna užina", clk5:"Zanimljiva šetnja", clk6:"Zdrav ručak", clk7:"Dnevni odmor i relaksacija",
+    clk8:"Hranljiv snek", clk9:"Časovi po Montesori / Valdorf metodi", clk10:"Obilna večera",
+    clk11:"Šetnja, sekcije i radionice", clk12:"Ispraćaj",
     joy_eyebrow:"Svaki trenutak je važan", joy_title:"Radost — svakog dana",
     joy_sub:"Punimo svaki dan deteta događajima u kojima je srećno, inspirisano i ponosno na sebe.",
     joy1_t:"Živo interesovanje za novo", joy1_d:"Budimo radoznalost i uključujemo u aktivnosti kroz igru i komunikaciju.",
@@ -55,8 +58,8 @@
     joy3_t:"Događaji koji se pamte", joy3_d:"Kvizovi, proslave i prave avanture — ono što deca čekaju i rado prepričavaju.",
     joy4_t:"Samopouzdanje i radost pobeda", joy4_d:"Vaspitači podržavaju i primećuju uspehe deteta, pomažući mu da veruje u sebe.",
     team_eyebrow:"Sa ljubavlju i brigom", team_title:"Naši vaspitači", team_sub:"Profesionalan i topao tim koji vidi i podržava svako dete.",
-    team_role1:"Vaspitač", team_role_sub:"Vaspitač grupe", team_role2:"Montessori pedagog", team_role_sub2:"Razvojne aktivnosti",
-    team_role3:"Logoped", team_role_sub3:"Razvoj govora", team_role4:"Nastavnik jezika", team_role_sub4:"ru / sr / en",
+    team_role1:"Vaspitač grupe", team_role2:"Montessori pedagog", team_role3:"Logoped", team_role4:"Nastavnik jezika",
+    team_note:"Imena vaspitača su privremena — zamenićemo ih stvarnim nakon potvrde.",
     form_title:"Želite da vidite vrtić svojim očima?", form_text:"Ostavite zahtev — pokazaćemo prostor, odgovoriti na pitanja i pronaći grupu za vaše dete. Poslaćemo raspored, događaje i dnevni režim.",
     form_call:"Pozovite nas", form_card_title:"Zakažite obilazak", form_card_sub:"Popunite formu — javićemo vam se u najkraćem roku.",
     form_name:"Ime roditelja", form_phone:"Telefon", form_age:"Uzrast deteta", form_submit:"Dobijte informacije",
@@ -98,8 +101,11 @@
     day_eyebrow:"How the day goes", day_title:"360° development — every day with curiosity",
     day_text:"We've thought through every hour of the day so that a child develops harmoniously, with joy and at their own pace.",
     day_quote_t:"Every moment matters", day_quote_d:"Care, attention and support — the foundation of a happy childhood.",
-    tl1:"Morning welcome, exercise and breakfast", tl2:"Activities in the multilingual program", tl3:"An engaging walk in the fresh air",
-    tl4:"Daytime rest and relaxation", tl5:"Dinner, clubs, a walk and goodbyes",
+    day_hours:"07:00 – 18:00", day_meals:"5 meals a day",
+    clk1:"Morning welcome, greeting and exercise", clk2:"Tasty breakfast", clk3:"Activities in the multilingual program",
+    clk4:"Fruit snack", clk5:"An engaging walk", clk6:"Healthy lunch", clk7:"Daytime rest and relaxation",
+    clk8:"Nourishing snack", clk9:"Montessori / Waldorf method classes", clk10:"Hearty dinner",
+    clk11:"Walk, clubs and activities", clk12:"Farewell",
     joy_eyebrow:"Every moment matters", joy_title:"Joy — every single day",
     joy_sub:"We fill each child's day with moments that make them happy, inspired and proud of themselves.",
     joy1_t:"A love for learning", joy1_d:"We spark curiosity and engage children through play and warm communication.",
@@ -107,8 +113,8 @@
     joy3_t:"Memorable events", joy3_d:"Quests, celebrations and real adventures — what children look forward to and love to share.",
     joy4_t:"Confidence and the joy of wins", joy4_d:"Teachers support and notice each child's progress, helping them believe in themselves.",
     team_eyebrow:"With love and care", team_title:"Our teachers", team_sub:"A professional and warm team that sees and supports every child.",
-    team_role1:"Teacher", team_role_sub:"Group educator", team_role2:"Montessori teacher", team_role_sub2:"Developmental activities",
-    team_role3:"Speech therapist", team_role_sub3:"Speech development", team_role4:"Language teacher", team_role_sub4:"ru / sr / en",
+    team_role1:"Group educator", team_role2:"Montessori teacher", team_role3:"Speech therapist", team_role4:"Language teacher",
+    team_note:"Teacher names are placeholders — we'll replace them with the real ones after confirmation.",
     form_title:"Want to see the preschool with your own eyes?", form_text:"Leave a request — we'll show the space, answer your questions and find the right group for your child. We'll send the schedule, events and daily routine.",
     form_call:"Call us", form_card_title:"Book a Tour", form_card_sub:"Fill out the form — we'll get back to you shortly.",
     form_name:"Parent's name", form_phone:"Phone number", form_age:"Child's age", form_submit:"Get Information",
@@ -166,6 +172,63 @@
     rev.forEach(function (el) { io.observe(el); });
     setTimeout(function () { rev.forEach(function (el) { var r = el.getBoundingClientRect(); if (r.top < innerHeight && r.bottom > 0) el.classList.add('in'); }); }, 2400);
   } else { rev.forEach(function (el) { el.classList.add('in'); }); }
+
+  /* ---------- radial day clock ---------- */
+  (function () {
+    var clock = document.getElementById('dayClock');
+    if (!clock) return;
+    var items = clock.querySelectorAll('.ev.clk-item');
+    var dots = clock.querySelectorAll('.cd');
+    var hand = clock.querySelector('.clk-hand');
+    var minute = clock.querySelector('.clk-min');
+    if (!items.length) return;
+
+    var START = 210;               // 07:00 — hour hand points at the 7
+    var SWEEP = 360;               // one full turn: 07:00 → 19:00, back to the 7
+    var LEAD = 8;                  // reveal a card just before the hand reaches it
+
+    function setHands(h) {
+      if (hand) hand.style.transform = 'rotate(' + h + 'deg)';
+      if (minute) minute.style.transform = 'rotate(' + (h * 12) + 'deg)';
+    }
+    function revealAll() {
+      items.forEach(function (i) { i.classList.add('on'); });
+      dots.forEach(function (d) { d.classList.add('pulse'); });
+    }
+    function idle(from) {
+      var a = from, last = null;
+      function t(ts) { if (!last) last = ts; a += (ts - last) * 0.006; last = ts; setHands(a); requestAnimationFrame(t); }
+      requestAnimationFrame(t);
+    }
+    function run() {
+      if (reduce) { revealAll(); setHands(START); return; }
+      var dur = 5400, start = null, shown = 0;
+      setHands(START);
+      function frame(ts) {
+        if (!start) start = ts;
+        var p = Math.min((ts - start) / dur, 1);
+        var e = p < .5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
+        var swept = e * SWEEP;
+        setHands(START + swept);
+        while (shown < items.length && swept + LEAD >= shown * 30) {
+          items[shown].classList.add('on');
+          if (dots[shown]) dots[shown].classList.add('pulse');
+          shown++;
+        }
+        if (p < 1) requestAnimationFrame(frame);
+        else { revealAll(); idle(START + SWEEP); }
+      }
+      requestAnimationFrame(frame);
+    }
+
+    if ('IntersectionObserver' in window && !reduce) {
+      var co = new IntersectionObserver(function (es) {
+        es.forEach(function (e) { if (e.isIntersecting) { co.disconnect(); run(); } });
+      }, { threshold: 0.3 });
+      co.observe(clock);
+      setTimeout(function () { if (!items[0].classList.contains('on')) { co.disconnect(); run(); } }, 3000);
+    } else { run(); }
+  })();
 
   /* ---------- phone mask ---------- */
   var phone = document.getElementById('phoneInput');
