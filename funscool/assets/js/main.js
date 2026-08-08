@@ -57,9 +57,26 @@
     joy2_t:"Šareni dani — bez šablona", joy2_d:"Tematski dani, stvaralaštvo i eksperimenti — svaki dan donosi nešto posebno.",
     joy3_t:"Događaji koji se pamte", joy3_d:"Kvizovi, proslave i prave avanture — ono što deca čekaju i rado prepričavaju.",
     joy4_t:"Samopouzdanje i radost pobeda", joy4_d:"Vaspitači podržavaju i primećuju uspehe deteta, pomažući mu da veruje u sebe.",
-    team_eyebrow:"Sa ljubavlju i brigom", team_title:"Naši vaspitači", team_sub:"Profesionalan i topao tim koji vidi i podržava svako dete.",
-    team_role1:"Vaspitač grupe", team_role2:"Montessori pedagog", team_role3:"Logoped", team_role4:"Nastavnik jezika",
-    team_note:"Imena vaspitača su privremena — zamenićemo ih stvarnim nakon potvrde.",
+    team_eyebrow:"Sa ljubavlju i brigom", team_title:"Naši vaspitači",
+    team_sub:"Četiri vaspitača i administrator koji dan deteta drže mirnim, toplim i razumljivim.", team_ask:"Postavite pitanje",
+    tm1_a:"IB PYP sertifikat", tm1_b:"Izvorni govornik engleskog",
+    tm1_bio:"Izvorni govornik sa pedagoškom diplomom po IB PYP metodi. Gradi stranojezičko okruženje kroz istraživanje, igru i projekte — bez pritiska i bubanja.",
+    tm2_a:"Metodičar", tm2_b:"Projektna nastava",
+    tm2_bio:"Stručnjak za Discovery metodu i projektnu nastavu. Spaja matematiku, prirodne nauke i stvaralaštvo u jedan integrisani program.",
+    tm3_a:"Montessori pedagog", tm3_b:"Baby grupa",
+    tm3_bio:"Sertifikovani Montessori pedagog. Stvara pripremljeno okruženje koje poštuje tempo i prirodnu radoznalost najmlađih.",
+    tm4_a:"Administrator",
+    tm4_bio:"Prati porodice od prvog poziva do adaptacije: pomaže oko dokumenata, odgovara na pitanja i održava vezu sa roditeljima.",
+    mom_eyebrow:"Svaki trenutak je važan", mom_title:"Srećni trenuci svakog dana",
+    mom_sub:"Igramo se, stvaramo, istražujemo i rastemo zajedno. Svaki dan u Funscool-u ispunjen je radošću i otkrićima.",
+    mom_note:"Bezbedno, brižno i inspirativno okruženje — od jutra do večeri.",
+    faq_eyebrow:"Česta pitanja", faq_title:"Odgovaramo na pitanja roditelja",
+    faq_q1:"Kako izgleda adaptacija?", faq_a1:"Počinjemo kratkim posetama zajedno sa roditeljem i postepeno produžavamo vreme. Tempo prilagođavamo detetu — nežno, bez stresa i suza.",
+    faq_q2:"Da li možemo početi sa pola dana?", faq_a2:"Da. Mnoga deca počinju sa pola dana, a zatim postepeno prelaze na ceo dan kada su spremna.",
+    faq_q3:"Koji jezici se koriste?", faq_a3:"Ruski, srpski i engleski. Deca prirodno uranjaju u jezičko okruženje — kroz igru, pesmu i živu komunikaciju.",
+    faq_q4:"Kako je organizovana ishrana?", faq_a4:"Pet obroka dnevno: doručak, voćna užina, ručak, užina i večera. Uravnotežen jelovnik; vodimo računa o posebnostima i alergijama.",
+    faq_q5:"Koliko dece ima u grupi?", faq_a5:"Male grupe do 15 dece — tako svako dete dobija dovoljno pažnje vaspitača.",
+    faq_q6:"Kako možemo zakazati posetu?", faq_a6:"Ostavite prijavu u formi ispod ili nas pozovite — dogovorićemo termin obilaska.",
     form_title:"Želite da vidite vrtić svojim očima?", form_text:"Ostavite zahtev — pokazaćemo prostor, odgovoriti na pitanja i pronaći grupu za vaše dete. Poslaćemo raspored, događaje i dnevni režim.",
     form_call:"Pozovite nas", form_card_title:"Zakažite obilazak", form_card_sub:"Popunite formu — javićemo vam se u najkraćem roku.",
     form_name:"Ime roditelja", form_phone:"Telefon", form_age:"Uzrast deteta", form_submit:"Dobijte informacije",
@@ -112,9 +129,26 @@
     joy2_t:"Bright days — never routine", joy2_d:"Themed days, creativity and experiments — every day brings something special.",
     joy3_t:"Memorable events", joy3_d:"Quests, celebrations and real adventures — what children look forward to and love to share.",
     joy4_t:"Confidence and the joy of wins", joy4_d:"Teachers support and notice each child's progress, helping them believe in themselves.",
-    team_eyebrow:"With love and care", team_title:"Our teachers", team_sub:"A professional and warm team that sees and supports every child.",
-    team_role1:"Group educator", team_role2:"Montessori teacher", team_role3:"Speech therapist", team_role4:"Language teacher",
-    team_note:"Teacher names are placeholders — we'll replace them with the real ones after confirmation.",
+    team_eyebrow:"With love and care", team_title:"Our teachers",
+    team_sub:"Four teachers and an administrator who keep a child's day calm, warm and clear.", team_ask:"Ask a question",
+    tm1_a:"IB PYP certified", tm1_b:"Native English speaker",
+    tm1_bio:"A native speaker with a teaching diploma in the IB PYP method. Builds a foreign-language environment through inquiry, play and projects — no pressure or rote learning.",
+    tm2_a:"Methodologist", tm2_b:"Project-based learning",
+    tm2_bio:"A specialist in the Discovery method and project-based learning. Brings maths, natural sciences and creativity into one integrated programme.",
+    tm3_a:"Montessori teacher", tm3_b:"Baby group",
+    tm3_bio:"A certified Montessori teacher. Creates a prepared environment that respects the pace and natural curiosity of the youngest ones.",
+    tm4_a:"Administrator",
+    tm4_bio:"Guides families from the first call through adaptation: helps with paperwork, answers questions and keeps in touch with parents.",
+    mom_eyebrow:"Every moment matters", mom_title:"Happy moments, every single day",
+    mom_sub:"We play, create, explore and grow together. Every day at Funscool is filled with joy and new discoveries.",
+    mom_note:"A safe, caring and inspiring environment — from morning to evening.",
+    faq_eyebrow:"Frequent questions", faq_title:"Answering parents' questions",
+    faq_q1:"What does adaptation look like?", faq_a1:"We start with short visits together with a parent and gradually extend the time. We match the pace to the child — gently, without stress or tears.",
+    faq_q2:"Can we start with half a day?", faq_a2:"Yes. Many children start with half a day and then smoothly move to a full day when they're ready.",
+    faq_q3:"Which languages are used?", faq_a3:"Russian, Serbian and English. Children immerse in the language environment naturally — through play, songs and real conversation.",
+    faq_q4:"How are meals organised?", faq_a4:"Five meals a day: breakfast, a fruit snack, lunch, a snack and dinner. A balanced menu; we account for special needs and allergies.",
+    faq_q5:"How many children are in a group?", faq_a5:"Small groups of up to 15 children — so each child gets enough of the teacher's attention.",
+    faq_q6:"How can we book a visit?", faq_a6:"Leave a request in the form below or give us a call — we'll arrange a convenient time for a tour.",
     form_title:"Want to see the preschool with your own eyes?", form_text:"Leave a request — we'll show the space, answer your questions and find the right group for your child. We'll send the schedule, events and daily routine.",
     form_call:"Call us", form_card_title:"Book a Tour", form_card_sub:"Fill out the form — we'll get back to you shortly.",
     form_name:"Parent's name", form_phone:"Phone number", form_age:"Child's age", form_submit:"Get Information",
@@ -173,50 +207,59 @@
     setTimeout(function () { rev.forEach(function (el) { var r = el.getBoundingClientRect(); if (r.top < innerHeight && r.bottom > 0) el.classList.add('in'); }); }, 2400);
   } else { rev.forEach(function (el) { el.classList.add('in'); }); }
 
-  /* ---------- radial day clock — rotating spotlight ---------- */
+  /* ---------- radial day clock — one hand, one event at a time ---------- */
   (function () {
     var clock = document.getElementById('dayClock');
     if (!clock) return;
     var items = Array.prototype.slice.call(clock.querySelectorAll('.ev.clk-item'));
     var dots = Array.prototype.slice.call(clock.querySelectorAll('.cd'));
     var hand = clock.querySelector('.clk-hand');
-    var minute = clock.querySelector('.clk-min');
     var n = items.length;
     if (!n) return;
 
     var START = 210;     // 07:00 — the hand points at the 7 (morning arrival)
-    var STEP = 2400;     // ms each event stays lit before the hand moves on
+    var STEP = 2600;     // ms each event stays lit — calm, not too fast/slow
     var mqSmall = window.matchMedia('(max-width: 900px)');
-    var inView = false, timer = null, i = 0;
+    var inView = false, timer = null, i = 0, primed = false;
 
-    function setHands(h) {
-      if (hand) hand.style.transform = 'rotate(' + h + 'deg)';
-      if (minute) minute.style.transform = 'rotate(' + (h * 12) + 'deg)';
-    }
-    // one event at a time: the hand arrives, the card appears; the hand moves
-    // on, that card fades out as the next one appears.
+    function setHand(deg) { if (hand) hand.style.transform = 'rotate(' + deg + 'deg)'; }
+
+    // the hand arrives → the card appears; the hand moves on → it fades out and
+    // the next one appears. One event visible at any moment.
     function tick() {
       var idx = ((i % n) + n) % n;
       items.forEach(function (el, j) { el.classList.toggle('on', j === idx); });
       dots.forEach(function (d, j) { d.classList.toggle('pulse', j === idx); });
-      setHands(START + i * 30);   // i only grows → the hand always advances clockwise
+      setHand(START + i * 30);   // i only grows → the hand always advances clockwise
       i++;
     }
     function stop() { if (timer) { clearInterval(timer); timer = null; } }
-    function loop() { if (timer) return; tick(); timer = setInterval(tick, STEP); }
+    function loop() {
+      if (timer) return;
+      if (!primed) {
+        // place the hand at 07:00 with no transition, so it never whips around
+        if (hand) { hand.style.transition = 'none'; }
+        tick();
+        if (hand) {
+          void hand.getBoundingClientRect();
+          hand.style.transition = 'transform 1s cubic-bezier(.45,.05,.35,1)';
+        }
+        primed = true;
+      }
+      timer = setInterval(tick, STEP);
+    }
 
     // static, fully-readable fallback (mobile list / reduced motion)
     function showAll() {
       stop();
       items.forEach(function (el) { el.classList.add('on'); });
       dots.forEach(function (d) { d.classList.add('pulse'); });
-      setHands(START);
+      if (hand) { hand.style.transition = 'none'; }
+      setHand(START);
     }
 
     function apply() {
       if (reduce || mqSmall.matches) { showAll(); return; }
-      if (hand) hand.style.transition = 'transform .75s cubic-bezier(.34,1.56,.64,1)';
-      if (minute) minute.style.transition = 'transform .75s cubic-bezier(.34,1.56,.64,1)';
       if (inView) loop(); else stop();
     }
 
