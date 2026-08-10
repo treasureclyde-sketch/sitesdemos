@@ -326,14 +326,17 @@ h1, h2, h3, h4 {
 .dp svg { width: 19px; height: 19px; flex-shrink: 0; }
 .dp b { font-family: 'Nunito'; font-weight: 800; font-size: 14px; color: var(--ink); }
 
-.day-layout { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(26px, 3.5vw, 56px); align-items: center; }
-.day-aside { max-width: 470px; }
-.day-photo { margin: 22px 0 18px; }
-.day-photo img { width: 100%; aspect-ratio: 4 / 2.7; object-fit: cover; border-radius: 22px; box-shadow: var(--shadow-sm); display: block; }
-.day-aside .quote-card { margin-top: 0; }
+.day-layout { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: clamp(20px, 2.6vw, 44px); align-items: center; }
+.day-aside { max-width: 430px; }
+.day-aside .section-title { font-size: clamp(23px, 2.5vw, 31px); margin-top: 10px !important; }
+.day-aside .section-sub { font-size: 15px; margin-top: 10px; }
+.day-aside .day-pills { margin-top: 16px; }
+.day-photo { margin: 16px 0 14px; }
+.day-photo img { width: 100%; aspect-ratio: 4 / 2; object-fit: cover; border-radius: 20px; box-shadow: var(--shadow-sm); display: block; }
+.day-aside .quote-card { margin-top: 0; padding: 18px 20px; }
 .dayclock {
   position: relative;
-  width: min(560px, 100%);
+  width: min(600px, 100%);
   aspect-ratio: 1 / 1;
   margin: 0 auto;
 }
@@ -349,7 +352,7 @@ h1, h2, h3, h4 {
 
 .ev {
   position: absolute;
-  width: clamp(122px, 12.5vw, 156px);
+  width: clamp(152px, 13vw, 176px);
   transform: translate(-50%, -50%) scale(.82);
   opacity: 0;
   transition: opacity .4s var(--ease), transform .4s var(--ease);
@@ -357,17 +360,18 @@ h1, h2, h3, h4 {
 }
 .ev.on { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 .ev-card {
-  display: flex; align-items: center; gap: 11px;
-  padding: 11px 13px;
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 12px;
   background: var(--card); border: 1px solid var(--line); border-radius: 16px;
   box-shadow: var(--shadow-sm);
   transition: transform .3s var(--ease), box-shadow .3s;
 }
+.ev-card > div { min-width: 0; flex: 1; }
 .ev:hover .ev-card { transform: translateY(-3px); box-shadow: var(--shadow); }
 .ev-ic { width: 34px; height: 34px; border-radius: 11px; display: grid; place-items: center; flex-shrink: 0; background: color-mix(in srgb, currentColor 14%, var(--card)); }
 .ev-ic svg { width: 20px; height: 20px; }
 .ev-time { font-family: 'Nunito'; font-weight: 800; font-size: 12.5px; letter-spacing: .2px; }
-.ev-card h4 { font-family: 'Nunito'; font-weight: 700; font-size: 13.5px; line-height: 1.28; color: var(--ink); margin: 3px 0 0; }
+.ev-card h4 { font-family: 'Nunito'; font-weight: 700; font-size: 13px; line-height: 1.25; color: var(--ink); margin: 3px 0 0; overflow-wrap: break-word; hyphens: manual; }
 .ev-ic { width: 36px; height: 36px; }
 .ev-ic svg { width: 21px; height: 21px; }
 
@@ -503,9 +507,9 @@ h1, h2, h3, h4 {
    ============================================================ */
 /* contact CTA with the real building photo behind it */
 .cta-wrap.has-photo { background: #241f1b; }
-.cta-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 38%; z-index: 0; }
+.cta-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 24% 88%; z-index: 0; }
 .cta-wrap.has-photo::before { content: ""; position: absolute; inset: 0; z-index: 0;
-  background: linear-gradient(105deg, rgba(28,24,20,.88) 0%, rgba(28,24,20,.66) 36%, rgba(28,24,20,.28) 62%, rgba(28,24,20,.08) 100%); }
+  background: linear-gradient(105deg, rgba(26,22,18,.92) 0%, rgba(26,22,18,.78) 38%, rgba(26,22,18,.4) 62%, rgba(26,22,18,.12) 100%); }
 .cta-copy, .cta-wrap.has-photo .form-card { position: relative; z-index: 1; }
 .cta-wrap.has-photo h2 { color: #fff; }
 .cta-wrap.has-photo .cta-copy p { color: rgba(255,255,255,.9); }
