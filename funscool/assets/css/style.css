@@ -152,6 +152,8 @@ h1, h2, h3, h4 {
 }
 .brand .name .smile { width: 26px; height: 13px; color: var(--yellow); margin-bottom: 3px; }
 .brand .sub { font-size: 11px; font-weight: 700; color: var(--muted); letter-spacing: .04em; margin-top: 3px; }
+.brand-fluffy { height: 42px; width: auto; display: block; }
+.brand-has-fluffy .sub { margin-top: 3px; margin-left: 3px; }
 
 .nav-links { display: flex; align-items: center; gap: 4px; list-style: none; margin: 0; padding: 0; }
 .nav-links a { padding: 9px 12px; border-radius: 100px; font-weight: 700; font-size: 15.5px; color: var(--ink-soft); white-space: nowrap; transition: color .2s, background .2s; }
@@ -333,10 +335,12 @@ h1, h2, h3, h4 {
 .day-aside .day-pills { margin-top: 16px; }
 .day-photo { margin: 20px 0 0; }
 .day-photo img {
-  width: 100%; height: auto; display: block;
-  border-radius: 46% 54% 52% 48% / 40% 43% 57% 60%;
+  width: 100%; aspect-ratio: 1 / 0.9; object-fit: cover; object-position: center 30%;
+  display: block;
+  border-radius: 58% 42% 47% 53% / 55% 52% 48% 45%;
   box-shadow: var(--shadow);
 }
+#day { padding-bottom: 26px; }
 .dayclock {
   position: relative;
   width: min(600px, 100%);
@@ -508,7 +512,12 @@ h1, h2, h3, h4 {
 /* ============================================================
    HOUSE / LOCATION band
    ============================================================ */
-/* contact CTA with the real building photo behind it */
+/* fluffy-logo brand band */
+.brand-band { position: relative; text-align: center; padding: clamp(46px, 6vw, 82px) 0 clamp(30px, 4vw, 54px); overflow: hidden; }
+.fluffy-logo { width: min(440px, 74%); height: auto; display: block; margin: 0 auto; filter: drop-shadow(0 12px 22px rgba(43,39,35,.1)); }
+.brand-tagline { font-family: 'Nunito'; font-weight: 700; font-size: clamp(15px, 1.9vw, 18px); color: var(--muted); margin: 16px auto 0; max-width: 400px; }
+
+/* contact CTA (clean, no photo) */
 .cta-wrap.has-photo { background: #241f1b; }
 .cta-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 24% 88%; z-index: 0; }
 .cta-wrap.has-photo::before { content: ""; position: absolute; inset: 0; z-index: 0;
