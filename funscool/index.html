@@ -17,6 +17,35 @@
 </head>
 <body>
 
+<!-- ============ INTRO ============ -->
+<div id="intro" class="intro" aria-label="Заставка Funscool">
+  <video id="introVideo" class="intro-video" muted autoplay playsinline preload="auto">
+    <source src="assets/video/intro.mp4" type="video/mp4">
+  </video>
+  <button id="introSkip" class="intro-skip" type="button" data-i18n="intro_skip">Пропустить →</button>
+</div>
+<script>
+(function(){
+  var intro=document.getElementById('intro'); if(!intro) return;
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce){ intro.parentNode&&intro.remove(); return; }
+  document.body.classList.add('intro-lock');
+  var vid=document.getElementById('introVideo'), skip=document.getElementById('introSkip'), done=false;
+  function dismiss(){ if(done) return; done=true;
+    intro.classList.add('hide'); document.body.classList.remove('intro-lock');
+    setTimeout(function(){ if(intro.parentNode) intro.remove(); }, 800);
+  }
+  if(vid){
+    vid.addEventListener('ended', dismiss);
+    vid.addEventListener('error', dismiss);
+    var pr = vid.play && vid.play();
+    if(pr && pr.catch) pr.catch(function(){ setTimeout(dismiss, 1800); });
+  }
+  if(skip) skip.addEventListener('click', dismiss);
+  setTimeout(dismiss, 15000); /* hard safety fallback */
+})();
+</script>
+
 <!-- ============ NAV ============ -->
 <header class="nav">
   <div class="container">
@@ -161,6 +190,7 @@
           </ul>
           <a class="btn btn-ghost" href="#contact" data-i18n="learn_more">Познакомиться</a>
         </div>
+              <img class="prog-doodle" src="assets/img/doodles/rabbit.png" alt="" aria-hidden="true">
       </article>
 
       <article class="prog c-orange reveal d1">
@@ -176,6 +206,7 @@
           </ul>
           <a class="btn btn-ghost" href="#contact" data-i18n="learn_more">Познакомиться</a>
         </div>
+              <img class="prog-doodle" src="assets/img/doodles/bee.png" alt="" aria-hidden="true">
       </article>
 
       <article class="prog c-purple reveal d2">
@@ -191,6 +222,7 @@
           </ul>
           <a class="btn btn-ghost" href="#contact" data-i18n="learn_more">Познакомиться</a>
         </div>
+              <img class="prog-doodle" src="assets/img/doodles/hedgehog.png" alt="" aria-hidden="true">
       </article>
 
       <article class="prog c-coral reveal">
@@ -206,6 +238,7 @@
           </ul>
           <a class="btn btn-ghost" href="#contact" data-i18n="learn_more">Познакомиться</a>
         </div>
+              <img class="prog-doodle" src="assets/img/doodles/cat.png" alt="" aria-hidden="true">
       </article>
 
       <article class="prog c-teal reveal d1">
@@ -221,6 +254,7 @@
           </ul>
           <a class="btn btn-ghost" href="#contact" data-i18n="learn_more">Познакомиться</a>
         </div>
+              <img class="prog-doodle" src="assets/img/doodles/book.png" alt="" aria-hidden="true">
       </article>
 
       <article class="prog reveal d2" style="background:linear-gradient(150deg,var(--t-lav),var(--t-peach));border:none">
