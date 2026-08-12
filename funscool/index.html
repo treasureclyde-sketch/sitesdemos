@@ -19,9 +19,14 @@
 
 <!-- ============ INTRO ============ -->
 <div id="intro" class="intro" aria-label="Заставка Funscool">
-  <video id="introVideo" class="intro-video" muted autoplay playsinline preload="auto">
-    <source src="assets/video/intro.mp4" type="video/mp4">
-  </video>
+  <div class="intro-phone">
+    <div class="intro-screen">
+      <video id="introVideo" class="intro-video" muted autoplay playsinline preload="auto">
+        <source src="assets/video/intro.mp4" type="video/mp4">
+      </video>
+      <span class="intro-island" aria-hidden="true"></span>
+    </div>
+  </div>
   <button id="introSkip" class="intro-skip" type="button" data-i18n="intro_skip">Пропустить →</button>
 </div>
 <script>
