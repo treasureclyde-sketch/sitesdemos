@@ -688,6 +688,10 @@ body.intro-lock { overflow: hidden; }
   .cta-wrap.has-photo::before { background: linear-gradient(180deg, rgba(28,24,20,.82) 0%, rgba(28,24,20,.66) 46%, rgba(28,24,20,.5) 100%); }
   .cta-bg { object-position: 30% 60%; }
 }
+@media (max-width: 860px) {
+  .footer-top { grid-template-columns: 1fr 1fr; gap: 30px 20px; }
+  .footer-brand { grid-column: 1 / -1; }
+}
 @media (max-width: 620px) {
   body { font-size: 16px; }
   .container { padding: 0 18px; }
