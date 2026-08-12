@@ -223,27 +223,24 @@
 
     var START = 210;     // 07:00 — the hand points at the 7 (morning arrival)
     var STEP = 1650;     // ms each event stays lit — brisk but readable
-    var mqSmall = window.matchMedia('(max-width: 900px)');
     var inView = false, timer = null, i = 0, primed = false;
 
     function setHand(deg) { if (hand) hand.style.transform = 'rotate(' + deg + 'deg)'; }
 
-    // Desktop: one floating card visible at a time, revealed as the hand arrives.
-    // Mobile: every step is a static timeline row (visibility handled in CSS), so
-    // the clock stays alive — the hand sweeps and the matching dot pulses — while
-    // the whole schedule remains readable.
+    // The hand arrives → the matching card appears and its dot pulses; the hand
+    // moves on → that card fades and the next one shows. One activity at a time,
+    // on both desktop and mobile (on phones the card sits in a slot below the clock).
     function tick() {
       var idx = ((i % n) + n) % n;
+      items.forEach(function (el, j) { el.classList.toggle('on', j === idx); });
       dots.forEach(function (d, j) { d.classList.toggle('pulse', j === idx); });
-      if (!mqSmall.matches) {
-        items.forEach(function (el, j) { el.classList.toggle('on', j === idx); });
-      }
       setHand(START + i * 30);   // i only grows → the hand always advances clockwise
       i++;
     }
     function stop() { if (timer) { clearInterval(timer); timer = null; } }
     function loop() {
       if (timer) return;
+      clock.classList.remove('is-static');
       if (!primed) {
         // place the hand at 07:00 with no transition, so it never whips around
         if (hand) { hand.style.transition = 'none'; }
@@ -257,9 +254,10 @@
       timer = setInterval(tick, STEP);
     }
 
-    // fully-static fallback (reduced motion): show everything, no ticking
+    // fully-static fallback (reduced motion): list every step, no ticking
     function showAll() {
       stop();
+      clock.classList.add('is-static');
       items.forEach(function (el) { el.classList.add('on'); });
       dots.forEach(function (d) { d.classList.add('pulse'); });
       if (hand) { hand.style.transition = 'none'; }
