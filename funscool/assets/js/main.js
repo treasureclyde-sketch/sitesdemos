@@ -228,12 +228,16 @@
 
     function setHand(deg) { if (hand) hand.style.transform = 'rotate(' + deg + 'deg)'; }
 
-    // the hand arrives → the card appears; the hand moves on → it fades out and
-    // the next one appears. One event visible at any moment.
+    // Desktop: one floating card visible at a time, revealed as the hand arrives.
+    // Mobile: every step is a static timeline row (visibility handled in CSS), so
+    // the clock stays alive — the hand sweeps and the matching dot pulses — while
+    // the whole schedule remains readable.
     function tick() {
       var idx = ((i % n) + n) % n;
-      items.forEach(function (el, j) { el.classList.toggle('on', j === idx); });
       dots.forEach(function (d, j) { d.classList.toggle('pulse', j === idx); });
+      if (!mqSmall.matches) {
+        items.forEach(function (el, j) { el.classList.toggle('on', j === idx); });
+      }
       setHand(START + i * 30);   // i only grows → the hand always advances clockwise
       i++;
     }
@@ -253,7 +257,7 @@
       timer = setInterval(tick, STEP);
     }
 
-    // static, fully-readable fallback (mobile list / reduced motion)
+    // fully-static fallback (reduced motion): show everything, no ticking
     function showAll() {
       stop();
       items.forEach(function (el) { el.classList.add('on'); });
@@ -263,19 +267,17 @@
     }
 
     function apply() {
-      if (reduce || mqSmall.matches) { showAll(); return; }
+      if (reduce) { showAll(); return; }
       if (inView) loop(); else stop();
     }
 
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(function (es) {
         es.forEach(function (e) { inView = e.isIntersecting; });
-        if (!reduce && !mqSmall.matches) { if (inView) loop(); else stop(); }
-      }, { threshold: 0.25 }).observe(clock);
+        apply();
+      }, { threshold: 0.2 }).observe(clock);
     } else { inView = true; }
 
-    if (mqSmall.addEventListener) mqSmall.addEventListener('change', apply);
-    else if (mqSmall.addListener) mqSmall.addListener(apply);
     apply();
   })();
 
