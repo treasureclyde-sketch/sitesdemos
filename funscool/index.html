@@ -41,17 +41,23 @@
     var isMobile = !!(window.matchMedia && window.matchMedia('(max-width: 860px)').matches);
     var desktopSrc = vid.getAttribute('data-src-desktop');
     var mobileSrc  = vid.getAttribute('data-src-mobile');
-    var usedFallback = false, started = false;
+    var usedFallback = false, started = false, targetRate = 1;
     /* Mark the clip as genuinely playing. Older iOS (e.g. iPhone XS) rejects
        the play() promise even while the video actually plays, so the intro must
        never be dismissed on that rejection alone — only if playback truly never
        starts. 'timeupdate'/'playing' are the reliable "it's really running" signals. */
     function markStarted(){ started = true; }
-    vid.addEventListener('playing', markStarted);
-    vid.addEventListener('timeupdate', function(){ if(vid.currentTime > 0) markStarted(); });
+    /* Play the mobile clip 1.5x faster. iOS can reset playbackRate when playback
+       starts, so re-assert it on metadata load and on 'playing', not just once. */
+    function applyRate(){ try { if(vid.playbackRate !== targetRate) vid.playbackRate = targetRate; } catch(e){} }
+    vid.addEventListener('loadedmetadata', applyRate);
+    vid.addEventListener('playing', function(){ markStarted(); applyRate(); });
+    vid.addEventListener('timeupdate', function(){ if(vid.currentTime > 0){ markStarted(); applyRate(); } });
     function playSrc(src, mobile){
       intro.classList.toggle('is-mobile', !!mobile);
+      targetRate = mobile ? 1.5 : 1; /* speed the vertical mobile clip up 1.5x */
       vid.src = src; /* assigning src triggers the load; no separate load()+play() race */
+      applyRate();
       var pr = vid.play && vid.play();
       if(pr && pr.catch) pr.catch(function(){
         /* Autoplay may have been blocked (e.g. Low Power Mode). Give it a grace
