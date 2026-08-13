@@ -7,7 +7,7 @@ name: Deploy site to GitHub Pages
 on:
   workflow_dispatch:
   push:
-    branches: ["claude/freefly-redesign-p7fwmv"]
+    branches: ["claude/funscool"]
 
 permissions:
   contents: read
