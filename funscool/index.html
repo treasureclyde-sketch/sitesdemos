@@ -19,9 +19,9 @@
 
 <!-- ============ INTRO ============ -->
 <div id="intro" class="intro" aria-label="Заставка Funscool">
-  <video id="introVideo" class="intro-video" muted autoplay playsinline preload="auto">
-    <source src="assets/video/intro.mp4" type="video/mp4">
-  </video>
+  <video id="introVideo" class="intro-video" muted autoplay playsinline preload="auto"
+         data-src-desktop="assets/video/intro.mp4"
+         data-src-mobile="assets/video/intro-mobile.mp4"></video>
   <button id="introSkip" class="intro-skip" type="button" data-i18n="intro_skip">Пропустить →</button>
 </div>
 <script>
@@ -36,10 +36,28 @@
     setTimeout(function(){ if(intro.parentNode) intro.remove(); }, 800);
   }
   if(vid){
+    /* Pick the intro clip per device: a dedicated vertical clip on phones,
+       the existing wide clip on desktop. Same 860px breakpoint as the CSS. */
+    var isMobile = !!(window.matchMedia && window.matchMedia('(max-width: 860px)').matches);
+    var desktopSrc = vid.getAttribute('data-src-desktop');
+    var mobileSrc  = vid.getAttribute('data-src-mobile');
+    var usedFallback = false;
+    function playSrc(src, mobile){
+      intro.classList.toggle('is-mobile', !!mobile);
+      vid.setAttribute('src', src); vid.load();
+      var pr = vid.play && vid.play();
+      if(pr && pr.catch) pr.catch(function(){ setTimeout(dismiss, 1800); });
+    }
     vid.addEventListener('ended', dismiss);
-    vid.addEventListener('error', dismiss);
-    var pr = vid.play && vid.play();
-    if(pr && pr.catch) pr.catch(function(){ setTimeout(dismiss, 1800); });
+    vid.addEventListener('error', function(){
+      /* If the mobile clip is missing/unreadable, fall back once to the
+         desktop clip so the intro still plays and the site never breaks. */
+      if(isMobile && !usedFallback && desktopSrc){
+        usedFallback = true; playSrc(desktopSrc, false); return;
+      }
+      dismiss();
+    });
+    playSrc((isMobile && mobileSrc) ? mobileSrc : desktopSrc, isMobile && !!mobileSrc);
   }
   if(skip) skip.addEventListener('click', dismiss);
   setTimeout(dismiss, 15000); /* hard safety fallback */
