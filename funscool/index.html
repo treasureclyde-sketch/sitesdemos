@@ -41,19 +41,31 @@
     var isMobile = !!(window.matchMedia && window.matchMedia('(max-width: 860px)').matches);
     var desktopSrc = vid.getAttribute('data-src-desktop');
     var mobileSrc  = vid.getAttribute('data-src-mobile');
-    var usedFallback = false;
+    var usedFallback = false, started = false;
+    /* Mark the clip as genuinely playing. Older iOS (e.g. iPhone XS) rejects
+       the play() promise even while the video actually plays, so the intro must
+       never be dismissed on that rejection alone — only if playback truly never
+       starts. 'timeupdate'/'playing' are the reliable "it's really running" signals. */
+    function markStarted(){ started = true; }
+    vid.addEventListener('playing', markStarted);
+    vid.addEventListener('timeupdate', function(){ if(vid.currentTime > 0) markStarted(); });
     function playSrc(src, mobile){
       intro.classList.toggle('is-mobile', !!mobile);
-      vid.setAttribute('src', src); vid.load();
+      vid.src = src; /* assigning src triggers the load; no separate load()+play() race */
       var pr = vid.play && vid.play();
-      if(pr && pr.catch) pr.catch(function(){ setTimeout(dismiss, 1800); });
+      if(pr && pr.catch) pr.catch(function(){
+        /* Autoplay may have been blocked (e.g. Low Power Mode). Give it a grace
+           period and bail out only if playback never actually began — never cut
+           a clip that is already playing. */
+        setTimeout(function(){ if(!started){ dismiss(); } }, 2500);
+      });
     }
     vid.addEventListener('ended', dismiss);
     vid.addEventListener('error', function(){
       /* If the mobile clip is missing/unreadable, fall back once to the
          desktop clip so the intro still plays and the site never breaks. */
       if(isMobile && !usedFallback && desktopSrc){
-        usedFallback = true; playSrc(desktopSrc, false); return;
+        usedFallback = true; started = false; playSrc(desktopSrc, false); return;
       }
       dismiss();
     });
