@@ -1,0 +1,3 @@
+# Python bytecode (generated when running skill scripts, e.g. ui-ux-pro-max)
+__pycache__/
+*.py[cod]
