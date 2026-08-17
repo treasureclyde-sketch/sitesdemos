@@ -460,49 +460,8 @@
       <h2 class="section-title" data-i18n="team_title">Наши педагоги</h2>
       <p class="section-sub" data-i18n="team_sub">Четыре педагога и администратор, которые держат день ребёнка спокойным, тёплым и понятным.</p>
     </div>
-    <div class="team-grid reveal">
-
-      <article class="tcard c-green">
-        <div class="tcard-photo"><img src="assets/img/teachers/olympia.jpg" alt="Georgiou Olympia"></div>
-        <div class="tcard-body">
-          <h3 data-i18n="tm1_name">Олимпия Георгиу</h3>
-          <div class="tags"><span class="tag" data-i18n="tm1_a">IB PYP certified</span><span class="tag" data-i18n="tm1_b">Носитель английского</span></div>
-          <p data-i18n="tm1_bio">Нейтив-спикер с педагогическим дипломом по методике IB PYP. Выстраивает иноязычную среду через исследование, игру и проекты — без давления и зубрёжки.</p>
-          <a class="btn btn-ghost tcard-ask" href="#contact" data-i18n="team_ask">Задать вопрос</a>
-        </div>
-      </article>
-
-      <article class="tcard c-purple">
-        <div class="tcard-photo"><img src="assets/img/teachers/elena.jpg" alt="Kirillishina Elena"></div>
-        <div class="tcard-body">
-          <h3 data-i18n="tm2_name">Елена Кириллишина</h3>
-          <div class="tags"><span class="tag" data-i18n="tm2_a">Методист</span><span class="tag" data-i18n="tm2_b">Проектное обучение</span></div>
-          <p data-i18n="tm2_bio">Специалист по методике Discovery и проектному обучению. Объединяет математику, естественные науки и творчество в одну интегрированную программу.</p>
-          <a class="btn btn-ghost tcard-ask" href="#contact" data-i18n="team_ask">Задать вопрос</a>
-        </div>
-      </article>
-
-      <article class="tcard c-teal">
-        <div class="tcard-photo"><img src="assets/img/teachers/tetiana.jpg" alt="Shepina Tetiana"></div>
-        <div class="tcard-body">
-          <h3 data-i18n="tm3_name">Тетяна Шепина</h3>
-          <div class="tags"><span class="tag" data-i18n="tm3_a">Монтессори-педагог</span><span class="tag" data-i18n="tm3_b">Группа Baby</span></div>
-          <p data-i18n="tm3_bio">Сертифицированный Монтессори-педагог. Создаёт подготовленную среду, которая уважает темп и природный интерес самых маленьких.</p>
-          <a class="btn btn-ghost tcard-ask" href="#contact" data-i18n="team_ask">Задать вопрос</a>
-        </div>
-      </article>
-
-      <article class="tcard c-pink">
-        <div class="tcard-photo"><img src="assets/img/teachers/nicol.jpg" alt="Matvienko Nicol"></div>
-        <div class="tcard-body">
-          <h3 data-i18n="tm4_name">Николь Матвиенко</h3>
-          <div class="tags"><span class="tag" data-i18n="tm4_a">Администратор</span></div>
-          <p data-i18n="tm4_bio">Сопровождает семьи от первого звонка до адаптации: помогает с документами, отвечает на вопросы и держит связь с родителями.</p>
-          <a class="btn btn-ghost tcard-ask" href="#contact" data-i18n="team_ask">Задать вопрос</a>
-        </div>
-      </article>
-
-    </div>
+    <!-- Cards are rendered from content/teachers.json (editable in the CMS) -->
+    <div class="team-grid reveal" id="teamGrid"></div>
   </div>
 </section>
 
@@ -628,5 +587,16 @@
 </footer>
 
 <script src="assets/js/main.js"></script>
+<!-- Netlify Identity: routes invite / password-recovery links to the /admin/ panel -->
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<script>
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", function (user) {
+      if (!user) {
+        window.netlifyIdentity.on("login", function () { document.location.href = "/admin/"; });
+      }
+    });
+  }
+</script>
 </body>
 </html>

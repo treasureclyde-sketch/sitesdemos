@@ -2,6 +2,8 @@
 (function () {
   'use strict';
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var CONTENT = null;      // data loaded from content/*.json (CMS-editable)
+  var currentLang = 'ru';  // language the page is currently showing
 
   /* ---------- capture RU (inline) as the base language ---------- */
   var RU = {};
@@ -59,15 +61,7 @@
     joy4_t:"Samopouzdanje i radost pobeda", joy4_d:"Vaspitači podržavaju i primećuju uspehe deteta, pomažući mu da veruje u sebe.",
     team_eyebrow:"Sa ljubavlju i brigom", team_title:"Naši vaspitači",
     team_sub:"Četiri vaspitača i administrator koji dan deteta drže mirnim, toplim i razumljivim.", team_ask:"Postavite pitanje",
-    tm1_name:"Olimpija Georgiju", tm2_name:"Jelena Kirilišina", tm3_name:"Tetjana Šepina", tm4_name:"Nikol Matvijenko",
-    tm1_a:"IB PYP sertifikat", tm1_b:"Izvorni govornik engleskog",
-    tm1_bio:"Izvorni govornik sa pedagoškom diplomom po IB PYP metodi. Gradi stranojezičko okruženje kroz istraživanje, igru i projekte — bez pritiska i bubanja.",
-    tm2_a:"Metodičar", tm2_b:"Projektna nastava",
-    tm2_bio:"Stručnjak za Discovery metodu i projektnu nastavu. Spaja matematiku, prirodne nauke i stvaralaštvo u jedan integrisani program.",
-    tm3_a:"Montessori pedagog", tm3_b:"Baby grupa",
-    tm3_bio:"Sertifikovani Montessori pedagog. Stvara pripremljeno okruženje koje poštuje tempo i prirodnu radoznalost najmlađih.",
-    tm4_a:"Administrator",
-    tm4_bio:"Prati porodice od prvog poziva do adaptacije: pomaže oko dokumenata, odgovara na pitanja i održava vezu sa roditeljima.",
+    /* teacher cards are rendered from content/teachers.json */
     mom_eyebrow:"Svaki trenutak je važan", mom_title:"Srećni trenuci svakog dana",
     mom_sub:"Igramo se, stvaramo, istražujemo i rastemo zajedno. Svaki dan u Funscool-u ispunjen je radošću i otkrićima.",
     mom_note:"Bezbedno, brižno i inspirativno okruženje — od jutra do večeri.",
@@ -133,15 +127,7 @@
     joy4_t:"Confidence and the joy of wins", joy4_d:"Teachers support and notice each child's progress, helping them believe in themselves.",
     team_eyebrow:"With love and care", team_title:"Our teachers",
     team_sub:"Four teachers and an administrator who keep a child's day calm, warm and clear.", team_ask:"Ask a question",
-    tm1_name:"Olympia Georgiou", tm2_name:"Elena Kirillishina", tm3_name:"Tetiana Shepina", tm4_name:"Nicol Matvienko",
-    tm1_a:"IB PYP certified", tm1_b:"Native English speaker",
-    tm1_bio:"A native speaker with a teaching diploma in the IB PYP method. Builds a foreign-language environment through inquiry, play and projects — no pressure or rote learning.",
-    tm2_a:"Methodologist", tm2_b:"Project-based learning",
-    tm2_bio:"A specialist in the Discovery method and project-based learning. Brings maths, natural sciences and creativity into one integrated programme.",
-    tm3_a:"Montessori teacher", tm3_b:"Baby group",
-    tm3_bio:"A certified Montessori teacher. Creates a prepared environment that respects the pace and natural curiosity of the youngest ones.",
-    tm4_a:"Administrator",
-    tm4_bio:"Guides families from the first call through adaptation: helps with paperwork, answers questions and keeps in touch with parents.",
+    /* teacher cards are rendered from content/teachers.json */
     mom_eyebrow:"Every moment matters", mom_title:"Happy moments, every single day",
     mom_sub:"We play, create, explore and grow together. Every day at Funscool is filled with joy and new discoveries.",
     mom_note:"A safe, caring and inspiring environment — from morning to evening.",
@@ -167,8 +153,71 @@
     en: { form_name:"Parent's name", form_phone:"Phone number" } };
   var PHONE = { ru:["+7 (499) 283-46-28","+74992834628"], en:["+7 (499) 283-46-28","+74992834628"], sr:["+381 (69) 283-46-28","+381692834628"] };
 
+  /* ---------- content rendered from data (editable in the CMS) ---------- */
+  function tr(obj, lang) {
+    // pick a localized string, falling back to RU then to any value present
+    if (!obj) return '';
+    return (obj[lang] != null && obj[lang] !== '') ? obj[lang]
+         : (obj.ru != null ? obj.ru : (obj.en || obj.sr || ''));
+  }
+  function renderTeachers(lang) {
+    var grid = document.getElementById('teamGrid');
+    if (!grid || !CONTENT || !Array.isArray(CONTENT.teachers)) return;
+    var askTxt = (DICT[lang] && DICT[lang].team_ask) || 'Задать вопрос';
+    grid.textContent = '';
+    CONTENT.teachers.forEach(function (t) {
+      var art = document.createElement('article');
+      art.className = 'tcard c-' + (t.color || 'purple');
+
+      var photoWrap = document.createElement('div');
+      photoWrap.className = 'tcard-photo';
+      var img = document.createElement('img');
+      img.src = String(t.photo || '').replace(/^\//, ''); // keep paths relative to the site root
+      img.alt = tr(t.name, lang);
+      img.loading = 'lazy';
+      photoWrap.appendChild(img);
+
+      var body = document.createElement('div');
+      body.className = 'tcard-body';
+
+      var h3 = document.createElement('h3');
+      h3.textContent = tr(t.name, lang);
+      body.appendChild(h3);
+
+      var tags = document.createElement('div');
+      tags.className = 'tags';
+      (t.tags || []).forEach(function (tg) {
+        var txt = tr(tg, lang);
+        if (!txt) return;
+        var span = document.createElement('span');
+        span.className = 'tag';
+        span.textContent = txt;
+        tags.appendChild(span);
+      });
+      body.appendChild(tags);
+
+      var p = document.createElement('p');
+      p.textContent = tr(t.bio, lang);
+      body.appendChild(p);
+
+      var a = document.createElement('a');
+      a.className = 'btn btn-ghost tcard-ask';
+      a.href = '#contact';
+      a.textContent = askTxt;
+      body.appendChild(a);
+
+      art.appendChild(photoWrap);
+      art.appendChild(body);
+      grid.appendChild(art);
+    });
+  }
+  function renderDynamic(lang) {
+    renderTeachers(lang);
+  }
+
   function setLang(lang) {
     if (!DICT[lang]) lang = 'ru';
+    currentLang = lang;
     var d = DICT[lang];
     document.querySelectorAll('[data-i18n]').forEach(function (el) {
       var k = el.getAttribute('data-i18n');
@@ -186,12 +235,19 @@
     document.documentElement.setAttribute('lang', lang);
     document.querySelectorAll('.lang button').forEach(function (b) { b.classList.toggle('active', b.getAttribute('data-lang') === lang); });
     try { localStorage.setItem('fs-lang', lang); } catch (e) {}
+    renderDynamic(lang);
   }
   document.querySelectorAll('.lang button').forEach(function (b) {
     b.addEventListener('click', function () { setLang(b.getAttribute('data-lang')); });
   });
   var saved; try { saved = localStorage.getItem('fs-lang'); } catch (e) {}
   if (saved && saved !== 'ru') setLang(saved);
+
+  /* load editable content, then render the data-driven sections in the current language */
+  fetch('content/teachers.json', { cache: 'no-cache' })
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (data) { if (data) { CONTENT = data; renderDynamic(currentLang); } })
+    .catch(function () {});
 
   /* ---------- nav ---------- */
   var nav = document.querySelector('.nav');

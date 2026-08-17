@@ -1,0 +1,68 @@
+# Decap CMS configuration for the Funscool site.
+# Editors log in by email (Netlify Identity) — no GitHub account or code needed.
+# Saving a change commits to the repo; GitHub/Netlify then rebuilds the live site.
+
+backend:
+  name: git-gateway
+  branch: claude/funscool         # the branch the live site is built from
+
+# Show a "save draft → publish" workflow so nothing goes live by accident
+publish_mode: editorial_workflow
+
+# Where uploaded images are committed (path inside the git repo) …
+media_folder: "funscool/assets/img/teachers"
+# … and the path the published site uses to reference them
+public_folder: "/assets/img/teachers"
+
+locale: "ru"
+
+collections:
+  - name: "teachers"
+    label: "Воспитатели"
+    description: "Карточки педагогов на странице «Наши педагоги»."
+    files:
+      - name: "list"
+        label: "Список воспитателей"
+        file: "funscool/content/teachers.json"
+        format: "json"
+        fields:
+          - label: "Воспитатели"
+            name: "teachers"
+            label_singular: "Воспитатель"
+            widget: "list"
+            summary: "{{fields.name.ru}}"
+            fields:
+              - { label: "Фото", name: "photo", widget: "image" }
+              - label: "Акцентный цвет карточки"
+                name: "color"
+                widget: "select"
+                default: "purple"
+                options:
+                  - { label: "Зелёный", value: "green" }
+                  - { label: "Фиолетовый", value: "purple" }
+                  - { label: "Бирюзовый", value: "teal" }
+                  - { label: "Розовый", value: "pink" }
+              - label: "Имя"
+                name: "name"
+                widget: "object"
+                fields:
+                  - { label: "Русский", name: "ru", widget: "string" }
+                  - { label: "Српски", name: "sr", widget: "string", required: false }
+                  - { label: "English", name: "en", widget: "string", required: false }
+              - label: "Теги / роль"
+                name: "tags"
+                widget: "list"
+                label_singular: "Тег"
+                required: false
+                summary: "{{fields.ru}}"
+                fields:
+                  - { label: "Русский", name: "ru", widget: "string" }
+                  - { label: "Српски", name: "sr", widget: "string", required: false }
+                  - { label: "English", name: "en", widget: "string", required: false }
+              - label: "О себе / био"
+                name: "bio"
+                widget: "object"
+                fields:
+                  - { label: "Русский", name: "ru", widget: "text" }
+                  - { label: "Српски", name: "sr", widget: "text", required: false }
+                  - { label: "English", name: "en", widget: "text", required: false }
