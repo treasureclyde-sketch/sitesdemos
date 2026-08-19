@@ -850,3 +850,25 @@ body.modal-open { overflow: hidden; }
 .wa-fallback[hidden] { display: none; }
 .wa-fallback:hover { border-color: #25D366; background: #eafaf0; }
 .wa-fallback svg { width: 20px; height: 20px; }
+
+/* ============================================================
+   Hero photo — big image bleeding right with a soft cream gradient
+   (desktop); stacked soft-rounded image on mobile
+   ============================================================ */
+.hero-photo { display: none; }
+.hero-media .ring { display: none; }                 /* unify to one soft-rounded shape */
+.hero-media .blob { border-radius: 30px; aspect-ratio: 4 / 3.1; }
+@media (min-width: 861px) {
+  .hero { padding-bottom: 46px; }
+  .hero-photo { display: block; position: absolute; top: 0; right: 0; bottom: 0; width: 60%; z-index: 0; }
+  .hero-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 42% center; }
+  .hero-photo::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(90deg, var(--cream) 0%, var(--cream) 12%, rgba(251,247,240,.6) 40%, rgba(251,247,240,0) 72%);
+  }
+  .hero .container { position: relative; z-index: 1; }
+  .hero-grid { grid-template-columns: 1fr; align-items: start; min-height: 62vh; }
+  .hero-inner { max-width: 560px; align-self: center; }
+  .hero-media { display: none; }
+  .hero .doodle { z-index: 2; }                        /* keep left-side doodles above the photo */
+}
