@@ -77,6 +77,7 @@
     cta_rating:"Ocena na Yandexu", cta_c1:"Male grupe do 15", cta_c2:"Licencirani vrtić", intro_skip:"Preskoči →",
     form_name:"Ime roditelja", form_phone:"Telefon", form_age:"Uzrast deteta", form_submit:"Dobijte informacije",
     form_privacy:"Poštujemo vašu privatnost i ne delimo podatke sa trećim licima.", form_ok:"Hvala! Zahtev je primljen — javićemo vam se uskoro.",
+    form_group:"Grupa", form_group_ph:"Izaberite grupu", form_age_lbl:"Uzrast", form_child:"Ime deteta", form_wa:"Pošalji na WhatsApp", form_err:"Slanje nije uspelo. Pišite nam na WhatsApp:",
     footer_tagline:"Razvijamo sa ljubavlju i brigom svakog dana.", footer_nav:"Navigacija", footer_programs:"Programi",
     footer_contacts:"Kontakt", footer_rights:"Sva prava zadržana"
   };
@@ -143,14 +144,15 @@
     cta_rating:"Rating on Yandex", cta_c1:"Small groups up to 15", cta_c2:"Licensed kindergarten", intro_skip:"Skip →",
     form_name:"Parent's name", form_phone:"Phone number", form_age:"Child's age", form_submit:"Get Information",
     form_privacy:"We value your privacy and never share your data with third parties.", form_ok:"Thank you! Your request has been received — we'll be in touch soon.",
+    form_group:"Group", form_group_ph:"Choose a group", form_age_lbl:"Age", form_child:"Child's name", form_wa:"Send via WhatsApp", form_err:"Couldn't send. Message us on WhatsApp:",
     footer_tagline:"Growing with love and care every day.", footer_nav:"Navigation", footer_programs:"Programs",
     footer_contacts:"Contacts", footer_rights:"All rights reserved"
   };
 
   var DICT = { ru: RU, sr: SR, en: EN };
   var PH = { ru: RU_PH,
-    sr: { form_name:"Ime roditelja", form_phone:"Telefon" },
-    en: { form_name:"Parent's name", form_phone:"Phone number" } };
+    sr: { form_name:"Ime roditelja", form_phone:"Telefon", form_child:"Ime deteta" },
+    en: { form_name:"Parent's name", form_phone:"Phone number", form_child:"Child's name" } };
   var PHONE = { ru:["+7 (499) 283-46-28","+74992834628"], en:["+7 (499) 283-46-28","+74992834628"], sr:["+381 (69) 283-46-28","+381692834628"] };
 
   /* ---------- content rendered from data (editable in the CMS) ---------- */
@@ -336,29 +338,93 @@
     apply();
   })();
 
-  /* ---------- phone mask ---------- */
-  var phone = document.getElementById('phoneInput');
-  if (phone) {
-    phone.addEventListener('input', function () {
-      var d = this.value.replace(/\D/g, '').slice(0, 15);
-      this.value = d ? '+' + d : '';
-    });
-  }
+  /* ---------- booking modal (open on any "Записаться"/#contact link) ---------- */
+  (function () {
+    var modal = document.getElementById('bookModal');
+    if (!modal) return;
+    var lastFocus = null;
+    function open(e) {
+      if (e) e.preventDefault();
+      lastFocus = document.activeElement;
+      modal.classList.add('open'); modal.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('modal-open');
+      var first = modal.querySelector('select, input:not([type=hidden]), button');
+      setTimeout(function () { try { first && first.focus(); } catch (_) {} }, 60);
+    }
+    function close() {
+      modal.classList.remove('open'); modal.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('modal-open');
+      try { lastFocus && lastFocus.focus(); } catch (_) {}
+    }
+    document.querySelectorAll('a[href="#contact"]').forEach(function (a) { a.addEventListener('click', open); });
+    modal.querySelectorAll('[data-close]').forEach(function (el) { el.addEventListener('click', close); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && modal.classList.contains('open')) close(); });
 
-  /* ---------- form ---------- */
-  var form = document.getElementById('leadForm');
-  if (form) {
+    /* group → age autofill */
+    var groupAge = { 'Беби-Фан': '1,5–2,5', 'Энерджи-Фан': '2,5–3,5', 'Дискавери-Фан': '3,5–4,5', 'Креатив-Фан': '4,5–6', 'Прескул': '6–7' };
+    var grp = document.getElementById('groupSelect'), age = document.getElementById('ageSelect');
+    if (grp && age) grp.addEventListener('change', function () { if (groupAge[grp.value] && !age.value) age.value = groupAge[grp.value]; });
+
+    /* phone: country selector + length-aware mask */
+    var cc = document.getElementById('phoneCC'), pin = document.getElementById('phoneInput'), pfull = document.getElementById('phoneFull');
+    function ccOpt() { return cc.options[cc.selectedIndex]; }
+    function fmt(digits, country) {
+      if (country === 'rs') { // +381 6X XXX XXXX  (8–9 digits)
+        var d = digits.slice(0, 9), o = '';
+        if (d.length) o = d.slice(0, 2);
+        if (d.length > 2) o += ' ' + d.slice(2, 5);
+        if (d.length > 5) o += ' ' + d.slice(5, 9);
+        return o;
+      }
+      var r = digits.slice(0, 10), s = ''; // +7 (999) 123-45-67
+      if (r.length) s = '(' + r.slice(0, 3);
+      if (r.length >= 3) s += ') ' + r.slice(3, 6);
+      if (r.length >= 6) s += '-' + r.slice(6, 8);
+      if (r.length >= 8) s += '-' + r.slice(8, 10);
+      return s;
+    }
+    function sync() {
+      if (!pin) return;
+      var country = cc ? cc.value : 'ru';
+      pin.value = fmt(pin.value.replace(/\D/g, ''), country);
+      if (pfull) pfull.value = pin.value ? (ccOpt().getAttribute('data-dial') + ' ' + pin.value) : '';
+    }
+    if (pin) pin.addEventListener('input', sync);
+    if (cc) cc.addEventListener('change', function () { if (pin) { pin.placeholder = ccOpt().getAttribute('data-ph') || ''; sync(); } });
+
+    /* submit → Netlify Forms (emails hello@funscool.rs); WhatsApp fallback if it can't send */
+    var form = document.getElementById('leadForm');
+    if (!form) return;
+    form.querySelectorAll('input, select').forEach(function (i) { i.addEventListener('input', function () { this.style.borderColor = ''; }); });
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      var name = form.querySelector('[name="name"]'), tel = form.querySelector('[name="phone"]');
-      if (!name.value.trim()) { name.focus(); name.style.borderColor = 'var(--coral)'; return; }
-      if (tel.value.replace(/\D/g, '').length < 6) { tel.focus(); tel.style.borderColor = 'var(--coral)'; return; }
-      form.reset();
+      var parent = form.querySelector('[name="parent"]');
+      var digits = pin ? pin.value.replace(/\D/g, '') : '';
+      var need = (cc && cc.value === 'rs') ? 8 : 10;
+      if (parent && !parent.value.trim()) { parent.focus(); parent.style.borderColor = 'var(--coral)'; return; }
+      if (digits.length < need) { if (pin) { pin.focus(); pin.style.borderColor = 'var(--coral)'; } return; }
+      sync();
       var ok = document.getElementById('formSuccess');
-      if (ok) { ok.classList.add('show'); setTimeout(function () { ok.classList.remove('show'); }, 6000); }
+      var errBox = document.getElementById('formError');
+      var wa = document.getElementById('waFallback');
+      var btn = form.querySelector('button[type="submit"]');
+      if (btn) btn.disabled = true;
+      fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams(new FormData(form)).toString() })
+        .then(function (r) { if (!r.ok) throw new Error('http ' + r.status); if (ok) ok.classList.add('show'); form.reset(); if (pin) pin.value = ''; })
+        .catch(function () {
+          var val = function (n) { var el = form.querySelector('[name="' + n + '"]'); return el ? el.value : ''; };
+          var text = 'Здравствуйте! Хочу записаться на экскурсию в Funscool.\n'
+            + (val('group') ? 'Группа: ' + val('group') + '\n' : '')
+            + (age && age.value ? 'Возраст: ' + age.value + '\n' : '')
+            + (val('child') ? 'Ребёнок: ' + val('child') + '\n' : '')
+            + (val('parent') ? 'Родитель: ' + val('parent') + '\n' : '')
+            + (pfull && pfull.value ? 'Телефон: ' + pfull.value : '');
+          if (wa) { wa.href = 'https://wa.me/381644445550?text=' + encodeURIComponent(text); wa.hidden = false; }
+          if (errBox) errBox.hidden = false;
+        })
+        .then(function () { if (btn) btn.disabled = false; });
     });
-    form.querySelectorAll('input').forEach(function (i) { i.addEventListener('input', function () { this.style.borderColor = ''; }); });
-  }
+  })();
 
   var y = document.getElementById('year'); if (y) y.textContent = new Date().getFullYear();
 

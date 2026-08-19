@@ -807,3 +807,46 @@ body.intro-lock { overflow: hidden; }
   100% { box-shadow: 0 0 0 0 rgba(37,211,102,0); }
 }
 @media (prefers-reduced-motion: reduce) { .wa-fab::after { animation: none; } }
+
+/* ============================================================
+   Booking modal
+   ============================================================ */
+body.modal-open { overflow: hidden; }
+.modal { position: fixed; inset: 0; z-index: 200; display: none; }
+.modal.open { display: block; }
+.modal-overlay {
+  position: absolute; inset: 0; background: rgba(30,24,18,.5);
+  -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px);
+  opacity: 0; transition: opacity .3s var(--ease);
+}
+.modal.open .modal-overlay { opacity: 1; }
+.modal-card {
+  position: relative; z-index: 1; width: min(500px, calc(100% - 32px));
+  max-height: calc(100dvh - 40px); overflow-y: auto;
+  margin: max(20px, 5vh) auto; background: var(--card);
+  border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);
+  padding: clamp(24px, 4vw, 36px);
+  transform: translateY(16px) scale(.98); opacity: 0;
+  transition: transform .35s var(--ease), opacity .3s var(--ease);
+}
+.modal.open .modal-card { transform: none; opacity: 1; }
+.modal-x {
+  position: absolute; top: 14px; right: 14px; width: 38px; height: 38px; border-radius: 50%;
+  background: var(--cream-2); border: none; display: grid; place-items: center; color: var(--ink);
+  transition: background .2s;
+}
+.modal-x:hover { background: var(--line); }
+.modal-x svg { width: 18px; height: 18px; }
+.modal-card h3 { font-family: 'Nunito'; font-weight: 800; font-size: 22px; color: var(--ink); margin: 0 40px 6px 0; }
+.modal-sub { font-size: 14.5px; color: var(--muted); margin: 0 0 20px; }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.field-label { display: block; font-size: 12.5px; font-weight: 800; color: var(--muted); margin: 0 0 5px 2px; }
+.phone-field { display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: stretch; }
+.phone-field #phoneCC { width: auto; padding-left: 12px; padding-right: 8px; font-weight: 700; }
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.form-error { display: none; margin-top: 14px; font-size: 14px; font-weight: 700; color: var(--coral); }
+.form-error:not([hidden]) { display: block; }
+.wa-fallback { width: 100%; margin-top: 10px; gap: 9px; color: #12894a; border-color: #bfe9cd; }
+.wa-fallback[hidden] { display: none; }
+.wa-fallback:hover { border-color: #25D366; background: #eafaf0; }
+.wa-fallback svg { width: 20px; height: 20px; }

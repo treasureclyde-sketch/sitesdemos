@@ -95,7 +95,7 @@
         <li><a href="#programs" data-i18n="nav_programs">Программы</a></li>
         <li><a href="#sreda" data-i18n="nav_env">Среда</a></li>
         <li><a href="#day" data-i18n="nav_parents">Для родителей</a></li>
-        <li><a href="#contact" data-i18n="nav_contacts">Контакты</a></li>
+        <li><a href="#footer" data-i18n="nav_contacts">Контакты</a></li>
       </ul>
     </nav>
     <div class="nav-right">
@@ -117,7 +117,7 @@
   <a href="#sreda" data-i18n="nav_env">Среда</a>
   <a href="#day" data-i18n="nav_parents">Для родителей</a>
   <a href="#teachers" data-i18n="nav_teachers">Педагоги</a>
-  <a href="#contact" data-i18n="nav_contacts">Контакты</a>
+  <a href="#footer" data-i18n="nav_contacts">Контакты</a>
   <a class="btn btn-purple" href="#contact" data-i18n="cta_book">Записаться на экскурсию</a>
 </div>
 
@@ -462,59 +462,13 @@
   </div>
 </section>
 
-<!-- ============ CTA + FORM ============ -->
-<section class="section" id="contact" style="padding-top:0">
-  <img class="doodle doodle-art float-anim" src="assets/img/doodles/house.png" alt="" aria-hidden="true" style="top:7%;left:2%;width:92px">
-  <img class="doodle doodle-art drift-anim" src="assets/img/doodles/heartT.png" alt="" aria-hidden="true" style="bottom:12%;right:3%;width:52px">
-  <div class="container">
-    <div class="cta-wrap reveal">
-      <div class="cta-copy">
-        <h2 data-i18n="form_title">Хотите посмотреть сад своими глазами?</h2>
-        <p data-i18n="form_text">Оставьте заявку — покажем пространство, ответим на вопросы и подберём группу для вашего ребёнка. Пришлём расписание, мероприятия и режим дня.</p>
-        <div class="info-band" style="margin-top:0">
-          <a class="info-pill" href="tel:+74992834628" data-phone-pill>
-            <svg class="pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--purple)"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>
-            <div><b data-phone-text>+7 (499) 283-46-28</b><span data-i18n="form_call">Позвоните нам</span></div>
-          </a>
-        </div>
-        <div class="cta-trust">
-          <div class="cta-rating">
-            <b>5,0</b>
-            <div><span class="stars">★★★★★</span><span data-i18n="cta_rating">Рейтинг в Яндексе</span></div>
-          </div>
-          <div class="cta-chips">
-            <span class="chip" data-i18n="cta_c1">Мини-группы до 15</span>
-            <span class="chip" data-i18n="cta_c2">Лицензированный сад</span>
-            <span class="chip">RU · SR · EN</span>
-          </div>
-        </div>
-      </div>
-      <div class="form-card">
-        <h3 data-i18n="form_card_title">Записаться на экскурсию</h3>
-        <p data-i18n="form_card_sub">Заполните форму — свяжемся с вами в ближайшее время.</p>
-        <form id="leadForm" novalidate>
-          <div class="field"><input name="name" type="text" data-i18n-ph="form_name" placeholder="Имя родителя" autocomplete="name"></div>
-          <div class="field"><input name="phone" id="phoneInput" type="tel" data-i18n-ph="form_phone" placeholder="Телефон" autocomplete="tel"></div>
-          <div class="field">
-            <select name="age" id="ageSelect">
-              <option value="" data-i18n="form_age">Возраст ребёнка</option>
-              <option>1,5–2,5</option><option>2,5–3,5</option><option>3,5–4,5</option><option>4,5–6</option><option>6–7</option>
-            </select>
-          </div>
-          <button class="btn btn-yellow btn-lg" type="submit" data-i18n="form_submit">Получить информацию</button>
-          <div class="form-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg><span data-i18n="form_privacy">Мы ценим вашу конфиденциальность и не передаём данные третьим лицам.</span></div>
-          <div class="form-success" id="formSuccess" data-i18n="form_ok">Спасибо! Заявка принята — мы свяжемся с вами в ближайшее время.</div>
-        </form>
-      </div>
-    </div>
-  </div>
-</section>
+
 
 
 </main>
 
 <!-- ============ FOOTER ============ -->
-<footer class="footer">
+<footer class="footer" id="footer">
   <div class="container">
     <div class="footer-top">
       <div class="footer-brand">
@@ -562,6 +516,51 @@
     </div>
   </div>
 </footer>
+
+<!-- ============ BOOKING MODAL ============ -->
+<div class="modal" id="bookModal" aria-hidden="true">
+  <div class="modal-overlay" data-close></div>
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="bookTitle">
+    <button class="modal-x" type="button" data-close aria-label="Закрыть"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    <h3 id="bookTitle" data-i18n="form_card_title">Записаться на экскурсию</h3>
+    <p class="modal-sub" data-i18n="form_card_sub">Заполните форму — свяжемся с вами в ближайшее время.</p>
+    <form id="leadForm" name="lead" method="POST" action="/" data-netlify="true" netlify-honeypot="bot-field">
+      <input type="hidden" name="form-name" value="lead">
+      <p class="hp" aria-hidden="true"><label>Оставьте это поле пустым <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+      <div class="field-row">
+        <div class="field">
+          <label class="field-label" for="groupSelect" data-i18n="form_group">Группа</label>
+          <select name="group" id="groupSelect">
+            <option value="" data-i18n="form_group_ph">Выберите группу</option>
+            <option>Беби-Фан</option><option>Энерджи-Фан</option><option>Дискавери-Фан</option><option>Креатив-Фан</option><option>Прескул</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="field-label" for="ageSelect" data-i18n="form_age_lbl">Возраст</label>
+          <select name="age" id="ageSelect">
+            <option value="" data-i18n="form_age_ph">Возраст</option>
+            <option>1,5–2,5</option><option>2,5–3,5</option><option>3,5–4,5</option><option>4,5–6</option><option>6–7</option>
+          </select>
+        </div>
+      </div>
+      <div class="field"><input name="child" type="text" data-i18n-ph="form_child" placeholder="Имя ребёнка"></div>
+      <div class="field"><input name="parent" type="text" data-i18n-ph="form_name" placeholder="Имя родителя" autocomplete="name"></div>
+      <div class="field phone-field">
+        <select id="phoneCC" aria-label="Код страны">
+          <option value="ru" data-dial="+7" data-ph="(999) 123-45-67">🇷🇺 +7</option>
+          <option value="rs" data-dial="+381" data-ph="6X XXX XXXX">🇷🇸 +381</option>
+        </select>
+        <input id="phoneInput" type="tel" inputmode="tel" placeholder="(999) 123-45-67" autocomplete="tel">
+        <input type="hidden" name="phone" id="phoneFull">
+      </div>
+      <button class="btn btn-yellow btn-lg" type="submit" data-i18n="form_submit">Получить информацию</button>
+      <div class="form-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg><span data-i18n="form_privacy">Мы ценим вашу конфиденциальность и не передаём данные третьим лицам.</span></div>
+      <div class="form-success" id="formSuccess" data-i18n="form_ok">Спасибо! Заявка принята — мы свяжемся с вами в ближайшее время.</div>
+      <div class="form-error" id="formError" hidden><span data-i18n="form_err">Не удалось отправить. Напишите нам в WhatsApp:</span></div>
+      <a class="btn btn-ghost wa-fallback" id="waFallback" href="#" target="_blank" rel="noopener" hidden><svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path d="M16.04 4C9.93 4 4.98 8.95 4.98 15.06c0 1.95.51 3.86 1.48 5.55L4.9 27.1l6.66-1.75a11.06 11.06 0 0 0 4.48.95c6.1 0 11.05-4.95 11.05-11.06C27.1 8.95 22.15 4 16.04 4Z"/></svg><span data-i18n="form_wa">Отправить в WhatsApp</span></a>
+    </form>
+  </div>
+</div>
 
 <!-- Floating WhatsApp contact -->
 <a class="wa-fab" href="https://wa.me/381644445550?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%B7%D0%B0%D0%BF%D0%B8%D1%81%D0%B0%D1%82%D1%8C%D1%81%D1%8F%20%D0%BD%D0%B0%20%D1%8D%D0%BA%D1%81%D0%BA%D1%83%D1%80%D1%81%D0%B8%D1%8E%20%D0%B2%20Funscool" target="_blank" rel="noopener" aria-label="Написать в WhatsApp">
