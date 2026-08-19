@@ -747,3 +747,63 @@ body.intro-lock { overflow: hidden; }
   .feat:last-child { border-bottom: none; }
   .nav-cta { display: none; }
 }
+
+/* ============================================================
+   Horizontal sliders (age groups / teachers) — swipe + arrows
+   ============================================================ */
+.slider { position: relative; }
+.slider-track {
+  display: flex; gap: 22px; overflow-x: auto;
+  scroll-snap-type: x mandatory; scroll-behavior: smooth; -webkit-overflow-scrolling: touch;
+  padding: 6px 4px 16px; scrollbar-width: none;
+}
+.slider-track::-webkit-scrollbar { display: none; }
+.slider-track > * { flex: 0 0 auto; scroll-snap-align: start; }
+/* the whole slider fades in as one unit, so cards stay visible even off-screen */
+.slider-track .reveal { opacity: 1 !important; transform: none !important; }
+.programs.slider-track > .prog   { flex-basis: clamp(300px, 31%, 372px); }
+.team-grid.slider-track > .tcard { flex-basis: clamp(244px, 27%, 300px); }
+
+.slider-nav {
+  position: absolute; top: calc(50% - 8px); transform: translateY(-50%); z-index: 6;
+  width: 48px; height: 48px; border-radius: 50%;
+  background: var(--card); border: 1px solid var(--line-2); box-shadow: var(--shadow-sm);
+  display: grid; place-items: center; color: var(--ink);
+  transition: opacity .25s var(--ease), box-shadow .2s, transform .15s, background .2s;
+}
+.slider-nav:hover { box-shadow: var(--shadow); background: #fff; }
+.slider-nav:active { transform: translateY(-50%) scale(.94); }
+.slider-nav svg { width: 22px; height: 22px; }
+.slider-nav.prev { left: -12px; }
+.slider-nav.next { right: -12px; }
+.slider-nav[disabled] { opacity: 0; pointer-events: none; }
+@media (max-width: 900px) {
+  .slider-nav { width: 42px; height: 42px; background: rgba(255,255,255,.9); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); }
+  .slider-nav.prev { left: 2px; }
+  .slider-nav.next { right: 2px; }
+  .programs.slider-track > .prog   { flex-basis: min(82vw, 320px); }
+  .team-grid.slider-track > .tcard { flex-basis: min(66vw, 258px); }
+}
+
+/* ============================================================
+   Floating WhatsApp contact
+   ============================================================ */
+.wa-fab {
+  position: fixed; right: clamp(16px, 3vw, 26px); bottom: clamp(16px, 3vw, 26px); z-index: 90;
+  width: 58px; height: 58px; border-radius: 50%; background: #25D366; color: #fff;
+  display: grid; place-items: center;
+  box-shadow: 0 12px 28px -8px rgba(37,211,102,.55), 0 4px 10px rgba(0,0,0,.12);
+  transition: transform .2s var(--ease), box-shadow .2s;
+}
+.wa-fab svg { width: 32px; height: 32px; }
+.wa-fab:hover { transform: translateY(-3px) scale(1.04); box-shadow: 0 18px 34px -8px rgba(37,211,102,.65); }
+.wa-fab::after {
+  content: ""; position: absolute; inset: 0; border-radius: 50%; pointer-events: none;
+  animation: wa-pulse 2.6s ease-out infinite;
+}
+@keyframes wa-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(37,211,102,.45); }
+  70%  { box-shadow: 0 0 0 16px rgba(37,211,102,0); }
+  100% { box-shadow: 0 0 0 0 rgba(37,211,102,0); }
+}
+@media (prefers-reduced-motion: reduce) { .wa-fab::after { animation: none; } }

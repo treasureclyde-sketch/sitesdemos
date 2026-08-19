@@ -210,6 +210,7 @@
       art.appendChild(body);
       grid.appendChild(art);
     });
+    try { document.dispatchEvent(new Event('fs:teachers-rendered')); } catch (e) {}
   }
   function renderDynamic(lang) {
     renderTeachers(lang);
@@ -360,4 +361,50 @@
   }
 
   var y = document.getElementById('year'); if (y) y.textContent = new Date().getFullYear();
+
+  /* ---------- horizontal sliders (groups / teachers): swipe + arrows + gentle autoplay ---------- */
+  function initSliders() {
+    document.querySelectorAll('.slider').forEach(function (s) {
+      var track = s.querySelector('.slider-track');
+      if (!track) return;
+      if (s._sliderReady) { if (s._sliderUpd) s._sliderUpd(); return; } // re-measure only
+      s._sliderReady = 1;
+      var prev = s.querySelector('.slider-nav.prev'), next = s.querySelector('.slider-nav.next');
+      function page() { return Math.max(track.clientWidth * 0.86, 240); }
+      function atStart() { return track.scrollLeft <= 2; }
+      function atEnd() { return track.scrollLeft >= track.scrollWidth - track.clientWidth - 2; }
+      function update() {
+        var scrollable = track.scrollWidth - track.clientWidth > 4;
+        if (prev) prev.disabled = !scrollable || atStart();
+        if (next) next.disabled = !scrollable || atEnd();
+      }
+      if (prev) prev.addEventListener('click', function () { track.scrollBy({ left: -page(), behavior: 'smooth' }); });
+      if (next) next.addEventListener('click', function () { track.scrollBy({ left: page(), behavior: 'smooth' }); });
+      track.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', update);
+      s._sliderUpd = update;
+      update();
+
+      if (reduce) return;
+      /* gentle auto-advance: pauses on hover / touch / manual scroll, only while visible */
+      var paused = false, inView = false, timer = null, resumeT = null;
+      function bump() { paused = true; clearTimeout(resumeT); resumeT = setTimeout(function () { paused = false; }, 4000); }
+      function autoTick() {
+        if (paused || !inView) return;
+        if (atEnd()) track.scrollTo({ left: 0, behavior: 'smooth' });
+        else track.scrollBy({ left: page(), behavior: 'smooth' });
+      }
+      s.addEventListener('mouseenter', function () { paused = true; });
+      s.addEventListener('mouseleave', function () { paused = false; });
+      track.addEventListener('touchstart', bump, { passive: true });
+      track.addEventListener('scroll', bump, { passive: true });
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (es) { es.forEach(function (e) { inView = e.isIntersecting; }); }, { threshold: 0.35 }).observe(s);
+      } else { inView = true; }
+      timer = setInterval(autoTick, 4800);
+    });
+  }
+  initSliders();
+  // teacher cards render asynchronously → re-scan once content is in
+  document.addEventListener('fs:teachers-rendered', initSliders);
 })();
