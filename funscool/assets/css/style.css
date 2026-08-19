@@ -343,9 +343,9 @@ h1, h2, h3, h4 {
 .day-aside .day-pills { margin-top: 16px; }
 .day-photo { margin: 20px 0 0; }
 .day-photo img {
-  width: 100%; aspect-ratio: 1 / 0.9; object-fit: cover; object-position: center 30%;
+  width: 100%; aspect-ratio: 4 / 3.2; object-fit: cover; object-position: center 30%;
   display: block;
-  border-radius: 58% 42% 47% 53% / 55% 52% 48% 45%;
+  border-radius: var(--radius-lg);
   box-shadow: var(--shadow);
 }
 #day { padding-bottom: 26px; }
@@ -362,8 +362,11 @@ h1, h2, h3, h4 {
   filter: drop-shadow(0 18px 40px rgba(139,107,217,.14));
 }
 .clk-hand { transform-box: view-box; transform-origin: 50% 50%; }
-.cd { opacity: .32; transition: opacity .5s, transform .5s; transform-box: fill-box; transform-origin: center; }
+.cd { opacity: .32; transition: opacity .5s, transform .5s; transform-box: fill-box; transform-origin: center;
+  cursor: pointer; stroke: transparent; stroke-width: 6; pointer-events: all; }  /* transparent stroke = bigger click target */
+.cd:hover { opacity: .8; }
 .cd.pulse { opacity: 1; transform: scale(1.6); }
+.dayclock .ev { cursor: pointer; }
 
 .ev {
   position: absolute;
@@ -583,8 +586,8 @@ h1, h2, h3, h4 {
 .joy-intro { max-width: 480px; }
 .joy-photo { display: flex; justify-content: center; }
 .joy-egg {
-  width: 100%; max-width: 380px; aspect-ratio: 4 / 4.5; object-fit: cover; display: block;
-  border-radius: 46% 54% 48% 52% / 58% 42% 60% 40%;
+  width: 100%; max-width: 420px; aspect-ratio: 4 / 3.6; object-fit: cover; display: block;
+  border-radius: var(--radius-lg);
   box-shadow: var(--shadow);
 }
 
@@ -752,10 +755,12 @@ body.intro-lock { overflow: hidden; }
    Horizontal sliders (age groups / teachers) — swipe + arrows
    ============================================================ */
 .slider { position: relative; }
+/* desktop: side rails hold the arrows so they never overlap the cards */
+@media (min-width: 901px) { .slider { padding: 0 62px; } }
 .slider-track {
   display: flex; gap: 22px; overflow-x: auto;
   scroll-snap-type: x mandatory; scroll-behavior: smooth; -webkit-overflow-scrolling: touch;
-  padding: 6px 4px 16px; scrollbar-width: none;
+  scroll-padding-left: 2px; padding: 8px 2px 20px; scrollbar-width: none;
 }
 .slider-track::-webkit-scrollbar { display: none; }
 .slider-track > * { flex: 0 0 auto; scroll-snap-align: start; }
@@ -765,22 +770,22 @@ body.intro-lock { overflow: hidden; }
 .team-grid.slider-track > .tcard { flex-basis: clamp(244px, 27%, 300px); }
 
 .slider-nav {
-  position: absolute; top: calc(50% - 8px); transform: translateY(-50%); z-index: 6;
+  position: absolute; top: calc(50% - 10px); transform: translateY(-50%); z-index: 6;
   width: 48px; height: 48px; border-radius: 50%;
   background: var(--card); border: 1px solid var(--line-2); box-shadow: var(--shadow-sm);
-  display: grid; place-items: center; color: var(--ink);
+  display: grid; place-items: center; color: var(--ink); cursor: pointer;
   transition: opacity .25s var(--ease), box-shadow .2s, transform .15s, background .2s;
 }
 .slider-nav:hover { box-shadow: var(--shadow); background: #fff; }
 .slider-nav:active { transform: translateY(-50%) scale(.94); }
 .slider-nav svg { width: 22px; height: 22px; }
-.slider-nav.prev { left: -12px; }
-.slider-nav.next { right: -12px; }
+.slider-nav.prev { left: 5px; }
+.slider-nav.next { right: 5px; }
 .slider-nav[disabled] { opacity: 0; pointer-events: none; }
 @media (max-width: 900px) {
-  .slider-nav { width: 42px; height: 42px; background: rgba(255,255,255,.9); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); }
-  .slider-nav.prev { left: 2px; }
-  .slider-nav.next { right: 2px; }
+  .slider-nav { width: 40px; height: 40px; background: rgba(255,255,255,.92); -webkit-backdrop-filter: blur(5px); backdrop-filter: blur(5px); box-shadow: var(--shadow); }
+  .slider-nav.prev { left: 3px; }
+  .slider-nav.next { right: 3px; }
   .programs.slider-track > .prog   { flex-basis: min(82vw, 320px); }
   .team-grid.slider-track > .tcard { flex-basis: min(66vw, 258px); }
 }
@@ -857,7 +862,7 @@ body.modal-open { overflow: hidden; }
    ============================================================ */
 .hero-photo { display: none; }
 .hero-media .ring { display: none; }                 /* unify to one soft-rounded shape */
-.hero-media .blob { border-radius: 30px; aspect-ratio: 4 / 3.1; }
+.hero-media .blob { border-radius: var(--radius-lg); aspect-ratio: 4 / 3.1; }
 @media (min-width: 861px) {
   .hero { padding-bottom: 46px; }
   .hero-photo { display: block; position: absolute; top: 0; right: 0; bottom: 0; width: 60%; z-index: 0; }

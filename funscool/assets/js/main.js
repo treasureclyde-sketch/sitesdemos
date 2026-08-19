@@ -282,36 +282,26 @@
 
     var START = 210;     // 07:00 — the hand points at the 7 (morning arrival)
     var STEP = 1650;     // ms each event stays lit — brisk but readable
-    var inView = false, timer = null, i = 0, primed = false;
+    var inView = false, timer = null, resumeT = null, pos = 0, primed = false;
 
     function setHand(deg) { if (hand) hand.style.transform = 'rotate(' + deg + 'deg)'; }
-
-    // The hand arrives → the matching card appears and its dot pulses; the hand
-    // moves on → that card fades and the next one shows. One activity at a time,
-    // on both desktop and mobile (on phones the card sits in a slot below the clock).
-    function tick() {
-      var idx = ((i % n) + n) % n;
+    function render() {
+      var idx = ((pos % n) + n) % n;
       items.forEach(function (el, j) { el.classList.toggle('on', j === idx); });
       dots.forEach(function (d, j) { d.classList.toggle('pulse', j === idx); });
-      setHand(START + i * 30);   // i only grows → the hand always advances clockwise
-      i++;
+      setHand(START + pos * 30);
     }
+    function tick() { pos++; render(); }
     function stop() { if (timer) { clearInterval(timer); timer = null; } }
-    function loop() {
-      if (timer) return;
-      clock.classList.remove('is-static');
-      if (!primed) {
-        // place the hand at 07:00 with no transition, so it never whips around
-        if (hand) { hand.style.transition = 'none'; }
-        tick();
-        if (hand) {
-          void hand.getBoundingClientRect();
-          hand.style.transition = 'transform .55s cubic-bezier(.45,.05,.35,1)';
-        }
-        primed = true;
-      }
-      timer = setInterval(tick, STEP);
+    function startInterval() { if (!timer) timer = setInterval(tick, STEP); }
+    function prime() {
+      if (primed) return;
+      if (hand) { hand.style.transition = 'none'; }
+      render();
+      if (hand) { void hand.getBoundingClientRect(); hand.style.transition = 'transform .55s cubic-bezier(.45,.05,.35,1)'; }
+      primed = true;
     }
+    function loop() { clock.classList.remove('is-static'); prime(); startInterval(); }
 
     // fully-static fallback (reduced motion): list every step, no ticking
     function showAll() {
@@ -323,9 +313,24 @@
       setHand(START);
     }
 
+    // click a dot (or card) → the hand sweeps there by the shortest path
+    function goTo(j) {
+      if (reduce) return;
+      clock.classList.remove('is-static');
+      prime();
+      var idx = ((pos % n) + n) % n;
+      var d = (((j - idx) % n) + n) % n;
+      if (d > n / 2) d -= n;              // shortest direction (may go back a little)
+      pos += d; render();
+      stop(); clearTimeout(resumeT);      // hold on the chosen step, then resume drifting
+      if (inView) resumeT = setTimeout(startInterval, 5000);
+    }
+    dots.forEach(function (d, j) { d.addEventListener('click', function () { goTo(j); }); });
+    items.forEach(function (el, j) { el.addEventListener('click', function () { goTo(j); }); });
+
     function apply() {
       if (reduce) { showAll(); return; }
-      if (inView) loop(); else stop();
+      if (inView) loop(); else { stop(); clearTimeout(resumeT); }
     }
 
     if ('IntersectionObserver' in window) {
