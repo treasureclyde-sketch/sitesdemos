@@ -877,3 +877,7 @@ body.modal-open { overflow: hidden; }
   .hero-media { display: none; }
   .hero .doodle { z-index: 2; }                        /* keep left-side doodles above the photo */
 }
+
+/* playground photo: cropped & sized so it balances the text beside it */
+.play-split .split-media { align-self: center; aspect-ratio: 16 / 10; min-height: 0; }
+@media (max-width: 860px) { .play-split .split-media { aspect-ratio: 16 / 9; } }
