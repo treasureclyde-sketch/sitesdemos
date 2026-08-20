@@ -7,9 +7,8 @@
   <title>Funscool — редактирование сайта</title>
 </head>
 <body>
-  <!-- Netlify Identity: login/invite handling for non-technical editors -->
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-  <!-- Decap CMS (the admin UI). Reads config.yml from this same folder. -->
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <!-- Sveltia CMS — современная замена Decap. Читает config.yml из этой же папки.
+       Вход через GitHub (см. ADMIN-SETUP.md). Ничего больше подключать не нужно. -->
+  <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js" type="module"></script>
 </body>
 </html>

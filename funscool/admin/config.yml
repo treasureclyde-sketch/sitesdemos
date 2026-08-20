@@ -1,13 +1,16 @@
-# Decap CMS configuration for the Funscool site.
-# Editors log in by email (Netlify Identity) — no GitHub account or code needed.
-# Saving a change commits to the repo; GitHub/Netlify then rebuilds the live site.
+# Sveltia CMS configuration for the Funscool site.
+# The editor logs in with GitHub (one click); after that they only see simple
+# forms — photo/name/text — never any code. Saving commits to the repo, then
+# GitHub Pages / Netlify rebuild the live site automatically (~1 min).
+#
+# Auth goes through a tiny free Cloudflare Worker (sveltia-cms-auth).
+# Put its URL in `base_url` below — see ADMIN-SETUP.md, Part 1.
 
 backend:
-  name: git-gateway
-  branch: claude/funscool         # the branch the live site is built from
-
-# Show a "save draft → publish" workflow so nothing goes live by accident
-publish_mode: editorial_workflow
+  name: github
+  repo: treasureclyde-sketch/sitesdemos   # owner/repo
+  branch: claude/funscool                 # the branch the live site is built from
+  base_url: https://REPLACE-WITH-YOUR-WORKER.workers.dev   # ← sveltia-cms-auth worker URL
 
 # Where uploaded images are committed (path inside the git repo) …
 media_folder: "funscool/assets/img/teachers"
