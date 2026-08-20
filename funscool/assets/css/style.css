@@ -722,7 +722,10 @@ body.intro-lock { overflow: hidden; }
 @media (max-width: 860px) {
   .doodle { display: none; }
   .hero-grid, .sreda-grid, .day-grid, .cta-wrap { grid-template-columns: 1fr; }
-  .hero-media { max-width: 460px; margin: 0 auto; }
+  /* mobile: big photo sits ABOVE the text */
+  .hero-grid { gap: 24px; }
+  .hero-media { order: -1; max-width: none; margin: 0; }
+  .hero-media .blob { width: 100%; aspect-ratio: 4 / 3; }
   .split, .split.rev { grid-template-columns: 1fr; }
   .split-media { min-height: 240px; order: -1; }
   .cta-wrap { text-align: center; }
@@ -794,9 +797,9 @@ body.intro-lock { overflow: hidden; }
   .slider-nav { width: 40px; height: 40px; background: rgba(255,255,255,.92); -webkit-backdrop-filter: blur(5px); backdrop-filter: blur(5px); box-shadow: var(--shadow); }
   .slider-nav.prev { left: 3px; }
   .slider-nav.next { right: 3px; }
-  /* mobile: one card per view, a sliver of the next peeks to hint the swipe */
-  .programs.slider-track > .prog   { flex-basis: min(87vw, 430px); }
-  .team-grid.slider-track > .tcard { flex-basis: min(80vw, 360px); }
+  /* mobile: one card per view, a small consistent sliver of the next peeks */
+  .programs.slider-track > .prog   { flex-basis: min(88vw, 420px); }
+  .team-grid.slider-track > .tcard { flex-basis: min(88vw, 420px); }
 }
 
 /* ---- desktop: the big card is laid out horizontally (image ↔ text) ---- */
