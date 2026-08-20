@@ -47,7 +47,7 @@
   --shadow:    0 22px 50px -26px rgba(90, 66, 30, 0.30);
   --shadow-lg: 0 34px 70px -30px rgba(90, 66, 30, 0.34);
 
-  --maxw: 1200px;
+  --maxw: 1280px;
   --nav-h: 84px;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -151,11 +151,12 @@ h1, h2, h3, h4 {
   letter-spacing: -0.02em; display: inline-block; position: relative; line-height: 1;
   padding-bottom: .36em; /* room for the smile tucked under the "oo" */
 }
-/* the two o's become the eyes; the smile sits right under them (like the original mark) */
-.brand .name .oo { position: relative; color: var(--yellow); }
+/* the two o's are the eyes (the second one bigger); the yellow smile sits under them */
+.brand .name .oo { position: relative; color: inherit; }
+.brand .name .o2 { font-size: 1.24em; letter-spacing: -.02em; }
 .brand .name .smile {
-  position: absolute; left: 50%; bottom: -.12em; transform: translateX(-50%);
-  width: .82em; height: auto; color: var(--yellow);
+  position: absolute; left: 50%; bottom: -.14em; transform: translateX(-50%);
+  width: .95em; height: auto; color: var(--yellow);
 }
 .brand .sub { font-size: 9.5px; font-weight: 700; color: var(--muted); letter-spacing: .05em; margin-top: 2px; }
 .brand-fluffy { height: 42px; width: auto; display: block; }
@@ -756,14 +757,23 @@ body.intro-lock { overflow: hidden; }
    ============================================================ */
 .slider { position: relative; }
 /* desktop: side rails hold the arrows so they never overlap the cards */
-@media (min-width: 901px) { .slider { padding: 0 62px; } }
+@media (min-width: 901px) {
+  .slider { padding: 0 62px; }
+  /* soften the track edges so a half-visible card fades out instead of a hard cut */
+  .slider-track {
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 32px, #000 calc(100% - 32px), transparent 100%);
+    mask-image: linear-gradient(90deg, transparent 0, #000 32px, #000 calc(100% - 32px), transparent 100%);
+  }
+}
 .slider-track {
   display: flex; gap: 22px; overflow-x: auto;
   scroll-snap-type: x mandatory; scroll-behavior: smooth; -webkit-overflow-scrolling: touch;
-  scroll-padding-left: 2px; padding: 8px 2px 20px; scrollbar-width: none;
+  scroll-padding-left: 2px;
+  /* generous vertical padding + negative margin: shadows & hover-lift never clip */
+  padding: 22px 2px 30px; margin: -14px 0 -16px; scrollbar-width: none;
 }
 .slider-track::-webkit-scrollbar { display: none; }
-.slider-track > * { flex: 0 0 auto; scroll-snap-align: start; }
+.slider-track > * { flex: 0 0 auto; scroll-snap-align: start; scroll-snap-stop: always; }
 /* the whole slider fades in as one unit, so cards stay visible even off-screen */
 .slider-track .reveal { opacity: 1 !important; transform: none !important; }
 .programs.slider-track > .prog   { flex-basis: clamp(300px, 31%, 372px); }
@@ -881,3 +891,6 @@ body.modal-open { overflow: hidden; }
 /* playground photo: cropped & sized so it balances the text beside it */
 .play-split .split-media { align-self: center; aspect-ratio: 16 / 10; min-height: 0; }
 @media (max-width: 860px) { .play-split .split-media { aspect-ratio: 16 / 9; } }
+
+/* doodles removed per request — hide all hand-drawn PNG doodles everywhere */
+.doodle, .prog-doodle, img.doodle-art { display: none !important; }

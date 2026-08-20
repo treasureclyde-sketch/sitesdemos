@@ -441,16 +441,30 @@
       if (s._sliderReady) { if (s._sliderUpd) s._sliderUpd(); return; } // re-measure only
       s._sliderReady = 1;
       var prev = s.querySelector('.slider-nav.prev'), next = s.querySelector('.slider-nav.next');
-      function page() { return Math.max(track.clientWidth * 0.86, 240); }
+      function cardStep() {
+        var first = track.children[0];
+        var gap = parseFloat(getComputedStyle(track).columnGap) || 22;
+        return first ? first.getBoundingClientRect().width + gap : 300;
+      }
+      function maxScroll() { return track.scrollWidth - track.clientWidth; }
+      // move a whole page of cards, then round to the nearest card boundary so
+      // the left edge is always flush (no half-cut cards)
+      function go(dir) {
+        var cw = cardStep();
+        var per = Math.max(1, Math.floor((track.clientWidth + 4) / cw));
+        var target = Math.round((track.scrollLeft + dir * per * cw) / cw) * cw;
+        target = Math.max(0, Math.min(target, maxScroll()));
+        track.scrollTo({ left: target, behavior: 'smooth' });
+      }
       function atStart() { return track.scrollLeft <= 2; }
-      function atEnd() { return track.scrollLeft >= track.scrollWidth - track.clientWidth - 2; }
+      function atEnd() { return track.scrollLeft >= maxScroll() - 2; }
       function update() {
-        var scrollable = track.scrollWidth - track.clientWidth > 4;
+        var scrollable = maxScroll() > 4;
         if (prev) prev.disabled = !scrollable || atStart();
         if (next) next.disabled = !scrollable || atEnd();
       }
-      if (prev) prev.addEventListener('click', function () { track.scrollBy({ left: -page(), behavior: 'smooth' }); });
-      if (next) next.addEventListener('click', function () { track.scrollBy({ left: page(), behavior: 'smooth' }); });
+      if (prev) prev.addEventListener('click', function () { go(-1); });
+      if (next) next.addEventListener('click', function () { go(1); });
       track.addEventListener('scroll', update, { passive: true });
       window.addEventListener('resize', update);
       s._sliderUpd = update;
@@ -463,7 +477,7 @@
       function autoTick() {
         if (paused || !inView) return;
         if (atEnd()) track.scrollTo({ left: 0, behavior: 'smooth' });
-        else track.scrollBy({ left: page(), behavior: 'smooth' });
+        else go(1);
       }
       s.addEventListener('mouseenter', function () { paused = true; });
       s.addEventListener('mouseleave', function () { paused = false; });
