@@ -783,18 +783,24 @@ body.intro-lock { overflow: hidden; }
 .slider-nav {
   position: absolute; top: calc(50% - 10px); transform: translateY(-50%); z-index: 6;
   width: 48px; height: 48px; border-radius: 50%;
-  background: var(--card); border: 1px solid var(--line-2); box-shadow: var(--shadow-sm);
+  /* liquid glass: translucent so it never blocks the card behind it */
+  background: rgba(255,255,255,.28);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(255,255,255,.55);
+  box-shadow: 0 8px 26px -12px rgba(44,39,35,.35), inset 0 1px 0 rgba(255,255,255,.7);
   display: grid; place-items: center; color: var(--ink); cursor: pointer;
   transition: opacity .25s var(--ease), box-shadow .2s, transform .15s, background .2s;
 }
-.slider-nav:hover { box-shadow: var(--shadow); background: #fff; }
+.slider-nav svg { filter: drop-shadow(0 1px 1.5px rgba(255,255,255,.65)); }
+.slider-nav:hover { background: rgba(255,255,255,.42); box-shadow: 0 10px 30px -12px rgba(44,39,35,.42), inset 0 1px 0 rgba(255,255,255,.85); }
 .slider-nav:active { transform: translateY(-50%) scale(.94); }
 .slider-nav svg { width: 22px; height: 22px; }
 .slider-nav.prev { left: 5px; }
 .slider-nav.next { right: 5px; }
 .slider-nav[disabled] { opacity: 0; pointer-events: none; }
 @media (max-width: 900px) {
-  .slider-nav { width: 40px; height: 40px; background: rgba(255,255,255,.92); -webkit-backdrop-filter: blur(5px); backdrop-filter: blur(5px); box-shadow: var(--shadow); }
+  .slider-nav { width: 40px; height: 40px; }
   .slider-nav.prev { left: 3px; }
   .slider-nav.next { right: 3px; }
   /* mobile: one card per view, a small consistent sliver of the next peeks */
@@ -891,6 +897,16 @@ body.modal-open { overflow: hidden; }
 .modal-card h3 { font-family: 'Nunito'; font-weight: 800; font-size: 22px; color: var(--ink); margin: 0 40px 6px 0; }
 .modal-sub { font-size: 14.5px; color: var(--muted); margin: 0 0 20px; }
 .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+/* group takes the whole row length; the age is auto-written beside it (no box) */
+.field-row.group-row { grid-template-columns: 1fr 104px; align-items: end; gap: 12px; }
+.field input.age-auto {
+  width: 100%; border-color: transparent; background: transparent;
+  text-align: left; font-weight: 800; font-size: 17px; color: var(--ink);
+  padding-left: 4px; padding-right: 4px; cursor: default;
+}
+.field input.age-auto::placeholder { color: var(--muted-2); font-weight: 700; }
+.field input.age-auto:focus { border-color: transparent; background: transparent; }
+.group-row .field:last-child .field-label { margin-left: 4px; }
 .field-label { display: block; font-size: 12.5px; font-weight: 800; color: var(--muted); margin: 0 0 5px 2px; }
 .phone-field { display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: stretch; }
 .phone-field #phoneCC { width: auto; padding-left: 12px; padding-right: 8px; font-weight: 700; }

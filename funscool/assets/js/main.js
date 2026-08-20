@@ -365,10 +365,10 @@
     modal.querySelectorAll('[data-close]').forEach(function (el) { el.addEventListener('click', close); });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && modal.classList.contains('open')) close(); });
 
-    /* group → age autofill */
+    /* pick a group → its age range fills in automatically (read-only) */
     var groupAge = { 'Беби-Фан': '1,5–2,5', 'Энерджи-Фан': '2,5–3,5', 'Дискавери-Фан': '3,5–4,5', 'Креатив-Фан': '4,5–6', 'Прескул': '6–7' };
-    var grp = document.getElementById('groupSelect'), age = document.getElementById('ageSelect');
-    if (grp && age) grp.addEventListener('change', function () { if (groupAge[grp.value] && !age.value) age.value = groupAge[grp.value]; });
+    var grp = document.getElementById('groupSelect'), age = document.getElementById('ageAuto');
+    if (grp && age) grp.addEventListener('change', function () { age.value = groupAge[grp.value] || ''; });
 
     /* phone: country selector + length-aware mask */
     var cc = document.getElementById('phoneCC'), pin = document.getElementById('phoneInput'), pfull = document.getElementById('phoneFull');

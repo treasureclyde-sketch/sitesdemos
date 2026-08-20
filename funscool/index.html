@@ -548,7 +548,7 @@
     <form id="leadForm" name="lead" method="POST" action="/" data-netlify="true" netlify-honeypot="bot-field">
       <input type="hidden" name="form-name" value="lead">
       <p class="hp" aria-hidden="true"><label>Оставьте это поле пустым <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
-      <div class="field-row">
+      <div class="field-row group-row">
         <div class="field">
           <label class="field-label" for="groupSelect" data-i18n="form_group">Группа</label>
           <select name="group" id="groupSelect">
@@ -557,11 +557,8 @@
           </select>
         </div>
         <div class="field">
-          <label class="field-label" for="ageSelect" data-i18n="form_age_lbl">Возраст</label>
-          <select name="age" id="ageSelect">
-            <option value="" data-i18n="form_age_ph">Возраст</option>
-            <option>1,5–2,5</option><option>2,5–3,5</option><option>3,5–4,5</option><option>4,5–6</option><option>6–7</option>
-          </select>
+          <label class="field-label" for="ageAuto" data-i18n="form_age_lbl">Возраст</label>
+          <input name="age" id="ageAuto" class="age-auto" type="text" readonly tabindex="-1" placeholder="—" aria-live="polite">
         </div>
       </div>
       <div class="field"><input name="child" type="text" data-i18n-ph="form_child" placeholder="Имя ребёнка"></div>
