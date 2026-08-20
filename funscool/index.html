@@ -548,17 +548,15 @@
     <form id="leadForm" name="lead" method="POST" action="/" data-netlify="true" netlify-honeypot="bot-field">
       <input type="hidden" name="form-name" value="lead">
       <p class="hp" aria-hidden="true"><label>Оставьте это поле пустым <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
-      <div class="field-row group-row">
-        <div class="field">
-          <label class="field-label" for="groupSelect" data-i18n="form_group">Группа</label>
+      <div class="field group-field">
+        <label class="field-label" for="groupSelect" data-i18n="form_group">Группа</label>
+        <div class="group-control">
           <select name="group" id="groupSelect">
             <option value="" data-i18n="form_group_ph">Выберите группу</option>
             <option>Беби-Фан</option><option>Энерджи-Фан</option><option>Дискавери-Фан</option><option>Креатив-Фан</option><option>Прескул</option>
           </select>
-        </div>
-        <div class="field">
-          <label class="field-label" for="ageAuto" data-i18n="form_age_lbl">Возраст</label>
-          <input name="age" id="ageAuto" class="age-auto" type="text" readonly tabindex="-1" placeholder="—" aria-live="polite">
+          <span class="age-inline" id="ageAuto" aria-hidden="true"></span>
+          <input type="hidden" name="age" id="ageValue">
         </div>
       </div>
       <div class="field"><input name="child" type="text" data-i18n-ph="form_child" placeholder="Имя ребёнка"></div>
