@@ -545,15 +545,21 @@
     <button class="modal-x" type="button" data-close aria-label="Закрыть"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
     <h3 id="bookTitle" data-i18n="form_card_title">Записаться на экскурсию</h3>
     <p class="modal-sub" data-i18n="form_card_sub">Заполните форму — свяжемся с вами в ближайшее время.</p>
-    <form id="leadForm" name="lead" method="POST" action="/" data-netlify="true" netlify-honeypot="bot-field">
-      <input type="hidden" name="form-name" value="lead">
-      <p class="hp" aria-hidden="true"><label>Оставьте это поле пустым <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+    <form id="leadForm" name="lead" method="POST" action="https://formsubmit.co/ajax/highfashionking@gmail.com">
+      <input type="hidden" name="_subject" value="Новая заявка — Funscool">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="false">
+      <p class="hp" aria-hidden="true"><label>Оставьте это поле пустым <input name="_honey" tabindex="-1" autocomplete="off"></label></p>
       <div class="field group-field">
         <label class="field-label" for="groupSelect" data-i18n="form_group">Группа</label>
         <div class="group-control">
           <select name="group" id="groupSelect">
             <option value="" data-i18n="form_group_ph">Выберите группу</option>
-            <option>Беби-Фан</option><option>Энерджи-Фан</option><option>Дискавери-Фан</option><option>Креатив-Фан</option><option>Прескул</option>
+            <option value="Беби-Фан" data-i18n="p1_name">Беби-Фан</option>
+            <option value="Энерджи-Фан" data-i18n="p2_name">Энерджи-Фан</option>
+            <option value="Дискавери-Фан" data-i18n="p3_name">Дискавери-Фан</option>
+            <option value="Креатив-Фан" data-i18n="p4_name">Креатив-Фан</option>
+            <option value="Прескул" data-i18n="p5_name">Прескул</option>
           </select>
           <span class="age-inline" id="ageAuto" aria-hidden="true"></span>
           <input type="hidden" name="age" id="ageValue">

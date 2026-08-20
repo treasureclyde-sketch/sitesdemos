@@ -401,7 +401,7 @@
     if (pin) pin.addEventListener('input', sync);
     if (cc) cc.addEventListener('change', function () { if (pin) { pin.placeholder = ccOpt().getAttribute('data-ph') || ''; sync(); } });
 
-    /* submit → Netlify Forms (emails hello@funscool.rs); WhatsApp fallback if it can't send */
+    /* submit → FormSubmit.co (emails the address in the form action); WhatsApp fallback if it can't send */
     var form = document.getElementById('leadForm');
     if (!form) return;
     form.querySelectorAll('input, select').forEach(function (i) { i.addEventListener('input', function () { this.style.borderColor = ''; }); });
@@ -418,13 +418,13 @@
       var wa = document.getElementById('waFallback');
       var btn = form.querySelector('button[type="submit"]');
       if (btn) btn.disabled = true;
-      fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams(new FormData(form)).toString() })
-        .then(function (r) { if (!r.ok) throw new Error('http ' + r.status); if (ok) ok.classList.add('show'); form.reset(); if (pin) pin.value = ''; })
+      fetch(form.action, { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Accept': 'application/json' }, body: new URLSearchParams(new FormData(form)).toString() })
+        .then(function (r) { if (!r.ok) throw new Error('http ' + r.status); if (ok) ok.classList.add('show'); form.reset(); if (pin) pin.value = ''; if (ageSpan) ageSpan.textContent = ''; })
         .catch(function () {
           var val = function (n) { var el = form.querySelector('[name="' + n + '"]'); return el ? el.value : ''; };
           var text = 'Здравствуйте! Хочу записаться на экскурсию в Funscool.\n'
             + (val('group') ? 'Группа: ' + val('group') + '\n' : '')
-            + (age && age.value ? 'Возраст: ' + age.value + '\n' : '')
+            + (val('age') ? 'Возраст: ' + val('age') + '\n' : '')
             + (val('child') ? 'Ребёнок: ' + val('child') + '\n' : '')
             + (val('parent') ? 'Родитель: ' + val('parent') + '\n' : '')
             + (pfull && pfull.value ? 'Телефон: ' + pfull.value : '');
