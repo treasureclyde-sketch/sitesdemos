@@ -158,10 +158,10 @@ h1, h2, h3, h4 {
 .brand .name .oo { position: relative; color: inherit; }
 .brand .name .o2 { font-size: 1.24em; letter-spacing: -.02em; }
 .brand .name .smile {
-  position: absolute; left: 50%; bottom: -.06em; transform: translateX(-50%);
+  position: absolute; left: 50%; bottom: -.14em; transform: translateX(-50%);
   width: 1.12em; height: auto; color: var(--yellow);
 }
-.brand .sub { font-size: 9.5px; font-weight: 700; color: var(--muted); letter-spacing: .05em; margin-top: -1px; }
+.brand .sub { font-size: 9.5px; font-weight: 700; color: var(--muted); letter-spacing: .05em; margin-top: -4px; }
 .brand-fluffy { height: 42px; width: auto; display: block; }
 .brand-has-fluffy .sub { margin-top: 3px; margin-left: 3px; }
 
