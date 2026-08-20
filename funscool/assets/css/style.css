@@ -158,8 +158,8 @@ h1, h2, h3, h4 {
 .brand .name .oo { position: relative; color: inherit; }
 .brand .name .o2 { font-size: 1.24em; letter-spacing: -.02em; }
 .brand .name .smile {
-  position: absolute; left: 50%; bottom: -.14em; transform: translateX(-50%);
-  width: .95em; height: auto; color: var(--yellow);
+  position: absolute; left: 50%; bottom: -.06em; transform: translateX(-50%);
+  width: 1.12em; height: auto; color: var(--yellow);
 }
 .brand .sub { font-size: 9.5px; font-weight: 700; color: var(--muted); letter-spacing: .05em; margin-top: -1px; }
 .brand-fluffy { height: 42px; width: auto; display: block; }
@@ -197,8 +197,8 @@ h1, h2, h3, h4 {
    ============================================================ */
 .hero { position: relative; padding-top: calc(var(--nav-h) + 30px); overflow: hidden; }
 .hero-grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: 48px; align-items: center; }
-.hero h1 { font-size: clamp(40px, 6.6vw, 76px); letter-spacing: -0.02em; }
-.hero-lead { font-size: clamp(19px, 2.4vw, 25px); font-weight: 500; color: var(--muted); max-width: 500px; margin: 18px 0 26px; }
+.hero h1 { font-size: clamp(40px, 6.6vw, 76px); letter-spacing: -0.02em; line-height: 1.03; }
+.hero-lead { font-size: clamp(19px, 2.4vw, 25px); font-weight: 500; color: var(--muted); max-width: 500px; margin: 14px 0 22px; }
 .hero-cta { display: flex; flex-wrap: wrap; gap: 14px; }
 .hero-media { position: relative; }
 .hero-media .blob {
@@ -216,14 +216,14 @@ h1, h2, h3, h4 {
 
 /* feature strip under hero */
 .feature-strip {
-  margin-top: clamp(14px, 2.2vw, 24px);
+  margin-top: clamp(12px, 1.6vw, 18px);
   position: relative; z-index: 1;
   background: var(--card); border: 1px solid var(--line); border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
   display: grid; grid-template-columns: repeat(4, 1fr);
   overflow: hidden;
 }
-.feat { display: flex; gap: 14px; padding: 26px 24px; align-items: flex-start; border-right: 1px solid var(--line); }
+.feat { display: flex; gap: 14px; padding: 20px 22px; align-items: flex-start; border-right: 1px solid var(--line); }
 .feat:last-child { border-right: none; }
 .feat .ic-wrap { width: 52px; height: 52px; border-radius: 50%; flex-shrink: 0; display: grid; place-items: center; }
 .feat .ic-wrap svg { width: 24px; height: 24px; }
@@ -231,10 +231,10 @@ h1, h2, h3, h4 {
 .feat p { margin: 0; font-size: 14.5px; color: var(--muted); line-height: 1.4; }
 
 /* rating + address band */
-.info-band { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 18px; }
-.info-pill { display: flex; align-items: center; gap: 12px; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 22px; box-shadow: var(--shadow-sm); flex: 1; min-width: 260px; }
+.info-band { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 14px; }
+.info-pill { display: flex; align-items: center; gap: 12px; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 18px; box-shadow: var(--shadow-sm); flex: 1; min-width: 260px; }
 .info-pill .pin { width: 22px; height: 22px; color: var(--coral); flex-shrink: 0; }
-.info-pill b { font-family: 'Nunito'; font-weight: 800; color: var(--ink); display: block; font-size: 16px; }
+.info-pill b { font-family: 'Nunito'; font-weight: 800; color: var(--ink); display: block; font-size: 15.5px; line-height: 1.25; }
 .info-pill span { font-size: 13.5px; color: var(--muted); }
 .info-pill .stars { display: block; color: var(--yellow); letter-spacing: 2px; font-size: 16px; margin-bottom: 1px; }
 .rating-num { font-family: 'Lora'; font-size: 34px; font-weight: 700; color: var(--ink); line-height: 1; }
@@ -907,7 +907,7 @@ body.modal-open { overflow: hidden; }
 .hero-media .ring { display: none; }                 /* unify to one soft-rounded shape */
 .hero-media .blob { border-radius: var(--radius-lg); aspect-ratio: 4 / 3.1; }
 @media (min-width: 861px) {
-  .hero { padding-bottom: 34px; }
+  .hero { padding-top: calc(var(--nav-h) + 14px); padding-bottom: 30px; }
   /* big image bleeds the full hero height; strong cream gradient keeps the text side solid */
   .hero-photo { display: block; position: absolute; top: 0; right: 0; bottom: 0; width: 60%; z-index: 0; }
   .hero-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 42% center; }
@@ -919,7 +919,7 @@ body.modal-open { overflow: hidden; }
   }
   .hero .container { position: relative; z-index: 1; }
   /* the feature strip is an opaque card that overlaps the lower part of the photo */
-  .hero-grid { grid-template-columns: 1fr; align-items: start; min-height: 44vh; }
+  .hero-grid { grid-template-columns: 1fr; align-items: start; min-height: 38vh; }
   .hero-inner { max-width: 560px; align-self: start; margin-left: clamp(-28px, -1.4vw, -8px); }
   .hero-media { display: none; }
   .hero .doodle { z-index: 2; }                        /* keep left-side doodles above the photo */
