@@ -551,23 +551,33 @@
       <input type="hidden" name="_subject" value="Новая заявка — Funscool">
       <input type="hidden" name="_template" value="table">
       <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="Дети" id="childrenSummary">
+      <input type="hidden" name="_replyto" id="replyTo">
       <p class="hp" aria-hidden="true"><label>Оставьте это поле пустым <input name="_honey" tabindex="-1" autocomplete="off"></label></p>
-      <div class="field group-field">
-        <label class="field-label" for="groupSelect" data-i18n="form_group">Группа</label>
-        <div class="group-control">
-          <select name="group" id="groupSelect">
-            <option value="" data-i18n="form_group_ph">Выберите группу</option>
-            <option value="Беби-Фан" data-i18n="p1_name">Беби-Фан</option>
-            <option value="Энерджи-Фан" data-i18n="p2_name">Энерджи-Фан</option>
-            <option value="Дискавери-Фан" data-i18n="p3_name">Дискавери-Фан</option>
-            <option value="Креатив-Фан" data-i18n="p4_name">Креатив-Фан</option>
-            <option value="Прескул" data-i18n="p5_name">Прескул</option>
-          </select>
-          <span class="age-inline" id="ageAuto" aria-hidden="true"></span>
-          <input type="hidden" name="age" id="ageValue">
+
+      <!-- children: one block per child, each with its own group -->
+      <div id="childList">
+        <div class="child-row">
+          <div class="field"><input type="text" class="c-name" data-i18n-ph="form_child" placeholder="Имя ребёнка"></div>
+          <div class="field child-group">
+            <select class="c-group" aria-label="Группа">
+              <option value="" data-i18n="form_group_ph">Выберите группу</option>
+              <option value="Беби-Фан" data-i18n="p1_name">Беби-Фан</option>
+              <option value="Энерджи-Фан" data-i18n="p2_name">Энерджи-Фан</option>
+              <option value="Дискавери-Фан" data-i18n="p3_name">Дискавери-Фан</option>
+              <option value="Креатив-Фан" data-i18n="p4_name">Креатив-Фан</option>
+              <option value="Прескул" data-i18n="p5_name">Прескул</option>
+            </select>
+            <span class="c-age" aria-hidden="true"></span>
+          </div>
+          <button type="button" class="child-remove" aria-label="Убрать ребёнка" hidden>&times;</button>
         </div>
       </div>
-      <div class="field"><input name="child" type="text" data-i18n-ph="form_child" placeholder="Имя ребёнка"></div>
+      <button type="button" id="addChild" class="add-child">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        <span data-i18n="form_add_child">Добавить ребёнка</span>
+      </button>
+
       <div class="field"><input name="parent" type="text" data-i18n-ph="form_name" placeholder="Имя родителя" autocomplete="name"></div>
       <div class="field phone-field">
         <select id="phoneCC" aria-label="Код страны">
@@ -577,6 +587,8 @@
         <input id="phoneInput" type="tel" inputmode="tel" placeholder="(999) 123-45-67" autocomplete="tel">
         <input type="hidden" name="phone" id="phoneFull">
       </div>
+      <div class="field"><input name="email" id="emailInput" type="email" data-i18n-ph="form_email" placeholder="E-mail" autocomplete="email"></div>
+      <p class="contact-hint" data-i18n="form_contact_hint">Оставьте телефон или e-mail — как вам удобнее.</p>
       <button class="btn btn-yellow btn-lg" type="submit" data-i18n="form_submit">Получить информацию</button>
       <div class="form-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg><span data-i18n="form_privacy">Мы ценим вашу конфиденциальность и не передаём данные третьим лицам.</span></div>
       <div class="form-success" id="formSuccess" data-i18n="form_ok">Спасибо! Заявка принята — мы свяжемся с вами в ближайшее время.</div>

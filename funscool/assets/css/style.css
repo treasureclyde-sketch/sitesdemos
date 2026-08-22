@@ -916,20 +916,36 @@ body.modal-open { overflow: hidden; }
 .modal-card h3 { font-family: 'Nunito'; font-weight: 800; font-size: 22px; color: var(--ink); margin: 0 40px 6px 0; }
 .modal-sub { font-size: 14.5px; color: var(--muted); margin: 0 0 20px; }
 .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-/* one big field: group name (black, the accent) on the left, age auto-written
-   (muted grey, secondary) on the right — no separate "Возраст" box */
-.group-control { position: relative; }
-.group-control select {
-  padding-right: 116px;
+/* per-child rows: name over its own group (full width so long names fit); age auto-written by the group */
+.child-row { position: relative; display: grid; grid-template-columns: 1fr; gap: 9px; margin-bottom: 18px; }
+.child-group { position: relative; }
+.child-group select.c-group {
+  padding-right: 88px;
   -webkit-appearance: none; -moz-appearance: none; appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23A79B8C' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
-  background-repeat: no-repeat; background-position: right 16px center;
+  background-repeat: no-repeat; background-position: right 13px center;
 }
-.age-inline {
-  position: absolute; right: 46px; top: 50%; transform: translateY(-50%);
-  color: var(--muted); font-weight: 700; font-size: 16px; letter-spacing: .01em;
-  pointer-events: none; white-space: nowrap;
+.c-age {
+  position: absolute; right: 38px; top: 50%; transform: translateY(-50%);
+  color: var(--muted); font-weight: 700; font-size: 14px; pointer-events: none; white-space: nowrap;
 }
+.child-remove {
+  position: absolute; top: -7px; right: -7px; width: 24px; height: 24px; border-radius: 50%;
+  background: var(--card); border: 1px solid var(--line-2); color: var(--muted);
+  display: grid; place-items: center; font-size: 17px; line-height: 1; box-shadow: var(--shadow-sm); z-index: 2;
+  transition: color .2s, border-color .2s;
+}
+.child-remove:hover { color: var(--coral); border-color: var(--coral); }
+.child-remove[hidden] { display: none; }
+.add-child {
+  display: inline-flex; align-items: center; gap: 7px; margin: 0 0 16px;
+  background: none; border: 1.5px dashed var(--line-2); color: var(--purple-d);
+  font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 14px; padding: 9px 16px; border-radius: 100px;
+  transition: border-color .2s, background .2s, color .2s;
+}
+.add-child svg { width: 16px; height: 16px; }
+.add-child:hover { border-color: var(--purple); background: var(--t-lav); }
+.contact-hint { font-size: 12.5px; color: var(--muted); margin: 7px 2px 0; }
 .field-label { display: block; font-size: 12.5px; font-weight: 800; color: var(--muted); margin: 0 0 5px 2px; }
 .phone-field { display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: stretch; }
 .phone-field #phoneCC { width: auto; padding-left: 12px; padding-right: 8px; font-weight: 700; }

@@ -78,6 +78,7 @@
     form_name:"Ime roditelja", form_phone:"Telefon", form_age:"Uzrast deteta", form_submit:"Dobijte informacije",
     form_privacy:"Poštujemo vašu privatnost i ne delimo podatke sa trećim licima.", form_ok:"Hvala! Zahtev je primljen — javićemo vam se uskoro.",
     form_group:"Grupa", form_group_ph:"Izaberite grupu", form_age_lbl:"Uzrast", form_child:"Ime deteta", form_wa:"Pošalji na WhatsApp", form_err:"Slanje nije uspelo. Pišite nam na WhatsApp:",
+    form_add_child:"Dodaj dete", form_contact_hint:"Ostavite telefon ili e-mail — kako vam odgovara.",
     footer_tagline:"Razvijamo sa ljubavlju i brigom svakog dana.", footer_nav:"Navigacija", footer_programs:"Programi",
     footer_contacts:"Kontakt", footer_rights:"Sva prava zadržana"
   };
@@ -145,14 +146,15 @@
     form_name:"Parent's name", form_phone:"Phone number", form_age:"Child's age", form_submit:"Get Information",
     form_privacy:"We value your privacy and never share your data with third parties.", form_ok:"Thank you! Your request has been received — we'll be in touch soon.",
     form_group:"Group", form_group_ph:"Choose a group", form_age_lbl:"Age", form_child:"Child's name", form_wa:"Send via WhatsApp", form_err:"Couldn't send. Message us on WhatsApp:",
+    form_add_child:"Add child", form_contact_hint:"Leave a phone or e-mail — whichever suits you.",
     footer_tagline:"Growing with love and care every day.", footer_nav:"Navigation", footer_programs:"Programs",
     footer_contacts:"Contacts", footer_rights:"All rights reserved"
   };
 
   var DICT = { ru: RU, sr: SR, en: EN };
   var PH = { ru: RU_PH,
-    sr: { form_name:"Ime roditelja", form_phone:"Telefon", form_child:"Ime deteta" },
-    en: { form_name:"Parent's name", form_phone:"Phone number", form_child:"Child's name" } };
+    sr: { form_name:"Ime roditelja", form_phone:"Telefon", form_child:"Ime deteta", form_email:"E-mail" },
+    en: { form_name:"Parent's name", form_phone:"Phone number", form_child:"Child's name", form_email:"E-mail" } };
   var PHONE = { ru:["+7 (499) 283-46-28","+74992834628"], en:["+7 (499) 283-46-28","+74992834628"], sr:["+381 (69) 283-46-28","+381692834628"] };
 
   /* ---------- content rendered from data (editable in the CMS) ---------- */
@@ -365,13 +367,27 @@
     modal.querySelectorAll('[data-close]').forEach(function (el) { el.addEventListener('click', close); });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && modal.classList.contains('open')) close(); });
 
-    /* pick a group → its age range fills in automatically (read-only) */
+    /* ----- children: each child has its own group; "+ Добавить ребёнка" adds more ----- */
     var groupAge = { 'Беби-Фан': '1,5–2,5', 'Энерджи-Фан': '2,5–3,5', 'Дискавери-Фан': '3,5–4,5', 'Креатив-Фан': '4,5–6', 'Прескул': '6–7' };
-    var grp = document.getElementById('groupSelect'), ageSpan = document.getElementById('ageAuto'), ageVal = document.getElementById('ageValue');
-    if (grp && ageSpan) grp.addEventListener('change', function () {
-      var a = groupAge[grp.value] || '';
-      ageSpan.textContent = a;
-      if (ageVal) ageVal.value = a;
+    var childList = document.getElementById('childList');
+    var addChildBtn = document.getElementById('addChild');
+    function refreshRemove() {
+      var rows = childList.querySelectorAll('.child-row');
+      rows.forEach(function (r) { var rm = r.querySelector('.child-remove'); if (rm) rm.hidden = rows.length < 2; });
+    }
+    function wireRow(row) {
+      var g = row.querySelector('.c-group'), age = row.querySelector('.c-age');
+      if (g && age) g.addEventListener('change', function () { age.textContent = groupAge[g.value] || ''; });
+      var rm = row.querySelector('.child-remove');
+      if (rm) rm.addEventListener('click', function () { row.remove(); refreshRemove(); });
+    }
+    if (childList) childList.querySelectorAll('.child-row').forEach(wireRow);
+    if (addChildBtn && childList) addChildBtn.addEventListener('click', function () {
+      var clone = childList.querySelector('.child-row').cloneNode(true);
+      clone.querySelectorAll('input, select').forEach(function (el) { el.value = ''; el.style.borderColor = ''; });
+      var age = clone.querySelector('.c-age'); if (age) age.textContent = '';
+      childList.appendChild(clone); wireRow(clone); refreshRemove();
+      var nm = clone.querySelector('.c-name'); if (nm) nm.focus();
     });
 
     /* phone: country selector + length-aware mask */
@@ -401,33 +417,70 @@
     if (pin) pin.addEventListener('input', sync);
     if (cc) cc.addEventListener('change', function () { if (pin) { pin.placeholder = ccOpt().getAttribute('data-ph') || ''; sync(); } });
 
-    /* submit → FormSubmit.co (emails the address in the form action); WhatsApp fallback if it can't send */
+    /* ----- submit → FormSubmit.co; WhatsApp fallback if it can't send ----- */
     var form = document.getElementById('leadForm');
     if (!form) return;
+    var emailInput = document.getElementById('emailInput');
     form.querySelectorAll('input, select').forEach(function (i) { i.addEventListener('input', function () { this.style.borderColor = ''; }); });
+    function collectChildren() {
+      var out = [];
+      childList.querySelectorAll('.child-row').forEach(function (r) {
+        var nm = (r.querySelector('.c-name').value || '').trim();
+        var g = r.querySelector('.c-group').value || '';
+        if (!nm && !g) return;
+        out.push({ name: nm, group: g, age: groupAge[g] || '' });
+      });
+      return out;
+    }
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       var parent = form.querySelector('[name="parent"]');
+      var kids = collectChildren();
       var digits = pin ? pin.value.replace(/\D/g, '') : '';
       var need = (cc && cc.value === 'rs') ? 8 : 10;
+      var phoneOk = digits.length >= need;
+      var emailVal = emailInput ? emailInput.value.trim() : '';
+      var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal);
+      var firstName = childList.querySelector('.c-name');
+      if (!kids.length || !kids[0].name) { if (firstName) { firstName.focus(); firstName.style.borderColor = 'var(--coral)'; } return; }
       if (parent && !parent.value.trim()) { parent.focus(); parent.style.borderColor = 'var(--coral)'; return; }
-      if (digits.length < need) { if (pin) { pin.focus(); pin.style.borderColor = 'var(--coral)'; } return; }
+      if (!phoneOk && !emailOk) {
+        if (pin) pin.style.borderColor = 'var(--coral)';
+        if (emailInput) emailInput.style.borderColor = 'var(--coral)';
+        (emailVal && emailInput ? emailInput : pin).focus();
+        return;
+      }
       sync();
+      var summary = kids.map(function (k, i) {
+        return (i + 1) + ') ' + (k.name || '—') + (k.group ? ' — ' + k.group + (k.age ? ' (' + k.age + ')' : '') : '');
+      }).join('\n');
+      var cs = document.getElementById('childrenSummary'); if (cs) cs.value = summary;
+      var reply = document.getElementById('replyTo'); if (reply) reply.value = emailOk ? emailVal : '';
+      if (!emailOk && emailInput) emailInput.value = '';
+      if (!phoneOk && pfull) pfull.value = '';
+      var subj = form.querySelector('[name="_subject"]');
+      if (subj) subj.value = 'Новая заявка — Funscool (' + kids.length + (kids.length === 1 ? ' ребёнок' : ' детей') + ')';
       var ok = document.getElementById('formSuccess');
       var errBox = document.getElementById('formError');
       var wa = document.getElementById('waFallback');
       var btn = form.querySelector('button[type="submit"]');
       if (btn) btn.disabled = true;
       fetch(form.action, { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Accept': 'application/json' }, body: new URLSearchParams(new FormData(form)).toString() })
-        .then(function (r) { if (!r.ok) throw new Error('http ' + r.status); if (ok) ok.classList.add('show'); form.reset(); if (pin) pin.value = ''; if (ageSpan) ageSpan.textContent = ''; })
+        .then(function (r) {
+          if (!r.ok) throw new Error('http ' + r.status);
+          if (ok) ok.classList.add('show');
+          form.reset(); if (pin) pin.value = '';
+          var rows = childList.querySelectorAll('.child-row');
+          for (var i = rows.length - 1; i > 0; i--) rows[i].remove();
+          var f = childList.querySelector('.child-row');
+          if (f) { f.querySelectorAll('input, select').forEach(function (el) { el.value = ''; }); var a = f.querySelector('.c-age'); if (a) a.textContent = ''; }
+          refreshRemove();
+        })
         .catch(function () {
-          var val = function (n) { var el = form.querySelector('[name="' + n + '"]'); return el ? el.value : ''; };
-          var text = 'Здравствуйте! Хочу записаться на экскурсию в Funscool.\n'
-            + (val('group') ? 'Группа: ' + val('group') + '\n' : '')
-            + (val('age') ? 'Возраст: ' + val('age') + '\n' : '')
-            + (val('child') ? 'Ребёнок: ' + val('child') + '\n' : '')
-            + (val('parent') ? 'Родитель: ' + val('parent') + '\n' : '')
-            + (pfull && pfull.value ? 'Телефон: ' + pfull.value : '');
+          var text = 'Здравствуйте! Хочу записаться на экскурсию в Funscool.\nДети:\n' + summary + '\n'
+            + (parent && parent.value ? 'Родитель: ' + parent.value + '\n' : '')
+            + (phoneOk && pfull ? 'Телефон: ' + pfull.value + '\n' : '')
+            + (emailOk ? 'E-mail: ' + emailVal : '');
           if (wa) { wa.href = 'https://wa.me/381644445550?text=' + encodeURIComponent(text); wa.hidden = false; }
           if (errBox) errBox.hidden = false;
         })
