@@ -291,11 +291,15 @@ h1, h2, h3, h4 {
 .prog ul li::before { background: var(--c); }
 .prog .btn-ghost:hover { border-color: var(--c); }
 
-/* brand mascot standing in each group's room photo (one per card, matched colour) */
+/* brand mascot on each group card — stands on the clean white body (one per card) */
+.prog-body { position: relative; z-index: 1; }
 .prog-char {
-  position: absolute; z-index: 2; pointer-events: none; width: auto;
-  right: 3%; bottom: 0; height: 86%;
-  filter: drop-shadow(0 0 8px #fff) drop-shadow(0 0 4px rgba(255,255,255,.95));
+  position: absolute; z-index: 0; pointer-events: none; width: auto;
+  right: 12px; bottom: 12px; height: 156px;
+}
+@media (max-width: 900px) {                 /* vertical card: mascot in a reserved bottom-right corner */
+  .programs.slider-track > .prog .prog-body { padding-right: 118px; }
+  .programs.slider-track > .prog .prog-char { height: 150px; right: 8px; }
 }
 
 /* brand mascots tucked into other sections (static, desktop only) */
@@ -831,13 +835,14 @@ body.intro-lock { overflow: hidden; }
     width: 46%; flex-shrink: 0; aspect-ratio: auto; align-self: stretch;
   }
   .programs.slider-track > .prog .prog-body {
-    padding: 44px 48px 40px; justify-content: center;
+    padding: 44px 210px 40px 48px; justify-content: center;   /* reserve right column for the mascot */
   }
+  .programs.slider-track > .prog .prog-char { right: 26px; bottom: 0; height: 84%; }
   .programs.slider-track > .prog .prog-body h3 { font-size: 30px; }
   .programs.slider-track > .prog .prog-age { font-size: 16px; margin: 6px 0 14px; }
   .programs.slider-track > .prog .prog-desc { font-size: 17px; max-width: 46ch; }
   .programs.slider-track > .prog ul {
-    grid-template-columns: 1fr 1fr; gap: 8px 26px; margin-bottom: 26px; max-width: 560px;
+    grid-template-columns: 1fr; gap: 9px; margin-bottom: 24px; max-width: none;
   }
   .programs.slider-track > .prog ul li { font-size: 15px; }
   .programs.slider-track > .prog .btn { width: auto; align-self: flex-start; padding-inline: 30px; }
