@@ -973,3 +973,26 @@ body.modal-open { overflow: hidden; }
 
 /* doodles removed per request — hide all hand-drawn PNG doodles everywhere */
 .doodle, .prog-doodle, img.doodle-art { display: none !important; }
+
+/* ============================================================
+   Large screens (1600px → 2K/4K): let the layout breathe so the
+   content doesn't sit as a narrow, "compressed" column in the middle
+   ============================================================ */
+@media (min-width: 1600px) {
+  :root { --maxw: 1460px; }
+  .hero-inner { max-width: 600px; }
+}
+@media (min-width: 1920px) {
+  :root { --maxw: 1600px; }
+  .hero-inner { max-width: 640px; }
+  .hero h1 { font-size: 82px; }
+  .hero-lead { font-size: 26px; }
+  .section-title { font-size: 46px; }
+  body { font-size: 17px; }
+}
+@media (min-width: 2400px) {
+  :root { --maxw: 1760px; }
+  .hero-inner { max-width: 700px; }
+  .hero h1 { font-size: 92px; }
+  body { font-size: 18px; }
+}
