@@ -3,14 +3,14 @@
 # forms — photo/name/text — never any code. Saving commits to the repo, then
 # GitHub Pages / Netlify rebuild the live site automatically (~1 min).
 #
-# Auth goes through a tiny free Cloudflare Worker (sveltia-cms-auth).
-# Put its URL in `base_url` below — see ADMIN-SETUP.md, Part 1.
+# Login uses Netlify's built-in OAuth (the site is hosted on Netlify), so NO
+# Cloudflare worker is needed. Open the panel from the Netlify URL: <site>/admin/.
+# Setup is in ADMIN-SETUP.md, Part 1.
 
 backend:
   name: github
   repo: treasureclyde-sketch/sitesdemos   # owner/repo
   branch: claude/funscool                 # the branch the live site is built from
-  base_url: https://REPLACE-WITH-YOUR-WORKER.workers.dev   # ← sveltia-cms-auth worker URL
 
 # Where uploaded images are committed (path inside the git repo) …
 media_folder: "funscool/assets/img/teachers"
