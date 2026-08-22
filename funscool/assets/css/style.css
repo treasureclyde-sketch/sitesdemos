@@ -291,6 +291,20 @@ h1, h2, h3, h4 {
 .prog ul li::before { background: var(--c); }
 .prog .btn-ghost:hover { border-color: var(--c); }
 
+/* brand mascot standing in each group's room photo (one per card, matched colour) */
+.prog-char {
+  position: absolute; z-index: 2; pointer-events: none; width: auto;
+  right: 3%; bottom: 0; height: 86%;
+  filter: drop-shadow(0 0 8px #fff) drop-shadow(0 0 4px rgba(255,255,255,.95));
+}
+
+/* brand mascots tucked into other sections (static, desktop only) */
+.section-char {
+  position: absolute; z-index: 0; pointer-events: none; width: auto; opacity: .92;
+  filter: drop-shadow(0 0 7px rgba(251,247,240,.95)) drop-shadow(0 0 3px rgba(251,247,240,.9));
+}
+@media (max-width: 1180px) { .section-char { display: none; } }
+
 /* ============================================================
    PLAYGROUND / ABOUT split cards
    ============================================================ */
