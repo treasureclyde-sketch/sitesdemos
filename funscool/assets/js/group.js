@@ -30,7 +30,7 @@
 
   var GROUPS = {
     baby: {
-      accent: '#E8709F', accentSoft: '#FBE6EE', accentDark: '#d1567f',
+      accent: '#78B15A', accentSoft: '#E9F1DE', accentDark: '#5c8a3f',
       name: 'Baby-Fun',
       photo: 'assets/img/groups/baby-hero.jpg',
       ctaPhoto: 'assets/img/kids/k1.jpg',
