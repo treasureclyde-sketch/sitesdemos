@@ -32,7 +32,7 @@
     baby: {
       accent: '#E8709F', accentSoft: '#FBE6EE', accentDark: '#d1567f',
       name: 'Baby-Fun',
-      photo: 'assets/img/interiors/baby.jpg',
+      photo: 'assets/img/groups/baby-hero.jpg',
       ctaPhoto: 'assets/img/kids/k1.jpg',
       badge: { ru: 'от 1 года', sr: 'od 1 godine', en: 'from age 1' },
       subtitle: { ru: 'Мягкая адаптация\nв русскоязычной среде', sr: 'Nežna adaptacija\nu okruženju na ruskom jeziku', en: 'Gentle adaptation\nin a Russian-speaking environment' },
