@@ -454,18 +454,20 @@
       var summary = kids.map(function (k, i) {
         return (i + 1) + ') ' + (k.name || '—') + (k.group ? ' — ' + k.group + (k.age ? ' (' + k.age + ')' : '') : '');
       }).join('\n');
-      var cs = document.getElementById('childrenSummary'); if (cs) cs.value = summary;
-      var reply = document.getElementById('replyTo'); if (reply) reply.value = emailOk ? emailVal : '';
-      if (!emailOk && emailInput) emailInput.value = '';
-      if (!phoneOk && pfull) pfull.value = '';
-      var subj = form.querySelector('[name="_subject"]');
-      if (subj) subj.value = 'Новая заявка — Funscool (' + kids.length + (kids.length === 1 ? ' ребёнок' : ' детей') + ')';
+      var honey = form.querySelector('[name="_honey"]');
+      var payload = {
+        children: kids,
+        parent: parent ? parent.value.trim() : '',
+        phone: phoneOk && pfull ? pfull.value : '',
+        email: emailOk ? emailVal : '',
+        hp: honey ? honey.value : ''
+      };
       var ok = document.getElementById('formSuccess');
       var errBox = document.getElementById('formError');
       var wa = document.getElementById('waFallback');
       var btn = form.querySelector('button[type="submit"]');
       if (btn) btn.disabled = true;
-      fetch(form.action, { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Accept': 'application/json' }, body: new URLSearchParams(new FormData(form)).toString() })
+      fetch('/.netlify/functions/lead', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
         .then(function (r) {
           if (!r.ok) throw new Error('http ' + r.status);
           if (ok) ok.classList.add('show');

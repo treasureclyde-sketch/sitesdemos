@@ -1,7 +1,14 @@
 # Netlify serves the site from the funscool/ subfolder.
-# No build step — it's a static site.
+# `npm install` pulls nodemailer for the booking-email function; no site build.
 [build]
   publish = "funscool"
+  command = "npm install"
+
+# Serverless function that emails booking submissions (see netlify/functions/lead.js).
+# Set GMAIL_USER, GMAIL_PASS (App Password) and optional LEAD_TO in Netlify env vars.
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
 
 # Nice URL for the editor panel
 [[redirects]]

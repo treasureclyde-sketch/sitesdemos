@@ -1,0 +1,8 @@
+{
+  "name": "funscool-site",
+  "private": true,
+  "description": "Funscool preschool — static site + Netlify function for booking emails",
+  "dependencies": {
+    "nodemailer": "^6.9.14"
+  }
+}
