@@ -314,7 +314,7 @@ function langBlock(prefix, obj, kind){
   var ctl=function(l){ return kind==='text'
     ? '<textarea data-bind="'+prefix+'.'+l+'">'+esc(obj[l]||'')+'</textarea>'
     : '<input data-bind="'+prefix+'.'+l+'" value="'+esc(obj[l]||'')+'">'; };
-  return '<div class="langrow"><div><label>Русский</label>'+ctl('ru')+'</div><div><label>Српски</label>'+ctl('sr')+'</div><div><label>English</label>'+ctl('en')+'</div></div>';
+  return '<div class="langrow"><div><label>Русский</label>'+ctl('ru')+'</div><div><label>Сербский</label>'+ctl('sr')+'</div><div><label>English</label>'+ctl('en')+'</div></div>';
 }
 
 /* ---------- teachers ---------- */
