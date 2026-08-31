@@ -27,32 +27,6 @@
       }
     },
     {
-      "photo": "assets/img/teachers/elena.jpg",
-      "color": "purple",
-      "name": {
-        "ru": "Елена Кириллишина",
-        "sr": "Jelena Kirilišina",
-        "en": "Elena Kirillishina"
-      },
-      "tags": [
-        {
-          "ru": "Методист",
-          "sr": "Metodičar",
-          "en": "Methodologist"
-        },
-        {
-          "ru": "Проектное обучение",
-          "sr": "Projektna nastava",
-          "en": "Project-based learning"
-        }
-      ],
-      "bio": {
-        "ru": "Специалист по методике Discovery и проектному обучению. Объединяет математику, естественные науки и творчество в одну интегрированную программу.",
-        "sr": "Stručnjak za Discovery metodu i projektnu nastavu. Spaja matematiku, prirodne nauke i stvaralaštvo u jedan integrisani program.",
-        "en": "A specialist in the Discovery method and project-based learning. Brings maths, natural sciences and creativity into one integrated programme."
-      }
-    },
-    {
       "photo": "assets/img/teachers/tetiana.jpg",
       "color": "teal",
       "name": {
@@ -76,6 +50,32 @@
         "ru": "Сертифицированный Монтессори-педагог. Создаёт подготовленную среду, которая уважает темп и природный интерес самых маленьких.",
         "sr": "Sertifikovani Montessori pedagog. Stvara pripremljeno okruženje koje poštuje tempo i prirodnu radoznalost najmlađih.",
         "en": "A certified Montessori teacher. Creates a prepared environment that respects the pace and natural curiosity of the youngest ones."
+      }
+    },
+    {
+      "photo": "assets/img/teachers/elena.jpg",
+      "color": "purple",
+      "name": {
+        "ru": "Елена Кириллишина",
+        "sr": "Jelena Kirilišina",
+        "en": "Elena Kirillishina"
+      },
+      "tags": [
+        {
+          "ru": "Методист",
+          "sr": "Metodičar",
+          "en": "Methodologist"
+        },
+        {
+          "ru": "Проектное обучение",
+          "sr": "Projektna nastava",
+          "en": "Project-based learning"
+        }
+      ],
+      "bio": {
+        "ru": "Специалист по методике Discovery и проектному обучению. Объединяет математику, естественные науки и творчество в одну интегрированную программу.",
+        "sr": "Stručnjak za Discovery metodu i projektnu nastavu. Spaja matematiku, prirodne nauke i stvaralaštvo u jedan integrisani program.",
+        "en": "A specialist in the Discovery method and project-based learning. Brings maths, natural sciences and creativity into one integrated programme."
       }
     },
     {
