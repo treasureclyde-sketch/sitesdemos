@@ -389,7 +389,7 @@ function saveCurrent(){
     .then(function(res){ s.sha=res.content.sha; s.dirty=false; syncBar(); toast('Сохранено ✓ Сайт обновится за ~1 минуту'); })
     .catch(function(ex){
       if(ex.status===409){ toast('Файл изменился на GitHub. Обнови страницу перед сохранением.', true); }
-      else if(ex.status===404){ toast('Нет доступа на запись. Проверь права токена (Contents: write) и ветку.', true); }
+      else if(ex.status===403 || ex.status===404){ toast('У токена нет прав на запись. Нужен fine-grained токен: Repository access → выбрать sitesdemos, Permissions → Contents → Read and write.', true); }
       else { toast('Ошибка сохранения: '+ex.message, true); }
     })
     .then(function(){ btn.textContent='Сохранить'; syncBar(); });
