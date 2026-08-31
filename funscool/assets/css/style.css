@@ -695,6 +695,26 @@ body.intro-lock { overflow: hidden; }
 .form-success.show { display: block; }
 
 /* ============================================================
+   NEWS & PROMOTIONS
+   ============================================================ */
+#news[hidden] { display: none !important; }
+.news-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; margin-top: 8px; }
+.news-card { display: flex; flex-direction: column; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); overflow: hidden; }
+.news-card-img { position: relative; aspect-ratio: 16 / 10; background: var(--cream-2); }
+.news-card-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.news-badge { font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 12px; padding: 5px 12px; border-radius: 100px; color: #fff; letter-spacing: .01em; }
+.news-badge.news { background: var(--purple); }
+.news-badge.promo { background: var(--coral); }
+.news-card-img .news-badge { position: absolute; top: 12px; left: 12px; box-shadow: 0 6px 16px -8px rgba(0,0,0,.4); }
+.news-badge-inline { align-self: flex-start; }
+.news-card-body { display: flex; flex-direction: column; gap: 9px; padding: 20px 22px 24px; flex: 1; }
+.news-date { font-weight: 700; font-size: 12.5px; color: var(--muted); }
+.news-card-body h3 { font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 19px; line-height: 1.22; color: var(--ink); margin: 0; }
+.news-card-body p { color: var(--muted); font-size: 15px; margin: 0; }
+@media (max-width: 960px) { .news-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 640px) { .news-grid { grid-template-columns: 1fr; max-width: 460px; margin: 8px auto 0; } }
+
+/* ============================================================
    FOOTER
    ============================================================ */
 .footer { background: var(--cream-2); border-top: 1px solid var(--line); padding: 60px 0 30px; margin-top: 30px; }

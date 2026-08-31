@@ -202,7 +202,7 @@ var token='';
 var COLL={
   teachers:{ title:'Воспитатели', path:'funscool/content/teachers.json', key:'teachers' },
   faq:{ title:'Вопросы (FAQ)', path:'funscool/content/faq.json', key:'faq' },
-  news:{ title:'Новости & Акции', placeholder:true } // empty for now — no site block to edit yet
+  news:{ title:'Новости & Акции', path:'funscool/content/news.json', key:'news' }
 };
 var store={}; // page -> { sha, items:[...] , dirty:false }
 var current='teachers';
@@ -230,6 +230,27 @@ function putFile(path, contentStr, sha, message){
   return api('/repos/'+cfg.owner+'/'+cfg.repo+'/contents/'+path, { method:'PUT', body:{
     message: message, content: utf8ToB64(contentStr), branch: cfg.branch, sha: sha || undefined
   }});
+}
+/* upload a picked image straight into the repo; resolves with the site-relative path */
+function uploadImage(storedDir, file){
+  return new Promise(function(resolve, reject){
+    if(!file){ reject(new Error('файл не выбран')); return; }
+    if(!/^image\//.test(file.type||'')){ reject(new Error('это не изображение')); return; }
+    if(file.size > 5*1024*1024){ reject(new Error('файл больше 5 МБ, сожмите его')); return; }
+    var reader=new FileReader();
+    reader.onload=function(){
+      var b64=String(reader.result||'').split(',')[1]||'';
+      var byType={'image/png':'png','image/jpeg':'jpg','image/jpg':'jpg','image/webp':'webp','image/gif':'gif'};
+      var ext=((String(file.name||'').split('.').pop()||'').toLowerCase().replace(/[^a-z0-9]/g,'')) || byType[file.type] || 'jpg';
+      var base=(String(file.name||'photo').replace(/\.[^.]+$/,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'')).slice(0,40) || 'photo';
+      var stored=storedDir+'/'+Date.now()+'-'+base+'.'+ext;
+      api('/repos/'+cfg.owner+'/'+cfg.repo+'/contents/'+encodeURI('funscool/'+stored), { method:'PUT', body:{
+        message:'admin: загрузка фото '+stored, content:b64, branch:cfg.branch
+      }}).then(function(){ resolve(stored); }).catch(reject);
+    };
+    reader.onerror=function(){ reject(new Error('не удалось прочитать файл')); };
+    reader.readAsDataURL(file);
+  });
 }
 
 /* ---------- toast ---------- */
@@ -303,10 +324,11 @@ function loadAndRender(page){
     store[page]={ sha:f.sha, items:(data[COLL[page].key]||[]), dirty:false };
     renderPage(page);
   }).catch(function(ex){
+    if(ex.status===404){ store[page]={ sha:null, items:[], dirty:false }; renderPage(page); return; }
     el.innerHTML='<div class="card"><b>Не удалось загрузить.</b><p class="hint">'+esc(ex.message)+'</p></div>';
   });
 }
-function renderPage(page){ current=page; if(page==='teachers') renderTeachers(); else renderFaq(); syncBar(); }
+function renderPage(page){ current=page; if(page==='teachers') renderTeachers(); else if(page==='news') renderNews(); else renderFaq(); syncBar(); }
 
 function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
 function langBlock(prefix, obj, kind){
@@ -315,6 +337,16 @@ function langBlock(prefix, obj, kind){
     ? '<textarea data-bind="'+prefix+'.'+l+'">'+esc(obj[l]||'')+'</textarea>'
     : '<input data-bind="'+prefix+'.'+l+'" value="'+esc(obj[l]||'')+'">'; };
   return '<div class="langrow"><div><label>Русский</label>'+ctl('ru')+'</div><div><label>Сербский</label>'+ctl('sr')+'</div><div><label>English</label>'+ctl('en')+'</div></div>';
+}
+function photoControl(photo){
+  return '<div class="field"><label>Фото</label>'+
+    '<div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap">'+
+      '<button type="button" class="btn ghost sm" data-upload>📷 Загрузить фото</button>'+
+      '<input type="file" accept="image/*" data-file hidden>'+
+    '</div>'+
+    '<input data-bind="photo" value="'+esc(photo||'')+'" placeholder="assets/img/... (заполнится после загрузки)" style="margin-top:8px">'+
+    '<p class="hint">Загрузите фото с устройства — путь заполнится сам. При желании путь можно вписать вручную.</p>'+
+  '</div>';
 }
 
 /* ---------- teachers ---------- */
@@ -330,7 +362,7 @@ function renderTeachers(){
         '<span class="acts">'+moveBtns(i,items.length)+'<button class="btn icon" data-del title="Удалить">🗑️</button></span>'+
       '</div>'+
       '<div class="photo-edit"><div class="col">'+
-        '<div class="field"><label>Фото (путь в assets)</label><input data-bind="photo" value="'+esc(t.photo||'')+'" placeholder="assets/img/teachers/name.jpg"></div>'+
+        photoControl(t.photo)+
         '<div class="field"><label>Акцентный цвет карточки</label><select data-bind="color">'+colorOpts(t.color)+'</select></div>'+
       '</div></div>'+
       '<div class="field"><label>Имя</label>'+langBlock('name', t.name, 'str')+'</div>'+
@@ -362,6 +394,32 @@ function renderFaq(){
   $('#content').innerHTML=html;
 }
 
+/* ---------- news & promotions ---------- */
+function typeOpts(v){ return [['news','Новость'],['promo','Акция']].map(function(o){ return '<option value="'+o[0]+'"'+(v===o[0]?' selected':'')+'>'+o[1]+'</option>'; }).join(''); }
+function renderNews(){
+  var items=store.news.items;
+  var html='<p class="page-intro">Новости и акции для блока «Новости и акции» на сайте. Блок появляется на сайте, как только есть хотя бы одна запись. Порядок = порядок на сайте.</p>';
+  items.forEach(function(it,i){
+    var photo=String(it.photo||'').replace(/^\//,'');
+    html+='<div class="card" data-i="'+i+'">'+
+      '<div class="itemhead"><span class="num">'+(i+1)+'</span>'+
+        '<img class="thumb" src="'+esc('../'+photo)+'" alt="" onerror="this.style.visibility=\'hidden\'">'+
+        '<span class="t">'+esc((it.title&&it.title.ru)||'Новая запись')+'</span>'+
+        '<span class="acts">'+moveBtns(i,items.length)+'<button class="btn icon" data-del title="Удалить">🗑️</button></span>'+
+      '</div>'+
+      '<div class="grid3" style="grid-template-columns:1fr 1fr">'+
+        '<div class="field"><label>Тип записи</label><select data-bind="type">'+typeOpts(it.type)+'</select></div>'+
+        '<div class="field"><label>Дата (необязательно)</label><input data-bind="date" value="'+esc(it.date||'')+'" placeholder="напр. 1 сентября"></div>'+
+      '</div>'+
+      photoControl(it.photo)+
+      '<div class="field"><label>Заголовок</label>'+langBlock('title', it.title, 'str')+'</div>'+
+      '<div class="field"><label>Текст</label>'+langBlock('text', it.text, 'text')+'</div>'+
+    '</div>';
+  });
+  html+='<div class="addbar"><button class="btn" data-add>+ Добавить запись</button></div>';
+  $('#content').innerHTML=html;
+}
+
 /* ---------- editing (event delegation) ---------- */
 function setPath(obj, path, val){ var p=path.split('.'); while(p.length>1){ var k=p.shift(); if(typeof obj[k]!=='object'||obj[k]==null) obj[k]={}; obj=obj[k]; } obj[p[0]]=val; }
 $('#content').addEventListener('input', function(e){
@@ -374,13 +432,19 @@ $('#content').addEventListener('input', function(e){
     setPath(item.tags[ti], b.slice(4), e.target.value);
   } else { setPath(item, b, e.target.value); }
   // live-update the header title
-  if(b==='name.ru'||b==='q.ru'){ var t=card.querySelector('.itemhead .t'); if(t) t.textContent=e.target.value||(current==='faq'?'Новый вопрос':'Без имени'); }
+  if(b==='name.ru'||b==='q.ru'||b==='title.ru'){ var t=card.querySelector('.itemhead .t'); if(t) t.textContent=e.target.value||(current==='faq'?'Новый вопрос':current==='news'?'Новая запись':'Без имени'); }
   markDirty();
 });
 $('#content').addEventListener('click', function(e){
   var btn=e.target.closest('button'); if(!btn) return;
   var card=e.target.closest('.card'); var items=store[current].items;
-  if(btn.hasAttribute('data-add')){ items.push(current==='teachers'?{photo:'',color:'purple',name:{},tags:[],bio:{}}:{q:{},a:{}}); markDirty(); renderPage(current); return; }
+  if(btn.hasAttribute('data-add')){
+    var blank = current==='teachers' ? {photo:'',color:'purple',name:{},tags:[],bio:{}}
+              : current==='news' ? {type:'news',photo:'',date:'',title:{},text:{}}
+              : {q:{},a:{}};
+    items.push(blank); markDirty(); renderPage(current); return;
+  }
+  if(btn.hasAttribute('data-upload')){ var fin=btn.parentNode.querySelector('input[type=file][data-file]'); if(fin) fin.click(); return; }
   if(!card){ return; }
   var i=+card.getAttribute('data-i'); var item=items[i];
   if(btn.hasAttribute('data-del')){ if(confirm('Удалить этот элемент?')){ items.splice(i,1); markDirty(); renderPage(current); } return; }
@@ -388,6 +452,23 @@ $('#content').addEventListener('click', function(e){
   if(btn.hasAttribute('data-down')&&i<items.length-1){ items.splice(i+1,0,items.splice(i,1)[0]); markDirty(); renderPage(current); return; }
   if(btn.hasAttribute('data-addtag')){ if(!item.tags) item.tags=[]; item.tags.push({}); markDirty(); renderPage(current); return; }
   if(btn.hasAttribute('data-deltag')){ var trow=btn.closest('.tagrow'); var ti=+trow.getAttribute('data-ti'); item.tags.splice(ti,1); markDirty(); renderPage(current); return; }
+});
+/* ---------- photo upload (choose a file → commit it → fill the path) ---------- */
+$('#content').addEventListener('change', function(e){
+  var fi=e.target; if(!fi.matches || !fi.matches('input[type=file][data-file]')) return;
+  var file=fi.files&&fi.files[0]; if(!file) return;
+  var card=fi.closest('.card'); if(!card) return;
+  var i=+card.getAttribute('data-i'); var item=store[current].items[i]; if(!item) return;
+  var dir = current==='news' ? 'assets/img/news' : 'assets/img/teachers';
+  var btn=card.querySelector('[data-upload]');
+  if(btn){ btn.disabled=true; btn.textContent='Загружаю…'; }
+  uploadImage(dir, file).then(function(stored){
+    item.photo=stored; markDirty(); renderPage(current); toast('Фото загружено ✓');
+  }).catch(function(ex){
+    if(btn){ btn.disabled=false; btn.textContent='📷 Загрузить фото'; }
+    try{ fi.value=''; }catch(_){}
+    toast('Не удалось загрузить: '+ex.message, true);
+  });
 });
 
 /* ---------- save ---------- */

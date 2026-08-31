@@ -61,6 +61,7 @@
     joy4_t:"Samopouzdanje i radost pobeda", joy4_d:"Vaspitači podržavaju i primećuju uspehe deteta, pomažući mu da veruje u sebe.",
     team_eyebrow:"Sa ljubavlju i brigom", team_title:"Vaspitači međunarodnog vrtića FunsCool",
     team_sub:"Četiri vaspitača i administrator koji dan deteta drže mirnim, toplim i razumljivim.", team_ask:"Postavite pitanje",
+    news_eyebrow:"Novosti i akcije", news_title:"Novosti i akcije", news_sub:"Aktuelni događaji, praznici i posebne ponude našeg vrtića.", news_type_news:"Novost", news_type_promo:"Akcija",
     /* teacher cards are rendered from content/teachers.json */
     mom_eyebrow:"Svaki trenutak je važan", mom_title:"Srećni trenuci svakog dana",
     mom_sub:"Igramo se, stvaramo, istražujemo i rastemo zajedno. Svaki dan u Funscool-u ispunjen je radošću i otkrićima.",
@@ -129,6 +130,7 @@
     joy4_t:"Confidence and the joy of wins", joy4_d:"Teachers support and notice each child's progress, helping them believe in themselves.",
     team_eyebrow:"With love and care", team_title:"The team at FunsCool International Preschool",
     team_sub:"Four teachers and an administrator who keep a child's day calm, warm and clear.", team_ask:"Ask a question",
+    news_eyebrow:"News & offers", news_title:"News & offers", news_sub:"Latest events, celebrations and special offers from our kindergarten.", news_type_news:"News", news_type_promo:"Offer",
     /* teacher cards are rendered from content/teachers.json */
     mom_eyebrow:"Every moment matters", mom_title:"Happy moments, every single day",
     mom_sub:"We play, create, explore and grow together. Every day at Funscool is filled with joy and new discoveries.",
@@ -236,9 +238,62 @@
       det.appendChild(ans); list.appendChild(det);
     });
   }
+  function renderNews(lang) {
+    // "Новости и акции" cards from content/news.json (CMS-editable). The whole
+    // section stays hidden until at least one item with text exists.
+    var sec = document.getElementById('news');
+    var list = document.getElementById('newsList');
+    if (!sec || !list) return;
+    var items = (CONTENT && Array.isArray(CONTENT.news)) ? CONTENT.news : [];
+    var visible = items.filter(function (it) { return it && (tr(it.title, lang) || tr(it.text, lang)); });
+    list.textContent = '';
+    if (!visible.length) { sec.hidden = true; return; }
+    var labels = {
+      news: (DICT[lang] && DICT[lang].news_type_news) || 'Новость',
+      promo: (DICT[lang] && DICT[lang].news_type_promo) || 'Акция'
+    };
+    visible.forEach(function (it) {
+      var ty = (it.type === 'promo') ? 'promo' : 'news';
+      var card = document.createElement('article');
+      card.className = 'news-card';
+      var photo = String(it.photo || '').replace(/^\//, '');
+      if (photo) {
+        var wrap = document.createElement('div');
+        wrap.className = 'news-card-img';
+        var img = document.createElement('img');
+        img.src = photo; img.alt = tr(it.title, lang); img.loading = 'lazy';
+        wrap.appendChild(img);
+        var badge = document.createElement('span');
+        badge.className = 'news-badge ' + ty; badge.textContent = labels[ty];
+        wrap.appendChild(badge);
+        card.appendChild(wrap);
+      }
+      var body = document.createElement('div');
+      body.className = 'news-card-body';
+      if (!photo) {
+        var b2 = document.createElement('span');
+        b2.className = 'news-badge news-badge-inline ' + ty; b2.textContent = labels[ty];
+        body.appendChild(b2);
+      }
+      if (it.date) {
+        var d = document.createElement('span');
+        d.className = 'news-date'; d.textContent = it.date;
+        body.appendChild(d);
+      }
+      var h3 = document.createElement('h3');
+      h3.textContent = tr(it.title, lang);
+      body.appendChild(h3);
+      var txt = tr(it.text, lang);
+      if (txt) { var p = document.createElement('p'); p.textContent = txt; body.appendChild(p); }
+      card.appendChild(body);
+      list.appendChild(card);
+    });
+    sec.hidden = false;
+  }
   function renderDynamic(lang) {
     renderTeachers(lang);
     renderFaq(lang);
+    renderNews(lang);
   }
 
   function setLang(lang) {
@@ -271,7 +326,7 @@
 
   /* load editable content, then render the data-driven sections in the current language */
   (function loadContent() {
-    var files = ['content/teachers.json', 'content/faq.json'];
+    var files = ['content/teachers.json', 'content/faq.json', 'content/news.json'];
     Promise.all(files.map(function (f) {
       return fetch(f, { cache: 'no-cache' })
         .then(function (r) { return r.ok ? r.json() : null; })
