@@ -1,8 +1,8 @@
 {
   "news": [
     {
-      "type": "news",
-      "photo": "",
+      "type": "promo",
+      "photo": "assets/img/news/1788186000823-17pro.jpg",
       "date": "",
       "title": {
         "ru": "Бесплатная адаптация"
