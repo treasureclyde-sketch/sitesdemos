@@ -2,7 +2,7 @@
   "teachers": [
     {
       "photo": "assets/img/teachers/olympia.jpg",
-      "color": "green",
+      "color": "purple",
       "name": {
         "ru": "Олимпия Георгиу",
         "sr": "Olimpija Georgiju",
