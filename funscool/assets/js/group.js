@@ -55,7 +55,7 @@
       accent: '#78B15A', accentSoft: '#E9F1DE', accentDark: '#5c8a3f',
       name: 'Baby-Fun',
       photo: 'assets/img/groups/baby-hero.jpg',
-      ctaPhoto: 'assets/img/kids/k5.jpg',
+      ctaPhoto: 'assets/img/interiors/baby.jpg',
       badge: { ru: 'от 1 года', sr: 'od 1 godine', en: 'from age 1' },
       subtitle: { ru: 'Мягкая адаптация\nв русскоязычной среде', sr: 'Nežna adaptacija\nu okruženju na ruskom jeziku', en: 'Gentle adaptation\nin a Russian-speaking environment' },
       intro: {
@@ -111,8 +111,8 @@
     energy: {
       accent: '#F5871F', accentSoft: '#FBE8D6', accentDark: '#cf6d0c',
       name: 'Energy-Fun',
-      photo: 'assets/img/extra/kids-outdoor.jpg',
-      ctaPhoto: 'assets/img/kids/k3.jpg',
+      photo: 'assets/img/extra/girl-joy.jpg',
+      ctaPhoto: 'assets/img/interiors/energy.jpg',
       badge: { ru: 'от 2,5 лет', sr: 'od 2,5 godine', en: 'from age 2.5' },
       subtitle: { ru: 'Учимся быть вместе\nи познаём мир в движении', sr: 'Učimo da budemo zajedno\ni upoznajemo svet u pokretu', en: 'Learning to be together\nand exploring the world in motion' },
       intro: {
