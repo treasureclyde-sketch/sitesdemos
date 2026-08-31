@@ -4,7 +4,7 @@
       "photo": "assets/img/teachers/olympia.jpg",
       "color": "green",
       "name": {
-        "ru": "Олимпия Георгиу",
+        "ru": "Тимур Босс",
         "sr": "Olimpija Georgiju",
         "en": "Olympia Georgiou"
       },
@@ -24,32 +24,6 @@
         "ru": "Нейтив-спикер с педагогическим дипломом по методике IB PYP. Выстраивает иноязычную среду через исследование, игру и проекты — без давления и зубрёжки.",
         "sr": "Izvorni govornik sa pedagoškom diplomom po IB PYP metodi. Gradi stranojezičko okruženje kroz istraživanje, igru i projekte — bez pritiska i bubanja.",
         "en": "A native speaker with a teaching diploma in the IB PYP method. Builds a foreign-language environment through inquiry, play and projects — no pressure or rote learning."
-      }
-    },
-    {
-      "photo": "assets/img/teachers/tetiana.jpg",
-      "color": "teal",
-      "name": {
-        "ru": "Тетяна Шепина",
-        "sr": "Tetjana Šepina",
-        "en": "Tetiana Shepina"
-      },
-      "tags": [
-        {
-          "ru": "Монтессори-педагог",
-          "sr": "Montessori pedagog",
-          "en": "Montessori teacher"
-        },
-        {
-          "ru": "Группа Baby",
-          "sr": "Baby grupa",
-          "en": "Baby group"
-        }
-      ],
-      "bio": {
-        "ru": "Сертифицированный Монтессори-педагог. Создаёт подготовленную среду, которая уважает темп и природный интерес самых маленьких.",
-        "sr": "Sertifikovani Montessori pedagog. Stvara pripremljeno okruženje koje poštuje tempo i prirodnu radoznalost najmlađih.",
-        "en": "A certified Montessori teacher. Creates a prepared environment that respects the pace and natural curiosity of the youngest ones."
       }
     },
     {
@@ -76,6 +50,32 @@
         "ru": "Специалист по методике Discovery и проектному обучению. Объединяет математику, естественные науки и творчество в одну интегрированную программу.",
         "sr": "Stručnjak za Discovery metodu i projektnu nastavu. Spaja matematiku, prirodne nauke i stvaralaštvo u jedan integrisani program.",
         "en": "A specialist in the Discovery method and project-based learning. Brings maths, natural sciences and creativity into one integrated programme."
+      }
+    },
+    {
+      "photo": "assets/img/teachers/tetiana.jpg",
+      "color": "teal",
+      "name": {
+        "ru": "Тетяна Шепина",
+        "sr": "Tetjana Šepina",
+        "en": "Tetiana Shepina"
+      },
+      "tags": [
+        {
+          "ru": "Монтессори-педагог",
+          "sr": "Montessori pedagog",
+          "en": "Montessori teacher"
+        },
+        {
+          "ru": "Группа Baby",
+          "sr": "Baby grupa",
+          "en": "Baby group"
+        }
+      ],
+      "bio": {
+        "ru": "Сертифицированный Монтессори-педагог. Создаёт подготовленную среду, которая уважает темп и природный интерес самых маленьких.",
+        "sr": "Sertifikovani Montessori pedagog. Stvara pripremljeno okruženje koje poštuje tempo i prirodnu radoznalost najmlađih.",
+        "en": "A certified Montessori teacher. Creates a prepared environment that respects the pace and natural curiosity of the youngest ones."
       }
     },
     {
