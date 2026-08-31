@@ -4,7 +4,7 @@
       "photo": "assets/img/teachers/olympia.jpg",
       "color": "green",
       "name": {
-        "ru": "Пидор",
+        "ru": "Олимпия Георгиу",
         "sr": "Olimpija Georgiju",
         "en": "Olympia Georgiou"
       },
@@ -18,11 +18,6 @@
           "ru": "Носитель английского",
           "sr": "Izvorni govornik engleskog",
           "en": "Native English speaker"
-        },
-        {
-          "ru": "шлюха",
-          "sr": "",
-          "en": ""
         }
       ],
       "bio": {
