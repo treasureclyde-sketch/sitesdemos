@@ -167,6 +167,7 @@ details.adv{margin:10px 0 16px} details.adv summary{cursor:pointer; font-weight:
     <nav class="nav" id="nav">
       <a data-page="teachers" class="active"><span class="ic">👩‍🏫</span>Воспитатели</a>
       <a data-page="faq"><span class="ic">❓</span>Вопросы (FAQ)</a>
+      <a data-page="news"><span class="ic">🎉</span>Новости &amp; Акции</a>
     </nav>
     <div class="side-foot">
       <span class="who" id="who"></span>
@@ -200,7 +201,8 @@ var cfg={owner:'treasureclyde-sketch', repo:'sitesdemos', branch:'claude/funscoo
 var token='';
 var COLL={
   teachers:{ title:'Воспитатели', path:'funscool/content/teachers.json', key:'teachers' },
-  faq:{ title:'Вопросы (FAQ)', path:'funscool/content/faq.json', key:'faq' }
+  faq:{ title:'Вопросы (FAQ)', path:'funscool/content/faq.json', key:'faq' },
+  news:{ title:'Новости & Акции', placeholder:true } // empty for now — no site block to edit yet
 };
 var store={}; // page -> { sha, items:[...] , dirty:false }
 var current='teachers';
@@ -283,7 +285,16 @@ function syncBar(){
 function markDirty(){ if(store[current]) store[current].dirty=true; syncBar(); }
 
 /* ---------- load + render ---------- */
+function renderPlaceholder(){
+  $('#content').innerHTML=
+    '<div class="card" style="text-align:center; padding:44px 22px">'+
+      '<div style="font-size:46px; line-height:1; margin-bottom:12px">🎉</div>'+
+      '<h3 style="font-size:19px; margin:0 0 6px">Раздел пока пустой</h3>'+
+      '<p class="page-intro" style="margin:0 auto; max-width:460px">Здесь появятся «Новости &amp; Акции», когда на сайте будет соответствующий блок. Пока редактировать нечего — раздел добавлен на будущее.</p>'+
+    '</div>';
+}
 function loadAndRender(page){
+  if(COLL[page].placeholder){ renderPlaceholder(); return; }
   var el=$('#content');
   if(store[page]){ renderPage(page); return; }
   el.innerHTML='<p class="page-intro">Загружаю из GitHub…</p>';
