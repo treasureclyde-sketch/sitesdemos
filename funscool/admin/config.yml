@@ -69,3 +69,33 @@ collections:
                   - { label: "Русский", name: "ru", widget: "text" }
                   - { label: "Српски", name: "sr", widget: "text", required: false }
                   - { label: "English", name: "en", widget: "text", required: false }
+
+  - name: "faq"
+    label: "Вопросы (FAQ)"
+    description: "Частые вопросы родителей в блоке «Частые вопросы»."
+    files:
+      - name: "list"
+        label: "Список вопросов"
+        file: "funscool/content/faq.json"
+        format: "json"
+        fields:
+          - label: "Вопросы"
+            name: "faq"
+            label_singular: "Вопрос"
+            widget: "list"
+            summary: "{{fields.q.ru}}"
+            fields:
+              - label: "Вопрос"
+                name: "q"
+                widget: "object"
+                fields:
+                  - { label: "Русский", name: "ru", widget: "string" }
+                  - { label: "Српски", name: "sr", widget: "string", required: false }
+                  - { label: "English", name: "en", widget: "string", required: false }
+              - label: "Ответ"
+                name: "a"
+                widget: "object"
+                fields:
+                  - { label: "Русский", name: "ru", widget: "text" }
+                  - { label: "Српски", name: "sr", widget: "text", required: false }
+                  - { label: "English", name: "en", widget: "text", required: false }

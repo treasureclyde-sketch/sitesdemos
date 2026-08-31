@@ -216,8 +216,29 @@
     });
     try { document.dispatchEvent(new Event('fs:teachers-rendered')); } catch (e) {}
   }
+  function renderFaq(lang) {
+    // FAQ accordion rendered from content/faq.json (CMS-editable). The static
+    // markup in index.html stays as a no-JS / crawler fallback; this replaces it.
+    var list = document.getElementById('faqList');
+    if (!list || !CONTENT || !Array.isArray(CONTENT.faq)) return;
+    list.textContent = '';
+    CONTENT.faq.forEach(function (item) {
+      var q = tr(item.q, lang), a = tr(item.a, lang);
+      if (!q) return;
+      var det = document.createElement('details'); det.className = 'qa';
+      var sum = document.createElement('summary');
+      var qspan = document.createElement('span'); qspan.textContent = q; sum.appendChild(qspan);
+      var ic = document.createElement('span'); ic.className = 'qa-ic';
+      ic.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>';
+      sum.appendChild(ic); det.appendChild(sum);
+      var ans = document.createElement('div'); ans.className = 'qa-a';
+      var p = document.createElement('p'); p.textContent = a; ans.appendChild(p);
+      det.appendChild(ans); list.appendChild(det);
+    });
+  }
   function renderDynamic(lang) {
     renderTeachers(lang);
+    renderFaq(lang);
   }
 
   function setLang(lang) {
@@ -249,10 +270,22 @@
   if (saved && saved !== 'ru') setLang(saved);
 
   /* load editable content, then render the data-driven sections in the current language */
-  fetch('content/teachers.json', { cache: 'no-cache' })
-    .then(function (r) { return r.ok ? r.json() : null; })
-    .then(function (data) { if (data) { CONTENT = data; renderDynamic(currentLang); } })
-    .catch(function () {});
+  (function loadContent() {
+    var files = ['content/teachers.json', 'content/faq.json'];
+    Promise.all(files.map(function (f) {
+      return fetch(f, { cache: 'no-cache' })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .catch(function () { return null; });
+    })).then(function (parts) {
+      CONTENT = CONTENT || {};
+      parts.forEach(function (d) {
+        if (d && typeof d === 'object') {
+          for (var k in d) { if (Object.prototype.hasOwnProperty.call(d, k)) CONTENT[k] = d[k]; }
+        }
+      });
+      renderDynamic(currentLang);
+    });
+  })();
 
   /* ---------- nav ---------- */
   var nav = document.querySelector('.nav');
