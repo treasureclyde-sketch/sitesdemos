@@ -3,10 +3,22 @@
     {
       "photo": "assets/img/teachers/olympia.jpg",
       "color": "green",
-      "name": { "ru": "Олимпия Георгиу", "sr": "Olimpija Georgiju", "en": "Olympia Georgiou" },
+      "name": {
+        "ru": "Пидор",
+        "sr": "Olimpija Georgiju",
+        "en": "Olympia Georgiou"
+      },
       "tags": [
-        { "ru": "IB PYP certified", "sr": "IB PYP sertifikat", "en": "IB PYP certified" },
-        { "ru": "Носитель английского", "sr": "Izvorni govornik engleskog", "en": "Native English speaker" }
+        {
+          "ru": "IB PYP certified",
+          "sr": "IB PYP sertifikat",
+          "en": "IB PYP certified"
+        },
+        {
+          "ru": "Носитель английского",
+          "sr": "Izvorni govornik engleskog",
+          "en": "Native English speaker"
+        }
       ],
       "bio": {
         "ru": "Нейтив-спикер с педагогическим дипломом по методике IB PYP. Выстраивает иноязычную среду через исследование, игру и проекты — без давления и зубрёжки.",
@@ -17,10 +29,22 @@
     {
       "photo": "assets/img/teachers/elena.jpg",
       "color": "purple",
-      "name": { "ru": "Елена Кириллишина", "sr": "Jelena Kirilišina", "en": "Elena Kirillishina" },
+      "name": {
+        "ru": "Елена Кириллишина",
+        "sr": "Jelena Kirilišina",
+        "en": "Elena Kirillishina"
+      },
       "tags": [
-        { "ru": "Методист", "sr": "Metodičar", "en": "Methodologist" },
-        { "ru": "Проектное обучение", "sr": "Projektna nastava", "en": "Project-based learning" }
+        {
+          "ru": "Методист",
+          "sr": "Metodičar",
+          "en": "Methodologist"
+        },
+        {
+          "ru": "Проектное обучение",
+          "sr": "Projektna nastava",
+          "en": "Project-based learning"
+        }
       ],
       "bio": {
         "ru": "Специалист по методике Discovery и проектному обучению. Объединяет математику, естественные науки и творчество в одну интегрированную программу.",
@@ -31,10 +55,22 @@
     {
       "photo": "assets/img/teachers/tetiana.jpg",
       "color": "teal",
-      "name": { "ru": "Тетяна Шепина", "sr": "Tetjana Šepina", "en": "Tetiana Shepina" },
+      "name": {
+        "ru": "Тетяна Шепина",
+        "sr": "Tetjana Šepina",
+        "en": "Tetiana Shepina"
+      },
       "tags": [
-        { "ru": "Монтессори-педагог", "sr": "Montessori pedagog", "en": "Montessori teacher" },
-        { "ru": "Группа Baby", "sr": "Baby grupa", "en": "Baby group" }
+        {
+          "ru": "Монтессори-педагог",
+          "sr": "Montessori pedagog",
+          "en": "Montessori teacher"
+        },
+        {
+          "ru": "Группа Baby",
+          "sr": "Baby grupa",
+          "en": "Baby group"
+        }
       ],
       "bio": {
         "ru": "Сертифицированный Монтессори-педагог. Создаёт подготовленную среду, которая уважает темп и природный интерес самых маленьких.",
@@ -45,9 +81,17 @@
     {
       "photo": "assets/img/teachers/nicol.jpg",
       "color": "pink",
-      "name": { "ru": "Николь Матвиенко", "sr": "Nikol Matvijenko", "en": "Nicol Matvienko" },
+      "name": {
+        "ru": "Николь Матвиенко",
+        "sr": "Nikol Matvijenko",
+        "en": "Nicol Matvienko"
+      },
       "tags": [
-        { "ru": "Администратор", "sr": "Administrator", "en": "Administrator" }
+        {
+          "ru": "Администратор",
+          "sr": "Administrator",
+          "en": "Administrator"
+        }
       ],
       "bio": {
         "ru": "Сопровождает семьи от первого звонка до адаптации: помогает с документами, отвечает на вопросы и держит связь с родителями.",
