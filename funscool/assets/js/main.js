@@ -505,7 +505,11 @@
     if (pin) pin.addEventListener('input', sync);
     if (cc) cc.addEventListener('change', function () { if (pin) { pin.placeholder = ccOpt().getAttribute('data-ph') || ''; sync(); } });
 
-    /* ----- submit → FormSubmit.co; WhatsApp fallback if it can't send ----- */
+    /* ----- submit → Netlify function (branded Gmail email); WhatsApp fallback ----- */
+    // Письмо отправляет serverless-функция на Netlify — GitHub Pages сам серверный
+    // код не запускает. Если адрес Netlify-сайта другой, поменяй ТОЛЬКО эту строку
+    // (и такую же в group.html). Подробности — в MAIL-SETUP.md.
+    var LEAD_ENDPOINT = 'https://regal-starburst-6fc954.netlify.app/.netlify/functions/lead';
     var form = document.getElementById('leadForm');
     if (!form) return;
     var emailInput = document.getElementById('emailInput');
@@ -555,7 +559,7 @@
       var wa = document.getElementById('waFallback');
       var btn = form.querySelector('button[type="submit"]');
       if (btn) btn.disabled = true;
-      fetch('/.netlify/functions/lead', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
+      fetch(LEAD_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
         .then(function (r) {
           if (!r.ok) throw new Error('http ' + r.status);
           if (ok) ok.classList.add('show');

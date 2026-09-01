@@ -12,7 +12,15 @@ function esc(s) {
 function resp(code, obj) {
   return {
     statusCode: code,
-    headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+    headers: {
+      'Content-Type': 'application/json',
+      // CORS: the site (GitHub Pages) and this function live on different
+      // origins, so the browser needs these on the preflight and the response.
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type',
+      'Access-Control-Max-Age': '86400'
+    },
     body: JSON.stringify(obj)
   };
 }
