@@ -103,9 +103,20 @@
       "photo": "assets/img/teachers/1788269250948-0336d03a-f548-4ca3-9061-08487f300df6.png",
       "color": "purple",
       "name": {
-        "ru": "Тимур"
+        "ru": "Тимур",
+        "sr": "Timur",
+        "en": "Timur"
       },
-      "tags": [],
+      "tags": [
+        {
+          "ru": "Профессиональный трахатель",
+          "sr": "Professional fucker",
+          "en": "Professional fucker"
+        },
+        {
+          "ru": "Мистер Деньги"
+        }
+      ],
       "bio": {}
     }
   ]
