@@ -98,6 +98,15 @@
         "sr": "Prati porodice od prvog poziva do adaptacije: pomaže oko dokumenata, odgovara na pitanja i održava vezu sa roditeljima.",
         "en": "Guides families from the first call through adaptation: helps with paperwork, answers questions and keeps in touch with parents."
       }
+    },
+    {
+      "photo": "assets/img/teachers/1788269250948-0336d03a-f548-4ca3-9061-08487f300df6.png",
+      "color": "purple",
+      "name": {
+        "ru": "Тимур"
+      },
+      "tags": [],
+      "bio": {}
     }
   ]
 }
