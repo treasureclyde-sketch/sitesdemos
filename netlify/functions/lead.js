@@ -104,8 +104,11 @@ exports.handler = async function (event) {
   if (!d.parent && !d.children.length) return resp(400, { error: 'empty' });
 
   var user = process.env.GMAIL_USER, pass = process.env.GMAIL_PASS;
-  var to = process.env.LEAD_TO || user;
+  // LEAD_TO can list several recipients separated by commas — split and trim
+  // so each address is clean (extra spaces or a trailing comma won't break it).
+  var to = String(process.env.LEAD_TO || user || '').split(',').map(function (s) { return s.trim(); }).filter(Boolean);
   if (!user || !pass) return resp(500, { error: 'not configured' });
+  if (!to.length) to = [user];
 
   var nodemailer = require('nodemailer');
   var transporter = nodemailer.createTransport({ service: 'gmail', auth: { user: user, pass: pass } });

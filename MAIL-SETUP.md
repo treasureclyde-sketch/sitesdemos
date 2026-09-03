@@ -56,9 +56,21 @@ Netlify → сайт → **Site configuration → Environment variables → Add 
 
 | Ключ         | Значение                                  |
 |--------------|-------------------------------------------|
-| `GMAIL_USER` | твой Gmail-адрес, напр. `funscool.zayavki@gmail.com` |
+| `GMAIL_USER` | Gmail/Google-аккаунт, который ОТПРАВЛЯЕТ письмо (у него App Password) |
 | `GMAIL_PASS` | 16-значный App Password из Шага 1 (без пробелов) |
-| `LEAD_TO`    | куда слать заявки (можно тот же Gmail, или несколько через запятую) |
+| `LEAD_TO`    | кому ПРИХОДЯТ заявки — можно несколько через запятую |
+
+Кому приходят заявки (значение `LEAD_TO`), одной строкой:
+
+```
+Kseniyashipareva@gmail.com, Raziusha0809@gmail.com, Welcome@funscool.rs
+```
+
+`GMAIL_USER` — это отдельный аккаунт-отправитель (с него уходит письмо). Можно
+завести отдельный Gmail (напр. `funscool.zayavki@gmail.com`). Если домен
+`funscool.rs` заведён в Google Workspace, отправителем можно сделать
+`Welcome@funscool.rs` (App Password создаётся так же) — тогда письмо будет
+уходить прямо с вашего домена.
 
 После добавления переменных сделай **Trigger deploy → Deploy site** ещё раз,
 чтобы функция их подхватила.
