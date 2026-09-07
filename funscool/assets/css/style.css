@@ -400,14 +400,22 @@ h1, h2, h3, h4 {
   z-index: 2;
 }
 .ev.on { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-/* desktop: keep a constant gap between the dot and its callout in every clock
-   position — card sits fully above (upper half) or fully below (lower half) the dot */
+/* desktop: nudge each callout radially OUTWARD from the clock centre (per-card
+   unit vector in --rx/--ry) by --push, so the gap between the dot ring and the
+   card text stays even all around the clock and no card climbs onto the face.
+   --push scales with the viewport: gentle on narrow desktops, where the ring and
+   the side photo are already tight, and full on wide screens where there's room,
+   so a card never lands on the photo or runs off the section edge. */
 @media (min-width: 901px) {
-  .ev.clk-up    { transform: translate(-50%, calc(-100% - 20px)) scale(.82); }
-  .ev.clk-up.on { transform: translate(-50%, calc(-100% - 20px)) scale(1); }
-  .ev.clk-down    { transform: translate(-50%, 20px) scale(.82); }
-  .ev.clk-down.on { transform: translate(-50%, 20px) scale(1); }
+  .dayclock { --push: 12px; }
+  .ev.clk-item {
+    transform: translate(calc(-50% + var(--rx, 0) * var(--push)), calc(-50% + var(--ry, 0) * var(--push))) scale(.82);
+  }
+  .ev.clk-item.on {
+    transform: translate(calc(-50% + var(--rx, 0) * var(--push)), calc(-50% + var(--ry, 0) * var(--push))) scale(1);
+  }
 }
+@media (min-width: 1200px) { .dayclock { --push: 22px; } }
 .ev-card {
   display: flex; flex-direction: column; align-items: flex-start; gap: 7px;
   padding: 11px 13px;

@@ -411,9 +411,8 @@
     var clock = document.getElementById('dayClock');
     if (!clock) return;
     var items = Array.prototype.slice.call(clock.querySelectorAll('.ev.clk-item'));
-    // put each callout above its dot (upper half of the ring) or below it (lower half)
-    // so the gap between the dot and the card is the same in every position
-    items.forEach(function (el) { var t = parseFloat(el.style.top) || 50; el.classList.add(t <= 50 ? 'clk-up' : 'clk-down'); });
+    // the constant dot→card gap is handled in CSS via each card's --rx/--ry
+    // radial vector (see .ev.clk-item in the desktop media query)
     var dots = Array.prototype.slice.call(clock.querySelectorAll('.cd'));
     var hand = clock.querySelector('.clk-hand');
     var n = items.length;
