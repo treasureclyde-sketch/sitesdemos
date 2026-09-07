@@ -313,7 +313,10 @@
     grid.textContent = '';
     CONTENT.events.forEach(function (ev, i) {
       var art = document.createElement('article');
-      art.className = 'ev-card reveal' + (i === 1 ? ' d1' : (i === 2 ? ' d2' : ''));
+      // No 'reveal' here: these cards are built after the reveal observer has
+      // already scanned the page, so a reveal class would leave them stuck at
+      // opacity:0 (invisible). They're shown immediately, like the news cards.
+      art.className = 'ev-card';
       var photo = document.createElement('div');
       var src = String(ev.photo || '').replace(/^\//, '');
       if (src) {
