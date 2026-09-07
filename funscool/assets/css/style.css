@@ -400,6 +400,14 @@ h1, h2, h3, h4 {
   z-index: 2;
 }
 .ev.on { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+/* desktop: keep a constant gap between the dot and its callout in every clock
+   position — card sits fully above (upper half) or fully below (lower half) the dot */
+@media (min-width: 901px) {
+  .ev.clk-up    { transform: translate(-50%, calc(-100% - 20px)) scale(.82); }
+  .ev.clk-up.on { transform: translate(-50%, calc(-100% - 20px)) scale(1); }
+  .ev.clk-down    { transform: translate(-50%, 20px) scale(.82); }
+  .ev.clk-down.on { transform: translate(-50%, 20px) scale(1); }
+}
 .ev-card {
   display: flex; flex-direction: column; align-items: flex-start; gap: 7px;
   padding: 11px 13px;
