@@ -681,13 +681,14 @@ body.intro-lock { overflow: hidden; }
 .form-card h3 { font-family: 'Nunito'; font-weight: 800; font-size: 21px; color: var(--ink); margin-bottom: 6px; }
 .form-card > p { font-size: 14.5px; color: var(--muted); margin: 0 0 22px; }
 .field { margin-bottom: 14px; }
-.field input, .field select {
+.field input, .field select, .field textarea {
   width: 100%; padding: 15px 18px; border-radius: 14px; border: 1.5px solid var(--line-2);
   background: var(--card-2); color: var(--ink); font-family: inherit; font-size: 16px; font-weight: 600;
   transition: border-color .2s, background .2s;
 }
-.field input::placeholder { color: var(--muted-2); }
-.field input:focus, .field select:focus { outline: none; border-color: var(--yellow); background: #fff; }
+.field textarea { min-height: 88px; resize: vertical; line-height: 1.4; }
+.field input::placeholder, .field textarea::placeholder { color: var(--muted-2); }
+.field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--yellow); background: #fff; }
 .form-card .btn { width: 100%; margin-top: 6px; }
 .form-note { display: flex; gap: 8px; align-items: flex-start; font-size: 12.5px; color: var(--muted); margin-top: 14px; }
 .form-note svg { width: 15px; height: 15px; color: var(--orange); flex-shrink: 0; margin-top: 2px; }
@@ -1123,6 +1124,20 @@ body.modal-open { overflow: hidden; }
 .gp-cta-text p { color: var(--ink-soft); font-size: 17px; margin: 14px 0 24px; }
 .gp-cta-btns { display: flex; flex-wrap: wrap; gap: 14px; }
 .gp-cta-photo img { width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: var(--radius-lg); box-shadow: var(--shadow); }
+
+/* popular questions about the group */
+.gp-faq-sec { background: var(--card-2); }
+.gp-faq { max-width: 720px; margin: 8px auto 0; display: flex; flex-direction: column; gap: 12px; }
+.gp-qa { background: var(--card); border: 1px solid var(--line); border-radius: 16px; box-shadow: var(--shadow-sm); overflow: hidden; }
+.gp-qa summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 14px; padding: 18px 20px; font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 16.5px; color: var(--ink); }
+.gp-qa summary::-webkit-details-marker { display: none; }
+.gp-qa summary > span:first-child { flex: 1; }
+.gp-qa-ic { flex-shrink: 0; width: 30px; height: 30px; border-radius: 50%; background: var(--gas); color: var(--ga); display: grid; place-items: center; transition: transform .3s var(--ease), background .3s, color .3s; }
+.gp-qa-ic svg { width: 18px; height: 18px; }
+.gp-qa[open] .gp-qa-ic { transform: rotate(180deg); background: var(--ga); color: #fff; }
+.gp-qa[open] { border-color: color-mix(in srgb, var(--ga) 30%, var(--line)); }
+.gp-qa-a { padding: 0 20px 18px; }
+.gp-qa-a p { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.55; }
 
 @media (max-width: 980px) {
   .gp-hero-grid { grid-template-columns: 1fr; gap: 28px; }

@@ -155,8 +155,8 @@
 
   var DICT = { ru: RU, sr: SR, en: EN };
   var PH = { ru: RU_PH,
-    sr: { form_name:"Ime roditelja", form_phone:"Telefon", form_child:"Ime deteta", form_email:"E-mail" },
-    en: { form_name:"Parent's name", form_phone:"Phone number", form_child:"Child's name", form_email:"E-mail" } };
+    sr: { form_name:"Ime roditelja", form_phone:"Telefon", form_child:"Ime deteta", form_email:"E-mail", form_question_ph:"Vaše pitanje (po želji)" },
+    en: { form_name:"Parent's name", form_phone:"Phone number", form_child:"Child's name", form_email:"E-mail", form_question_ph:"Your question (optional)" } };
   var PHONE = { ru:["+7 (499) 283-46-28","+74992834628"], en:["+7 (499) 283-46-28","+74992834628"], sr:["+381 (69) 283-46-28","+381692834628"] };
 
   /* ---------- content rendered from data (editable in the CMS) ---------- */
@@ -209,6 +209,7 @@
       var a = document.createElement('a');
       a.className = 'btn btn-ghost tcard-ask';
       a.href = '#contact';
+      a.setAttribute('data-ask', '1'); // opens the modal in "question to teachers" mode
       a.textContent = askTxt;
       body.appendChild(a);
 
@@ -438,12 +439,27 @@
     var modal = document.getElementById('bookModal');
     if (!modal) return;
     var lastFocus = null;
-    function open(e) {
+    var titleEl = document.getElementById('bookTitle');
+    var subEl = modal.querySelector('.modal-sub');
+    var questionEl = document.getElementById('questionInput');
+    // "Задать вопрос педагогам" — same window, slightly different wording
+    var ASK = {
+      title: { ru: 'Задать вопрос педагогам', sr: 'Postavite pitanje vaspitačima', en: 'Ask our teachers a question' },
+      sub:   { ru: 'Оставьте контакты и свой вопрос — педагоги ответят вам в ближайшее время.', sr: 'Ostavite kontakt i pitanje — vaspitači će vam se javiti u najkraćem roku.', en: 'Leave your contact and question — our teachers will get back to you soon.' }
+    };
+    function bookTxt(key) { var d = DICT[currentLang]; return (d && d[key] != null) ? d[key] : (RU[key] || ''); }
+    function setMode(ask) {
+      if (titleEl) titleEl.textContent = ask ? (ASK.title[currentLang] || ASK.title.ru) : bookTxt('form_card_title');
+      if (subEl)   subEl.textContent   = ask ? (ASK.sub[currentLang]   || ASK.sub.ru)   : bookTxt('form_card_sub');
+    }
+    function open(e, trigger) {
       if (e) e.preventDefault();
       lastFocus = document.activeElement;
+      var ask = !!(trigger && trigger.hasAttribute('data-ask'));
+      setMode(ask);
       modal.classList.add('open'); modal.setAttribute('aria-hidden', 'false');
       document.body.classList.add('modal-open');
-      var first = modal.querySelector('select, input:not([type=hidden]), button');
+      var first = ask && questionEl ? questionEl : modal.querySelector('select, input:not([type=hidden]), button');
       setTimeout(function () { try { first && first.focus(); } catch (_) {} }, 60);
     }
     function close() {
@@ -451,7 +467,11 @@
       document.body.classList.remove('modal-open');
       try { lastFocus && lastFocus.focus(); } catch (_) {}
     }
-    document.querySelectorAll('a[href="#contact"]').forEach(function (a) { a.addEventListener('click', open); });
+    // delegation: covers static links AND dynamically-rendered teacher "Задать вопрос" buttons
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest && e.target.closest('a[href="#contact"]');
+      if (a) open(e, a);
+    });
     modal.querySelectorAll('[data-close]').forEach(function (el) { el.addEventListener('click', close); });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && modal.classList.contains('open')) close(); });
 
@@ -547,11 +567,13 @@
         return (i + 1) + ') ' + (k.name || '—') + (k.group ? ' — ' + k.group + (k.age ? ' (' + k.age + ')' : '') : '');
       }).join('\n');
       var honey = form.querySelector('[name="_honey"]');
+      var question = questionEl ? questionEl.value.trim() : '';
       var payload = {
         children: kids,
         parent: parent ? parent.value.trim() : '',
         phone: phoneOk && pfull ? pfull.value : '',
         email: emailOk ? emailVal : '',
+        question: question,
         hp: honey ? honey.value : ''
       };
       var ok = document.getElementById('formSuccess');
@@ -574,7 +596,8 @@
           var text = 'Здравствуйте! Хочу записаться на экскурсию в Funscool.\nДети:\n' + summary + '\n'
             + (parent && parent.value ? 'Родитель: ' + parent.value + '\n' : '')
             + (phoneOk && pfull ? 'Телефон: ' + pfull.value + '\n' : '')
-            + (emailOk ? 'E-mail: ' + emailVal : '');
+            + (emailOk ? 'E-mail: ' + emailVal + '\n' : '')
+            + (question ? 'Вопрос: ' + question : '');
           if (wa) { wa.href = 'https://wa.me/381644445550?text=' + encodeURIComponent(text); wa.hidden = false; }
           if (errBox) errBox.hidden = false;
         })

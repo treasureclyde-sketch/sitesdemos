@@ -104,7 +104,13 @@
         { icon: 'apple', t: { ru: '5-разовое питание, сбалансированное меню', sr: 'Pet obroka dnevno, uravnotežen meni', en: 'Five meals a day, a balanced menu' } }
       ],
       ctaTitle: { ru: 'Лучшее начало\nдля счастливого детства!', sr: 'Najbolji početak\nza srećno detinjstvo!', en: 'The best start\nfor a happy childhood!' },
-      ctaText: { ru: 'Запишитесь на экскурсию и познакомьтесь с нашей Baby-Fun-группой.', sr: 'Zakažite obilazak i upoznajte našu Baby-Fun grupu.', en: 'Book a tour and meet our Baby-Fun group.' }
+      ctaText: { ru: 'Запишитесь на экскурсию и познакомьтесь с нашей Baby-Fun-группой.', sr: 'Zakažite obilazak i upoznajte našu Baby-Fun grupu.', en: 'Book a tour and meet our Baby-Fun group.' },
+      faq: [
+        { q: { ru: 'Как проходит адаптация малыша?', sr: 'Kako teče adaptacija mališana?', en: 'How does a little one settle in?' }, a: { ru: 'Наша программа адаптации мягкая: в течение недели в группу приходит только один новый ребёнок. Мы поддерживаем малыша и родителей на каждом шаге и ведём «Дневник адаптации».', sr: 'Naš program adaptacije je nežan: tokom nedelje u grupu dolazi samo jedno novo dete. Podržavamo i dete i roditelje na svakom koraku i vodimo „Dnevnik adaptacije“.', en: 'Our adaptation program is gentle: only one new child joins the group each week. We support the child and the parents at every step and keep an “Adaptation Diary”.' } },
+        { q: { ru: 'С какого возраста берёте в Baby-Fun?', sr: 'Od kog uzrasta primate u Baby-Fun?', en: 'From what age do you accept children into Baby-Fun?' }, a: { ru: 'Примерно с 1 года — когда ребёнок уверенно ходит, ест ложкой и пьёт из кружки.', sr: 'Otprilike od 1 godine — kada dete sigurno hoda, jede kašikom i pije iz šolje.', en: 'From about age 1 — once a child walks confidently, eats with a spoon and drinks from a cup.' } },
+        { q: { ru: 'Ребёнок почти не говорит — это нормально?', sr: 'Dete skoro da ne govori — je li to normalno?', en: 'My child barely talks yet — is that normal?' }, a: { ru: 'Да. В этом возрасте речь только формируется; мы развиваем её каждый день через игру, песни, чтение и общение.', sr: 'Da. Na ovom uzrastu se govor tek formira; razvijamo ga svakog dana kroz igru, pesme, čitanje i komunikaciju.', en: 'Yes. At this age speech is only forming; we develop it every day through play, songs, reading and conversation.' } },
+        { q: { ru: 'Сколько детей и взрослых в группе?', sr: 'Koliko dece i odraslih je u grupi?', en: 'How many children and adults are in the group?' }, a: { ru: 'До 12 детей, с ними постоянно воспитатель и ассистент. Также 5-разовое питание, дневной сон и две прогулки в день.', sr: 'Do 12 dece, uz njih su stalno vaspitač i asistent. Uz to pet obroka dnevno, dnevni san i dve šetnje dnevno.', en: 'Up to 12 children, always with a teacher and an assistant. Plus five meals a day, a nap and two walks a day.' } }
+      ]
     },
 
     /* ============================ ENERGY-FUN ============================ */
@@ -162,7 +168,13 @@
         { icon: 'tree', t: { ru: 'Две прогулки в день, 5-разовое питание', sr: 'Dve šetnje dnevno, pet obroka', en: 'Two walks a day, five meals a day' } }
       ],
       ctaTitle: { ru: 'Энергия, дружба\nи первые правила!', sr: 'Energija, prijateljstvo\ni prva pravila!', en: 'Energy, friendship\nand first rules!' },
-      ctaText: { ru: 'Запишитесь на экскурсию и познакомьтесь с нашей Energy-Fun-группой.', sr: 'Zakažite obilazak i upoznajte našu Energy-Fun grupu.', en: 'Book a tour and meet our Energy-Fun group.' }
+      ctaText: { ru: 'Запишитесь на экскурсию и познакомьтесь с нашей Energy-Fun-группой.', sr: 'Zakažite obilazak i upoznajte našu Energy-Fun grupu.', en: 'Book a tour and meet our Energy-Fun group.' },
+      faq: [
+        { q: { ru: 'Что если ребёнок впервые идёт в сад?', sr: 'Šta ako dete prvi put ide u vrtić?', en: 'What if my child is going to preschool for the first time?' }, a: { ru: 'Для нового ребёнка используем программу мягкой адаптации FunsCool и «Дневник адаптации» — знакомим с ритмом, педагогами и детьми постепенно.', sr: 'Za novo dete koristimo FunsCool program nežne adaptacije i „Dnevnik adaptacije“ — postepeno ga upoznajemo sa ritmom, vaspitačima i decom.', en: 'For a new child we use the FunsCool gentle-adaptation program and the “Adaptation Diary”, introducing the rhythm, teachers and other children step by step.' } },
+        { q: { ru: 'Дети много сидят за столами?', sr: 'Da li deca puno sede za stolovima?', en: 'Do the children sit at tables a lot?' }, a: { ru: 'Нет. Примерно каждые 8–10 минут дети меняют зону — обучение построено на движении, а не на долгом сидении.', sr: 'Ne. Otprilike svakih 8–10 minuta deca menjaju zonu — učenje se zasniva na pokretu, a ne na dugom sedenju.', en: 'No. Roughly every 8–10 minutes children change zones — learning is built on movement, not long sitting.' } },
+        { q: { ru: 'Как вы учите детей общаться и делиться?', sr: 'Kako učite decu da komuniciraju i dele?', en: 'How do you teach children to communicate and share?' }, a: { ru: 'Через ежедневные ситуации обмена, совместные игры, простые правила и круги приветствия и прощания — всё с поддержкой педагога.', sr: 'Kroz svakodnevne situacije razmene, zajedničke igre, jednostavna pravila i krugove pozdrava i opraštanja — sve uz podršku vaspitača.', en: 'Through daily sharing situations, joint play, simple rules and greeting/farewell circles — all with the teacher’s support.' } },
+        { q: { ru: 'Что такое «Супер домовёнок»?', sr: 'Šta je „Super kućni duh“?', en: 'What is “Super House-Helper”?' }, a: { ru: 'Еженедельное практическое занятие: дети готовят простые блюда, наводят порядок и вместе договариваются, как устроена жизнь группы.', sr: 'Nedeljna praktična aktivnost: deca pripremaju jednostavna jela, sređuju prostor i zajedno se dogovaraju kako funkcioniše život grupe.', en: 'A weekly hands-on session: children cook simple dishes, tidy up and agree together on how the group life works.' } }
+      ]
     },
 
     /* ============================ DISCOVERY-FUN ============================ */
@@ -220,7 +232,13 @@
         { icon: 'chat', t: { ru: 'Логопед индивидуально, по желанию', sr: 'Logoped individualno, po želji', en: 'A speech therapist individually, on request' } }
       ],
       ctaTitle: { ru: 'Возраст больших\nоткрытий!', sr: 'Uzrast velikih\notkrića!', en: 'The age of big\ndiscoveries!' },
-      ctaText: { ru: 'Запишитесь на экскурсию и познакомьтесь с нашей Discovery-Fun-группой.', sr: 'Zakažite obilazak i upoznajte našu Discovery-Fun grupu.', en: 'Book a tour and meet our Discovery-Fun group.' }
+      ctaText: { ru: 'Запишитесь на экскурсию и познакомьтесь с нашей Discovery-Fun-группой.', sr: 'Zakažite obilazak i upoznajte našu Discovery-Fun grupu.', en: 'Book a tour and meet our Discovery-Fun group.' },
+      faq: [
+        { q: { ru: 'Какие эксперименты проводят дети?', sr: 'Kakve oglede deca izvode?', en: 'What experiments do the children do?' }, a: { ru: 'Опыт или исследовательская задача встроены в каждую из 26 тем года — от модели вулкана до наблюдения за ростом растения.', sr: 'Ogled ili istraživački zadatak ugrađen je u svaku od 26 tema godišnje — od modela vulkana do posmatranja rasta biljke.', en: 'An experiment or research task is built into each of the 26 yearly topics — from a volcano model to watching a plant grow.' } },
+        { q: { ru: 'Есть ли настоящие проекты?', sr: 'Da li postoje pravi projekti?', en: 'Are there real projects?' }, a: { ru: 'Да, небольшие многошаговые: дети высаживают зелень, наблюдают, ухаживают, фиксируют изменения и используют результат.', sr: 'Da, mali višekoračni: deca sade zelen, posmatraju, brinu, beleže promene i koriste rezultat.', en: 'Yes, small multi-step ones: children plant greens, observe, care for them, record changes and use the result.' } },
+        { q: { ru: 'Сколько английского в Discovery-Fun?', sr: 'Koliko engleskog ima u Discovery-Fun?', en: 'How much English is there in Discovery-Fun?' }, a: { ru: 'Три раза в неделю примерно по 1,5 часа с англоязычным педагогом.', sr: 'Tri puta nedeljno po otprilike 1,5 sat sa pedagogom za engleski.', en: 'Three times a week, about 1.5 hours each, with an English-speaking teacher.' } },
+        { q: { ru: 'Сколько детей в группе?', sr: 'Koliko dece je u grupi?', en: 'How many children are in the group?' }, a: { ru: 'До 16 детей. С группой работает расширенная команда: воспитатель, ассистент, педагоги по английскому, музыке, танцам и ИЗО.', sr: 'Do 16 dece. Sa grupom radi proširen tim: vaspitač, asistent, pedagozi za engleski, muziku, ples i likovno.', en: 'Up to 16 children. An extended team works with the group: a teacher, an assistant, and English, music, dance and art teachers.' } }
+      ]
     },
 
     /* ============================ CREATIVE-FUN ============================ */
@@ -278,7 +296,13 @@
         { icon: 'check', t: { ru: 'Дежурства и самостоятельность', sr: 'Dežurstva i samostalnost', en: 'Duties and independence' } }
       ],
       ctaTitle: { ru: 'Творчество, которое\nготовит к школе!', sr: 'Stvaralaštvo koje\npriprema za školu!', en: 'Creativity that\ngets you ready for school!' },
-      ctaText: { ru: 'Запишитесь на экскурсию и познакомьтесь с нашей Creative-Fun-группой.', sr: 'Zakažite obilazak i upoznajte našu Creative-Fun grupu.', en: 'Book a tour and meet our Creative-Fun group.' }
+      ctaText: { ru: 'Запишитесь на экскурсию и познакомьтесь с нашей Creative-Fun-группой.', sr: 'Zakažite obilazak i upoznajte našu Creative-Fun grupu.', en: 'Book a tour and meet our Creative-Fun group.' },
+      faq: [
+        { q: { ru: 'Это уже подготовка к школе?', sr: 'Da li je ovo već priprema za školu?', en: 'Is this already school preparation?' }, a: { ru: 'Да — через интерес: чтение, математику и логику соединяем с творчеством, театром и проектами.', sr: 'Da — kroz interesovanje: čitanje, matematiku i logiku spajamo sa stvaralaštvom, pozorištem i projektima.', en: 'Yes — through interest: we combine reading, maths and logic with art, theatre and projects.' } },
+        { q: { ru: 'Как учат читать?', sr: 'Kako se uči čitanje?', en: 'How is reading taught?' }, a: { ru: 'English и Jolly Phonics ведут по цепочке звук → буква → слово → чтение; параллельно развиваем грамотную речь на русском и сербском.', sr: 'English i Jolly Phonics vode kroz niz glas → slovo → reč → čitanje; paralelno razvijamo pravilan govor na ruskom i srpskom.', en: 'English and Jolly Phonics lead along the chain sound → letter → word → reading; in parallel we develop clear speech in Russian and Serbian.' } },
+        { q: { ru: 'Есть ли выступления и театр?', sr: 'Ima li nastupa i pozorišta?', en: 'Are there performances and theatre?' }, a: { ru: 'Да, театрализация — часть программы; в течение года проходит не менее пяти утренников.', sr: 'Da, dramatizacija je deo programa; tokom godine se održava najmanje pet priredbi.', en: 'Yes, drama is part of the program; at least five shows are held during the year.' } },
+        { q: { ru: 'Чем Creative-Fun отличается от Preschool?', sr: 'Po čemu se Creative-Fun razlikuje od Preschool-a?', en: 'How is Creative-Fun different from Preschool?' }, a: { ru: 'Creative-Fun — полноценная группа сада 4,5–6 лет. Preschool — отдельная программа подготовки к школе 5,5–7 лет.', sr: 'Creative-Fun je puna grupa vrtića 4,5–6 godina. Preschool je poseban program pripreme za školu 5,5–7 godina.', en: 'Creative-Fun is a full preschool group for ages 4.5–6. Preschool is a separate school-readiness program for ages 5.5–7.' } }
+      ]
     },
 
     /* ============================ PRESCHOOL / SCHOOL READINESS ============================ */
@@ -354,7 +378,13 @@
         { icon: 'check', t: { ru: 'Плавный переход к учебному формату', sr: 'Postepen prelaz na školski format', en: 'A gentle move into the learning format' } }
       ],
       ctaTitle: { ru: 'Готовимся к школе\nна языке будущего!', sr: 'Pripremamo se za školu\nna jeziku budućnosti!', en: 'Getting ready for school\nin the language of the future!' },
-      ctaText: { ru: 'Запишитесь на консультацию — поможем выбрать программу подготовки для вашего ребёнка.', sr: 'Zakažite konsultaciju — pomoći ćemo vam da izaberete program pripreme za vaše dete.', en: 'Book a consultation — we’ll help you choose the right preparation track for your child.' }
+      ctaText: { ru: 'Запишитесь на консультацию — поможем выбрать программу подготовки для вашего ребёнка.', sr: 'Zakažite konsultaciju — pomoći ćemo vam da izaberete program pripreme za vaše dete.', en: 'Book a consultation — we’ll help you choose the right preparation track for your child.' },
+      faq: [
+        { q: { ru: 'Чем Preschool отличается от Creative-Fun?', sr: 'Po čemu se Preschool razlikuje od Creative-Fun?', en: 'How is Preschool different from Creative-Fun?' }, a: { ru: 'Creative-Fun — возрастная группа сада. Preschool — отдельные программы School Readiness: подготовка к будущей школе.', sr: 'Creative-Fun je uzrasna grupa vrtića. Preschool su posebni programi School Readiness: priprema za buduću školu.', en: 'Creative-Fun is a preschool age group. Preschool is a set of School Readiness programs — preparation for the future school.' } },
+        { q: { ru: 'Как выбрать язык — русский, сербский или английский?', sr: 'Kako izabrati jezik — ruski, srpski ili engleski?', en: 'How do we choose the language — Russian, Serbian or English?' }, a: { ru: 'По языку будущей школы, текущему уровню ребёнка и цели семьи.', sr: 'Prema jeziku buduće škole, trenutnom nivou deteta i cilju porodice.', en: 'By the language of the future school, the child’s current level and the family’s goal.' } },
+        { q: { ru: 'Это просто занятия чтением и счётом?', sr: 'Da li su to samo časovi čitanja i računanja?', en: 'Is it just reading and counting lessons?' }, a: { ru: 'Нет. Общее ядро — речь, мышление, внимание, графомоторика, самостоятельность и навыки учебной коммуникации.', sr: 'Ne. Zajedničko jezgro su govor, mišljenje, pažnja, grafomotorika, samostalnost i veštine učeničke komunikacije.', en: 'No. The shared core is speech, thinking, attention, handwriting prep, independence and learning-communication skills.' } },
+        { q: { ru: 'Можно ли ходить, если ребёнок в другом саду?', sr: 'Može li dete da pohađa ako je u drugom vrtiću?', en: 'Can a child attend if they go to another preschool?' }, a: { ru: 'Уточняйте при записи — при открытом внешнем наборе это возможно.', sr: 'Proverite prilikom prijave — ako je otvoren spoljni upis, to je moguće.', en: 'Please check when booking — if external enrolment is open, it’s possible.' } }
+      ]
     }
   };
 
@@ -362,8 +392,10 @@
     home: { ru: 'Главная', sr: 'Početna', en: 'Home' },
     groups: { ru: 'Возрастные группы', sr: 'Uzrasne grupe', en: 'Age groups' },
     book: { ru: 'Записаться на экскурсию', sr: 'Zakažite obilazak', en: 'Book a tour' },
-    ask: { ru: 'Задать вопрос', sr: 'Postavite pitanje', en: 'Ask a question' }
+    ask: { ru: 'Задать вопрос', sr: 'Postavite pitanje', en: 'Ask a question' },
+    faqTitle: { ru: 'Частые вопросы о группе', sr: 'Česta pitanja o grupi', en: 'Common questions about the group' }
   };
+  var CHEVRON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>';
 
   var root = document.getElementById('gp');
   if (!root) return;
@@ -448,6 +480,16 @@
       + '<div class="gp-advs">' + g.adv.map(function (a) {
         return '<div class="gp-advi"><span class="gp-advi-ic">' + svg(a.icon) + '</span><p>' + esc(t(a.t)) + '</p></div>';
       }).join('') + '</div></div></section>';
+
+    // popular questions about this group
+    if (g.faq && g.faq.length) {
+      html += '<section class="section gp-faq-sec"><div class="container">'
+        + '<h2 class="section-title center">' + t(UI.faqTitle) + '</h2>'
+        + '<div class="gp-faq">' + g.faq.map(function (it) {
+          return '<details class="gp-qa"><summary><span>' + esc(t(it.q)) + '</span><span class="gp-qa-ic">' + CHEVRON + '</span></summary>'
+            + '<div class="gp-qa-a"><p>' + esc(t(it.a)) + '</p></div></details>';
+        }).join('') + '</div></div></section>';
+    }
 
     // CTA band
     html += '<section class="section gp-cta"><div class="container gp-cta-in">'

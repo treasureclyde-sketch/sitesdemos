@@ -28,9 +28,10 @@ function doPost(e) {
       children: children,
       parent: String(d.parent || '').slice(0, 120),
       phone: String(d.phone || '').slice(0, 60),
-      email: String(d.email || '').slice(0, 160)
+      email: String(d.email || '').slice(0, 160),
+      question: String(d.question || '').slice(0, 2000)
     };
-    if (!data.parent && !data.children.length) return json_({ error: 'empty' });
+    if (!data.parent && !data.children.length && !data.question) return json_({ error: 'empty' });
 
     var subject = 'Новая заявка — Funscool' + (children.length ? ' (' + children.length + ')' : '');
     GmailApp.sendEmail(LEAD_TO, subject, buildText_(data), {
@@ -94,6 +95,7 @@ function buildHtml_(d) {
     + '</tr>' + rowsHtml_(d.children) + '</table>'
     + '<div style="font:800 12px sans-serif;letter-spacing:.03em;color:#A79B8C;text-transform:uppercase;margin:22px 0 8px">Родитель и контакт</div>'
     + '<table role="presentation" cellpadding="0" cellspacing="0">' + infoRow_('Родитель', d.parent || '—') + contact + '</table>'
+    + (d.question ? '<div style="font:800 12px sans-serif;letter-spacing:.03em;color:#A79B8C;text-transform:uppercase;margin:22px 0 8px">Вопрос</div><div style="background:#FCF7EC;border:1px solid #F1E7CE;border-radius:10px;padding:13px 15px;font:15px sans-serif;color:#2C2723;line-height:1.5;white-space:pre-wrap">' + esc_(d.question) + '</div>' : '')
     + (wa ? '<div style="margin-top:16px"><a href="' + esc_(wa) + '" style="display:inline-block;background:#25D366;color:#fff;font:800 13.5px sans-serif;padding:10px 18px;border-radius:100px;text-decoration:none">Написать в WhatsApp</a></div>' : '')
     + '</td></tr>'
     + '<tr><td style="padding:16px 26px 22px;border-top:1px solid #EBE3D6;font:12px sans-serif;color:#A79B8C">Отправлено формой на funscool.rs · чтобы ответить родителю, нажмите «Ответить».</td></tr>'
@@ -107,5 +109,6 @@ function buildText_(d) {
   lines.push('', 'Родитель: ' + (d.parent || '—'));
   if (d.phone) lines.push('Телефон: ' + d.phone);
   if (d.email) lines.push('E-mail: ' + d.email);
+  if (d.question) lines.push('', 'Вопрос: ' + d.question);
   return lines.join('\n');
 }
