@@ -490,6 +490,8 @@ h1, h2, h3, h4 {
 .ev-ic svg { width: 23px; height: 23px; color: #fff; }
 .ev-card h3 { font-family: 'Nunito'; font-weight: 800; font-size: 18px; margin: 30px 20px 6px; }
 .ev-card p { margin: 0 20px 20px; font-size: 14.5px; color: var(--muted); line-height: 1.55; }
+.ev-photo.ev-ph { display: grid; place-items: center; background: var(--cream-2); }
+.ev-q { font-family: 'Lora', Georgia, serif; font-weight: 700; font-size: clamp(46px, 7vw, 72px); color: var(--muted-2); line-height: 1; }
 .joy-end { text-align: center; font-family: 'Lora', Georgia, serif; font-style: italic; font-size: clamp(19px, 2.4vw, 24px); color: var(--ink-soft); margin: 42px auto 0; max-width: 640px; text-wrap: balance; }
 @media (max-width: 900px) { .ev-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 560px) { .ev-grid { grid-template-columns: 1fr; } }
