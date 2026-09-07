@@ -168,6 +168,7 @@ details.adv{margin:10px 0 16px} details.adv summary{cursor:pointer; font-weight:
       <a data-page="teachers" class="active"><span class="ic">👩‍🏫</span>Воспитатели</a>
       <a data-page="faq"><span class="ic">❓</span>Вопросы (FAQ)</a>
       <a data-page="news"><span class="ic">🎉</span>Новости &amp; Акции</a>
+      <a data-page="events"><span class="ic">🎈</span>Радость — каждый день</a>
     </nav>
     <div class="side-foot">
       <span class="who" id="who"></span>
@@ -202,7 +203,8 @@ var token='';
 var COLL={
   teachers:{ title:'Воспитатели', path:'funscool/content/teachers.json', key:'teachers' },
   faq:{ title:'Вопросы (FAQ)', path:'funscool/content/faq.json', key:'faq' },
-  news:{ title:'Новости & Акции', path:'funscool/content/news.json', key:'news' }
+  news:{ title:'Новости & Акции', path:'funscool/content/news.json', key:'news' },
+  events:{ title:'Радость — каждый день', path:'funscool/content/joy.json', key:'events' }
 };
 var store={}; // page -> { sha, items:[...] , dirty:false }
 var current='teachers';
@@ -328,7 +330,7 @@ function loadAndRender(page){
     el.innerHTML='<div class="card"><b>Не удалось загрузить.</b><p class="hint">'+esc(ex.message)+'</p></div>';
   });
 }
-function renderPage(page){ current=page; if(page==='teachers') renderTeachers(); else if(page==='news') renderNews(); else renderFaq(); syncBar(); }
+function renderPage(page){ current=page; if(page==='teachers') renderTeachers(); else if(page==='news') renderNews(); else if(page==='events') renderEvents(); else renderFaq(); syncBar(); }
 
 function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
 function langBlock(prefix, obj, kind){
@@ -420,6 +422,27 @@ function renderNews(){
   $('#content').innerHTML=html;
 }
 
+/* ---------- joy events («Радость — каждый день») ---------- */
+function renderEvents(){
+  var items=store.events.items;
+  var html='<p class="page-intro">Карточки событий в блоке «Радость — каждый день». Порядок = порядок на сайте. Без фото карточка показывает «?».</p>';
+  items.forEach(function(it,i){
+    var photo=String(it.photo||'').replace(/^\//,'');
+    html+='<div class="card" data-i="'+i+'">'+
+      '<div class="itemhead"><span class="num">'+(i+1)+'</span>'+
+        '<img class="thumb" src="'+esc('../'+photo)+'" alt="" onerror="this.style.visibility=\'hidden\'">'+
+        '<span class="t">'+esc((it.title&&it.title.ru)||'Новое событие')+'</span>'+
+        '<span class="acts">'+moveBtns(i,items.length)+'<button class="btn icon" data-del title="Удалить">🗑️</button></span>'+
+      '</div>'+
+      photoControl(it.photo)+
+      '<div class="field"><label>Заголовок</label>'+langBlock('title', it.title, 'str')+'</div>'+
+      '<div class="field"><label>Текст</label>'+langBlock('text', it.text, 'text')+'</div>'+
+    '</div>';
+  });
+  html+='<div class="addbar"><button class="btn" data-add>+ Добавить событие</button></div>';
+  $('#content').innerHTML=html;
+}
+
 /* ---------- editing (event delegation) ---------- */
 function setPath(obj, path, val){ var p=path.split('.'); while(p.length>1){ var k=p.shift(); if(typeof obj[k]!=='object'||obj[k]==null) obj[k]={}; obj=obj[k]; } obj[p[0]]=val; }
 $('#content').addEventListener('input', function(e){
@@ -432,7 +455,7 @@ $('#content').addEventListener('input', function(e){
     setPath(item.tags[ti], b.slice(4), e.target.value);
   } else { setPath(item, b, e.target.value); }
   // live-update the header title
-  if(b==='name.ru'||b==='q.ru'||b==='title.ru'){ var t=card.querySelector('.itemhead .t'); if(t) t.textContent=e.target.value||(current==='faq'?'Новый вопрос':current==='news'?'Новая запись':'Без имени'); }
+  if(b==='name.ru'||b==='q.ru'||b==='title.ru'){ var t=card.querySelector('.itemhead .t'); if(t) t.textContent=e.target.value||(current==='faq'?'Новый вопрос':current==='news'?'Новая запись':current==='events'?'Новое событие':'Без имени'); }
   markDirty();
 });
 $('#content').addEventListener('click', function(e){
@@ -441,6 +464,7 @@ $('#content').addEventListener('click', function(e){
   if(btn.hasAttribute('data-add')){
     var blank = current==='teachers' ? {photo:'',color:'purple',name:{},tags:[],bio:{}}
               : current==='news' ? {type:'news',photo:'',date:'',title:{},text:{}}
+              : current==='events' ? {photo:'',title:{},text:{}}
               : {q:{},a:{}};
     items.push(blank); markDirty(); renderPage(current); return;
   }

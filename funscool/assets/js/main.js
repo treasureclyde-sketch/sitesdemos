@@ -305,10 +305,38 @@
     });
     sec.hidden = false;
   }
+  function renderEvents(lang) {
+    // event cards in «Радость — каждый день», from content/joy.json (CMS-editable).
+    // A card with no photo shows a «?» placeholder until a real photo is added.
+    var grid = document.getElementById('evGrid');
+    if (!grid || !CONTENT || !Array.isArray(CONTENT.events)) return;
+    grid.textContent = '';
+    CONTENT.events.forEach(function (ev, i) {
+      var art = document.createElement('article');
+      art.className = 'ev-card reveal' + (i === 1 ? ' d1' : (i === 2 ? ' d2' : ''));
+      var photo = document.createElement('div');
+      var src = String(ev.photo || '').replace(/^\//, '');
+      if (src) {
+        photo.className = 'ev-photo';
+        var img = document.createElement('img');
+        img.src = src; img.alt = tr(ev.title, lang); img.loading = 'lazy';
+        photo.appendChild(img);
+      } else {
+        photo.className = 'ev-photo ev-ph';
+        var q = document.createElement('span'); q.className = 'ev-q'; q.setAttribute('aria-hidden', 'true'); q.textContent = '?';
+        photo.appendChild(q);
+      }
+      var h3 = document.createElement('h3'); h3.textContent = tr(ev.title, lang);
+      var p = document.createElement('p'); p.textContent = tr(ev.text, lang);
+      art.appendChild(photo); art.appendChild(h3); art.appendChild(p);
+      grid.appendChild(art);
+    });
+  }
   function renderDynamic(lang) {
     renderTeachers(lang);
     renderFaq(lang);
     renderNews(lang);
+    renderEvents(lang);
   }
 
   function setLang(lang) {
@@ -341,7 +369,7 @@
 
   /* load editable content, then render the data-driven sections in the current language */
   (function loadContent() {
-    var files = ['content/teachers.json', 'content/faq.json', 'content/news.json'];
+    var files = ['content/teachers.json', 'content/faq.json', 'content/news.json', 'content/joy.json'];
     Promise.all(files.map(function (f) {
       return fetch(f, { cache: 'no-cache' })
         .then(function (r) { return r.ok ? r.json() : null; })
