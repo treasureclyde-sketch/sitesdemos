@@ -91,6 +91,12 @@
     form_privacy:"Poštujemo vašu privatnost i ne delimo podatke sa trećim licima.", form_ok:"Hvala! Zahtev je primljen — javićemo vam se uskoro.",
     form_group:"Grupa", form_group_ph:"Izaberite grupu", form_age_lbl:"Uzrast", form_child:"Ime deteta", form_wa:"Pošalji na WhatsApp", form_err:"Slanje nije uspelo. Pišite nam na WhatsApp:",
     form_add_child:"Dodaj dete", form_contact_hint:"Ostavite telefon ili e-mail — kako vam odgovara.",
+    offers_btn:"Aktuelne ponude", offers_eyebrow:"Posebni uslovi", offers_title:"Aktuelne ponude",
+    offers_sub:"Nekoliko povoljnih uslova za naše porodice — detalje proverite prilikom upisa.",
+    offer1_t:"Plaćanje materinskim kapitalom", offer1_d:"Prihvatamo plaćanje vrtića sredstvima materinskog kapitala.",
+    offer2_t:"Popust 20% za prvih 20 porodica", offer2_d:"Prvih 20 porodica u novom upisu ostvaruje popust od 20% na školarinu.",
+    offer3_t:"Popust 5% za braću i sestre", offer3_d:"Ako vrtić pohađa dvoje ili više dece iz iste porodice, važi popust od 5%.",
+    offers_cta:"Zakažite obilazak", offers_note:"Ponude se ne sabiraju. Detalje proverite kod administratora.",
     footer_tagline:"Razvijamo sa ljubavlju i brigom svakog dana.", footer_nav:"Navigacija", footer_programs:"Programi",
     footer_contacts:"Kontakt", footer_rights:"Sva prava zadržana"
   };
@@ -170,6 +176,12 @@
     form_privacy:"We value your privacy and never share your data with third parties.", form_ok:"Thank you! Your request has been received — we'll be in touch soon.",
     form_group:"Group", form_group_ph:"Choose a group", form_age_lbl:"Age", form_child:"Child's name", form_wa:"Send via WhatsApp", form_err:"Couldn't send. Message us on WhatsApp:",
     form_add_child:"Add child", form_contact_hint:"Leave a phone or e-mail — whichever suits you.",
+    offers_btn:"Current offers", offers_eyebrow:"Special offers", offers_title:"Current offers",
+    offers_sub:"A few beneficial options for our families — ask for details when you enrol.",
+    offer1_t:"Payment with maternity capital", offer1_d:"We accept payment for the kindergarten using maternity-capital funds.",
+    offer2_t:"20% off for the first 20 families", offer2_d:"The first 20 families to enrol in the new intake get 20% off tuition.",
+    offer3_t:"5% sibling discount", offer3_d:"If two or more children from one family attend, a 5% discount applies.",
+    offers_cta:"Book a tour", offers_note:"Offers can't be combined. Ask our administrator for details.",
     footer_tagline:"Growing with love and care every day.", footer_nav:"Navigation", footer_programs:"Programs",
     footer_contacts:"Contacts", footer_rights:"All rights reserved"
   };
@@ -520,6 +532,36 @@
     } else { inView = true; }
 
     apply();
+  })();
+
+  /* ---------- offers modal ("Актуальные предложения") ---------- */
+  (function () {
+    var modal = document.getElementById('offersModal');
+    if (!modal) return;
+    var lastFocus = null;
+    function open(e, trigger) {
+      if (e) e.preventDefault();
+      lastFocus = trigger || document.activeElement;
+      modal.classList.add('open'); modal.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('modal-open');
+      var first = modal.querySelector('.modal-x');
+      setTimeout(function () { try { first && first.focus(); } catch (_) {} }, 60);
+    }
+    function close() {
+      modal.classList.remove('open'); modal.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('modal-open');
+      try { lastFocus && lastFocus.focus && lastFocus.focus(); } catch (_) {}
+    }
+    // runs before the booking handler below, so when the window's CTA points at
+    // #contact this closes the offers window first and the booking form opens cleanly
+    document.addEventListener('click', function (e) {
+      if (!e.target.closest) return;
+      var trigger = e.target.closest('[data-offers]');
+      if (trigger) { open(e, trigger); return; }
+      if (modal.classList.contains('open') && e.target.closest('a[href="#contact"]')) close();
+    });
+    modal.querySelectorAll('[data-offers-close]').forEach(function (el) { el.addEventListener('click', close); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && modal.classList.contains('open')) close(); });
   })();
 
   /* ---------- booking modal (open on any "Записаться"/#contact link) ---------- */

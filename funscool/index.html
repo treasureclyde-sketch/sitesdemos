@@ -263,6 +263,18 @@
   </div>
 </section>
 
+<!-- ============ PROMO / OFFERS ============ -->
+<section class="section promo-sec" style="padding-top:0">
+  <div class="container">
+    <div class="promo-cta reveal">
+      <button class="btn btn-yellow btn-lg btn-offers" type="button" data-offers aria-haspopup="dialog" aria-controls="offersModal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.83 0l-7-7A2 2 0 0 1 3 12.17V4a1 1 0 0 1 1-1h8.17a2 2 0 0 1 1.42.59l7 7a2 2 0 0 1 0 2.82Z"/><circle cx="7.5" cy="7.5" r="1.3"/></svg>
+        <span data-i18n="offers_btn">Актуальные предложения</span>
+      </button>
+    </div>
+  </div>
+</section>
+
 <!-- ============ PLAYGROUND ============ -->
 <section class="section" style="padding-top:0">
   <img class="doodle doodle-art drift-anim" src="assets/img/doodles/car.png" alt="" aria-hidden="true" style="top:8%;right:3%;width:88px">
@@ -592,6 +604,33 @@
       <div class="form-error" id="formError" hidden><span data-i18n="form_err">Не удалось отправить. Напишите нам в WhatsApp:</span></div>
       <a class="btn btn-ghost wa-fallback" id="waFallback" href="#" target="_blank" rel="noopener" hidden><svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path d="M16.04 4C9.93 4 4.98 8.95 4.98 15.06c0 1.95.51 3.86 1.48 5.55L4.9 27.1l6.66-1.75a11.06 11.06 0 0 0 4.48.95c6.1 0 11.05-4.95 11.05-11.06C27.1 8.95 22.15 4 16.04 4Z"/></svg><span data-i18n="form_wa">Отправить в WhatsApp</span></a>
     </form>
+  </div>
+</div>
+
+<!-- ============ OFFERS MODAL ============ -->
+<div class="modal" id="offersModal" aria-hidden="true">
+  <div class="modal-overlay" data-offers-close></div>
+  <div class="modal-card offers-card" role="dialog" aria-modal="true" aria-labelledby="offersTitle">
+    <button class="modal-x" type="button" data-offers-close aria-label="Закрыть"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    <span class="offers-eyebrow" data-i18n="offers_eyebrow">Специальные условия</span>
+    <h3 id="offersTitle" data-i18n="offers_title">Актуальные предложения</h3>
+    <p class="modal-sub" data-i18n="offers_sub">Несколько выгодных условий для наших семей — уточните детали при записи.</p>
+    <ul class="offers-list">
+      <li class="offer">
+        <span class="offer-ic" style="color:var(--purple)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="6" width="19" height="12" rx="2.5"/><path d="M2.5 10h19"/><path d="M6 14.5h3"/></svg></span>
+        <div><b data-i18n="offer1_t">Оплата материнским капиталом</b><span data-i18n="offer1_d">Принимаем оплату за детский сад средствами материнского капитала.</span></div>
+      </li>
+      <li class="offer">
+        <span class="offer-ic" style="color:var(--orange)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.75" cy="6.75" r="2.25"/><circle cx="17.25" cy="17.25" r="2.25"/></svg></span>
+        <div><b data-i18n="offer2_t">Скидка 20% для первых 20 семей</b><span data-i18n="offer2_d">Первые 20 семей нового набора получают скидку 20% на обучение.</span></div>
+      </li>
+      <li class="offer">
+        <span class="offer-ic" style="color:var(--teal)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+        <div><b data-i18n="offer3_t">Скидка 5% для братьев и сестёр</b><span data-i18n="offer3_d">Если сад посещают двое и более детей из одной семьи, действует скидка 5%.</span></div>
+      </li>
+    </ul>
+    <a class="btn btn-yellow btn-lg offers-book" href="#contact" data-i18n="offers_cta">Записаться на экскурсию</a>
+    <p class="offers-note" data-i18n="offers_note">Предложения не суммируются. Подробности уточняйте у администратора.</p>
   </div>
 </div>
 

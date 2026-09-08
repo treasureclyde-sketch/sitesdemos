@@ -983,6 +983,28 @@ body.modal-open { overflow: hidden; }
 .modal-x svg { width: 18px; height: 18px; }
 .modal-card h3 { font-family: 'Nunito'; font-weight: 800; font-size: 22px; color: var(--ink); margin: 0 40px 6px 0; }
 .modal-sub { font-size: 14.5px; color: var(--muted); margin: 0 0 20px; }
+
+/* ---- promo: "Актуальные предложения" button + offers window ---- */
+.promo-cta { display: flex; justify-content: center; }
+.btn-offers, .btn-offers:hover { color: var(--orange); }
+.offers-card { width: min(460px, calc(100% - 32px)); }
+.offers-eyebrow {
+  display: inline-block; font-family: 'Nunito'; font-weight: 800; font-size: 12px;
+  letter-spacing: .5px; text-transform: uppercase; color: var(--orange);
+  background: var(--t-yellow); padding: 5px 12px; border-radius: 100px; margin-bottom: 12px;
+}
+.offers-list { list-style: none; margin: 4px 0 22px; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+.offer { display: flex; align-items: flex-start; gap: 14px; }
+.offer-ic {
+  flex-shrink: 0; width: 44px; height: 44px; border-radius: 13px; display: grid; place-items: center;
+  background: color-mix(in srgb, currentColor 14%, var(--card));
+}
+.offer-ic svg { width: 24px; height: 24px; }
+.offer > div { min-width: 0; }
+.offer b { display: block; font-family: 'Nunito'; font-weight: 800; font-size: 15.5px; color: var(--ink); margin-bottom: 2px; }
+.offer > div > span { display: block; font-size: 14px; color: var(--muted); line-height: 1.45; }
+.offers-book { width: 100%; margin-top: 2px; }
+.offers-note { font-size: 12.5px; color: var(--muted); text-align: center; margin: 14px 0 0; }
 .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 /* per-child rows: name over its own group (full width so long names fit); age auto-written by the group */
 .child-row { position: relative; display: grid; grid-template-columns: 1fr; gap: 9px; margin-bottom: 18px; }
