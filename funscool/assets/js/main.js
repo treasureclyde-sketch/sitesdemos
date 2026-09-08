@@ -4,6 +4,7 @@
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var CONTENT = null;      // data loaded from content/*.json (CMS-editable)
   var currentLang = 'ru';  // language the page is currently showing
+  var newsExpanded = false; // main-page news block: "показать ещё" toggled?
 
   /* ---------- capture RU (inline) as the base language ---------- */
   var RU = {};
@@ -69,6 +70,8 @@
     team_eyebrow:"Sa ljubavlju i brigom", team_title:"Vaspitači međunarodnog vrtića FunsCool",
     team_sub:"Četiri vaspitača i administrator koji dan deteta drže mirnim, toplim i razumljivim.", team_ask:"Postavite pitanje",
     news_eyebrow:"Novosti i akcije", news_title:"Novosti i akcije", news_sub:"Aktuelni događaji, praznici i posebne ponude našeg vrtića.", news_type_news:"Novost", news_type_promo:"Akcija",
+    news_more:"Prikaži još", news_all:"Sve novosti", news_back:"Na početnu", news_all_title:"Sve novosti", news_empty:"Još nema novosti — navratite kasnije.",
+    news_arch_title:"Novosti i akcije vrtića FunsCool", news_arch_sub:"Čime živi naš vrtić: događaji, praznici, projekti i posebne ponude.",
     /* teacher cards are rendered from content/teachers.json */
     mom_eyebrow:"Svaki trenutak je važan", mom_title:"Srećni trenuci svakog dana",
     mom_sub:"Igramo se, stvaramo, istražujemo i rastemo zajedno. Svaki dan u Funscool-u ispunjen je radošću i otkrićima.",
@@ -145,6 +148,8 @@
     team_eyebrow:"With love and care", team_title:"The team at FunsCool International Preschool",
     team_sub:"Four teachers and an administrator who keep a child's day calm, warm and clear.", team_ask:"Ask a question",
     news_eyebrow:"News & offers", news_title:"News & offers", news_sub:"Latest events, celebrations and special offers from our kindergarten.", news_type_news:"News", news_type_promo:"Offer",
+    news_more:"Show more", news_all:"All news", news_back:"Home", news_all_title:"All news", news_empty:"No news yet — check back soon.",
+    news_arch_title:"News & offers at FunsCool kindergarten", news_arch_sub:"What our kindergarten lives by: events, celebrations, projects and special offers.",
     /* teacher cards are rendered from content/teachers.json */
     mom_eyebrow:"Every moment matters", mom_title:"Happy moments, every single day",
     mom_sub:"We play, create, explore and grow together. Every day at Funscool is filled with joy and new discoveries.",
@@ -253,57 +258,88 @@
       det.appendChild(ans); list.appendChild(det);
     });
   }
+  function newsCard(it, lang, labels) {
+    var ty = (it.type === 'promo') ? 'promo' : 'news';
+    var card = document.createElement('article');
+    card.className = 'news-card';
+    var photo = String(it.photo || '').replace(/^\//, '');
+    if (photo) {
+      var wrap = document.createElement('div');
+      wrap.className = 'news-card-img';
+      var img = document.createElement('img');
+      img.src = photo; img.alt = tr(it.title, lang); img.loading = 'lazy';
+      wrap.appendChild(img);
+      var badge = document.createElement('span');
+      badge.className = 'news-badge ' + ty; badge.textContent = labels[ty];
+      wrap.appendChild(badge);
+      card.appendChild(wrap);
+    }
+    var body = document.createElement('div');
+    body.className = 'news-card-body';
+    if (!photo) {
+      var b2 = document.createElement('span');
+      b2.className = 'news-badge news-badge-inline ' + ty; b2.textContent = labels[ty];
+      body.appendChild(b2);
+    }
+    if (it.date) {
+      var d = document.createElement('span');
+      d.className = 'news-date'; d.textContent = it.date;
+      body.appendChild(d);
+    }
+    var h3 = document.createElement('h3');
+    h3.textContent = tr(it.title, lang);
+    body.appendChild(h3);
+    var txt = tr(it.text, lang);
+    if (txt) { var p = document.createElement('p'); p.textContent = txt; body.appendChild(p); }
+    card.appendChild(body);
+    return card;
+  }
   function renderNews(lang) {
-    // "Новости и акции" cards from content/news.json (CMS-editable). The whole
-    // section stays hidden until at least one item with text exists.
-    var sec = document.getElementById('news');
-    var list = document.getElementById('newsList');
-    if (!sec || !list) return;
+    // "Новости и акции" from content/news.json (CMS-editable). Order = order in
+    // the admin (newest on top). Two surfaces:
+    //   #newsList          — main page: 3 cards, "показать ещё" reveals up to 6,
+    //                        then a link to the archive page (news.html).
+    //   #newsArchiveList   — archive page: every news item, newest first.
     var items = (CONTENT && Array.isArray(CONTENT.news)) ? CONTENT.news : [];
     var visible = items.filter(function (it) { return it && (tr(it.title, lang) || tr(it.text, lang)); });
-    list.textContent = '';
-    if (!visible.length) { sec.hidden = true; return; }
     var labels = {
       news: (DICT[lang] && DICT[lang].news_type_news) || 'Новость',
       promo: (DICT[lang] && DICT[lang].news_type_promo) || 'Акция'
     };
-    visible.forEach(function (it) {
-      var ty = (it.type === 'promo') ? 'promo' : 'news';
-      var card = document.createElement('article');
-      card.className = 'news-card';
-      var photo = String(it.photo || '').replace(/^\//, '');
-      if (photo) {
-        var wrap = document.createElement('div');
-        wrap.className = 'news-card-img';
-        var img = document.createElement('img');
-        img.src = photo; img.alt = tr(it.title, lang); img.loading = 'lazy';
-        wrap.appendChild(img);
-        var badge = document.createElement('span');
-        badge.className = 'news-badge ' + ty; badge.textContent = labels[ty];
-        wrap.appendChild(badge);
-        card.appendChild(wrap);
+
+    // --- main page: compact block (3 → +3 → link) ---
+    var sec = document.getElementById('news');
+    var list = document.getElementById('newsList');
+    if (sec && list) {
+      list.textContent = '';
+      if (!visible.length) {
+        sec.hidden = true;
+      } else {
+        sec.hidden = false;
+        visible.slice(0, 6).forEach(function (it, i) {
+          var card = newsCard(it, lang, labels);
+          if (i >= 3 && !newsExpanded) card.classList.add('news-hidden');
+          list.appendChild(card);
+        });
+        var moreBtn = document.getElementById('newsMore');
+        if (moreBtn) moreBtn.hidden = (visible.length <= 3) || newsExpanded;
+        var allLink = document.getElementById('newsAll');
+        if (allLink) allLink.hidden = false;
       }
-      var body = document.createElement('div');
-      body.className = 'news-card-body';
-      if (!photo) {
-        var b2 = document.createElement('span');
-        b2.className = 'news-badge news-badge-inline ' + ty; b2.textContent = labels[ty];
-        body.appendChild(b2);
+    }
+
+    // --- archive page: the whole feed ---
+    var arch = document.getElementById('newsArchiveList');
+    if (arch) {
+      arch.textContent = '';
+      var emptyEl = document.getElementById('newsArchiveEmpty');
+      if (!visible.length) {
+        if (emptyEl) emptyEl.hidden = false;
+      } else {
+        if (emptyEl) emptyEl.hidden = true;
+        visible.forEach(function (it) { arch.appendChild(newsCard(it, lang, labels)); });
       }
-      if (it.date) {
-        var d = document.createElement('span');
-        d.className = 'news-date'; d.textContent = it.date;
-        body.appendChild(d);
-      }
-      var h3 = document.createElement('h3');
-      h3.textContent = tr(it.title, lang);
-      body.appendChild(h3);
-      var txt = tr(it.text, lang);
-      if (txt) { var p = document.createElement('p'); p.textContent = txt; body.appendChild(p); }
-      card.appendChild(body);
-      list.appendChild(card);
-    });
-    sec.hidden = false;
+    }
   }
   function renderEvents(lang) {
     // event cards in «Радость — каждый день», from content/joy.json (CMS-editable).
@@ -367,6 +403,9 @@
   document.querySelectorAll('.lang button').forEach(function (b) {
     b.addEventListener('click', function () { setLang(b.getAttribute('data-lang')); });
   });
+  // "Показать ещё" on the main-page news block: reveal cards 4–6
+  var newsMoreBtn = document.getElementById('newsMore');
+  if (newsMoreBtn) newsMoreBtn.addEventListener('click', function () { newsExpanded = true; renderNews(currentLang); });
   var saved; try { saved = localStorage.getItem('fs-lang'); } catch (e) {}
   if (saved && saved !== 'ru') setLang(saved);
 
