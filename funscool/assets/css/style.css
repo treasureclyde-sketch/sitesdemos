@@ -986,7 +986,7 @@ body.modal-open { overflow: hidden; }
 
 /* ---- promo: "Актуальные предложения" button + offers window ---- */
 .promo-cta { display: flex; justify-content: center; }
-.btn-offers, .btn-offers:hover { color: var(--orange); }
+.btn-offers, .btn-offers:hover { color: var(--ink); }
 .offers-card { width: min(460px, calc(100% - 32px)); }
 .offers-eyebrow {
   display: inline-block; font-family: 'Nunito'; font-weight: 800; font-size: 12px;
