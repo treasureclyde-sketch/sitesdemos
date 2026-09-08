@@ -4,7 +4,7 @@
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var CONTENT = null;      // data loaded from content/*.json (CMS-editable)
   var currentLang = 'ru';  // language the page is currently showing
-  var newsExpanded = false; // main-page news block: "показать ещё" toggled?
+  var feedExpanded = false; // main-page «Актуальное» block: "показать ещё" toggled?
 
   /* ---------- capture RU (inline) as the base language ---------- */
   var RU = {};
@@ -69,10 +69,8 @@
     joy4_t:"Samopouzdanje i radost pobeda", joy4_d:"Vaspitači podržavaju i primećuju uspehe deteta, pomažući mu da veruje u sebe.",
     team_eyebrow:"Sa ljubavlju i brigom", team_title:"Vaspitači međunarodnog vrtića FunsCool",
     team_sub:"Četiri vaspitača i administrator koji dan deteta drže mirnim, toplim i razumljivim.", team_ask:"Postavite pitanje",
-    nav_news:"Novosti",
-    news_eyebrow:"Novosti", news_title:"Novosti", news_sub:"Aktuelni događaji, praznici i posebne ponude našeg vrtića.", news_type_news:"Novost", news_type_promo:"Akcija",
-    news_more:"Prikaži još", news_all:"Sve novosti", news_back:"Na početnu", news_all_title:"Sve novosti", news_empty:"Još nema novosti — navratite kasnije.",
-    news_arch_title:"Novosti vrtića FunsCool u Beogradu", news_arch_sub:"Čime živi naš vrtić: događaji, praznici, projekti i posebne ponude.",
+    feed_title:"Aktuelno", feed_more:"Prikaži još", feed_all:"Prikaži sve", news_back:"Na početnu", feed_empty:"Još nema objava — navratite kasnije.",
+    feed_arch_title:"Aktuelno — život vrtića FunsCool", feed_arch_sub:"Novosti, događaji, praznici i sve čime živi naš vrtić.",
     /* teacher cards are rendered from content/teachers.json */
     mom_eyebrow:"Svaki trenutak je važan", mom_title:"Srećni trenuci svakog dana",
     mom_sub:"Igramo se, stvaramo, istražujemo i rastemo zajedno. Svaki dan u Funscool-u ispunjen je radošću i otkrićima.",
@@ -154,10 +152,8 @@
     joy4_t:"Confidence and the joy of wins", joy4_d:"Teachers support and notice each child's progress, helping them believe in themselves.",
     team_eyebrow:"With love and care", team_title:"The team at FunsCool International Preschool",
     team_sub:"Four teachers and an administrator who keep a child's day calm, warm and clear.", team_ask:"Ask a question",
-    nav_news:"News",
-    news_eyebrow:"News", news_title:"News", news_sub:"Latest events, celebrations and special offers from our kindergarten.", news_type_news:"News", news_type_promo:"Offer",
-    news_more:"Show more", news_all:"All news", news_back:"Home", news_all_title:"All news", news_empty:"No news yet — check back soon.",
-    news_arch_title:"News at FunsCool kindergarten in Belgrade", news_arch_sub:"What our kindergarten lives by: events, celebrations, projects and special offers.",
+    feed_title:"What's on", feed_more:"Show more", feed_all:"See all", news_back:"Home", feed_empty:"Nothing here yet — check back soon.",
+    feed_arch_title:"What's on — life at FunsCool kindergarten", feed_arch_sub:"News, events, celebrations and everything our kindergarten lives by.",
     /* teacher cards are rendered from content/teachers.json */
     mom_eyebrow:"Every moment matters", mom_title:"Happy moments, every single day",
     mom_sub:"We play, create, explore and grow together. Every day at Funscool is filled with joy and new discoveries.",
@@ -272,58 +268,49 @@
       det.appendChild(ans); list.appendChild(det);
     });
   }
-  function newsCard(it, lang, labels) {
-    var ty = (it.type === 'promo') ? 'promo' : 'news';
-    var card = document.createElement('article');
-    card.className = 'news-card';
-    var photo = String(it.photo || '').replace(/^\//, '');
-    if (photo) {
-      var wrap = document.createElement('div');
-      wrap.className = 'news-card-img';
+  function feedCard(it, lang) {
+    // A single «Актуальное» card in the плашка (ev-card) style: photo on top
+    // (or a «?» placeholder until a real photo is added), optional date, title,
+    // text. No 'reveal' class: cards are built after the reveal observer has
+    // already scanned the page, so a reveal class would leave them stuck at
+    // opacity:0 (invisible).
+    var art = document.createElement('article');
+    art.className = 'ev-card';
+    var photo = document.createElement('div');
+    var src = String(it.photo || '').replace(/^\//, '');
+    if (src) {
+      photo.className = 'ev-photo';
       var img = document.createElement('img');
-      img.src = photo; img.alt = tr(it.title, lang); img.loading = 'lazy';
-      wrap.appendChild(img);
-      var badge = document.createElement('span');
-      badge.className = 'news-badge ' + ty; badge.textContent = labels[ty];
-      wrap.appendChild(badge);
-      card.appendChild(wrap);
+      img.src = src; img.alt = tr(it.title, lang); img.loading = 'lazy';
+      photo.appendChild(img);
+    } else {
+      photo.className = 'ev-photo ev-ph';
+      var q = document.createElement('span'); q.className = 'ev-q'; q.setAttribute('aria-hidden', 'true'); q.textContent = '?';
+      photo.appendChild(q);
     }
-    var body = document.createElement('div');
-    body.className = 'news-card-body';
-    if (!photo) {
-      var b2 = document.createElement('span');
-      b2.className = 'news-badge news-badge-inline ' + ty; b2.textContent = labels[ty];
-      body.appendChild(b2);
-    }
+    art.appendChild(photo);
     if (it.date) {
-      var d = document.createElement('span');
-      d.className = 'news-date'; d.textContent = it.date;
-      body.appendChild(d);
+      var d = document.createElement('span'); d.className = 'ev-date'; d.textContent = it.date;
+      art.appendChild(d);
     }
-    var h3 = document.createElement('h3');
-    h3.textContent = tr(it.title, lang);
-    body.appendChild(h3);
+    var h3 = document.createElement('h3'); h3.textContent = tr(it.title, lang);
+    art.appendChild(h3);
     var txt = tr(it.text, lang);
-    if (txt) { var p = document.createElement('p'); p.textContent = txt; body.appendChild(p); }
-    card.appendChild(body);
-    return card;
+    if (txt) { var p = document.createElement('p'); p.textContent = txt; art.appendChild(p); }
+    return art;
   }
-  function renderNews(lang) {
-    // "Новости и акции" from content/news.json (CMS-editable). Order = order in
-    // the admin (newest on top). Two surfaces:
-    //   #newsList          — main page: 3 cards, "показать ещё" reveals up to 6,
+  function renderFeed(lang) {
+    // «Актуальное» — the unified news + «Радость» feed from content/news.json
+    // (CMS-editable). Order = order in the admin (newest on top). Two surfaces:
+    //   #feedList          — main page: 3 cards, "показать ещё" reveals up to 6,
     //                        then a link to the archive page (news.html).
-    //   #newsArchiveList   — archive page: every news item, newest first.
+    //   #feedArchiveList   — archive page: every item, newest first.
     var items = (CONTENT && Array.isArray(CONTENT.news)) ? CONTENT.news : [];
     var visible = items.filter(function (it) { return it && (tr(it.title, lang) || tr(it.text, lang)); });
-    var labels = {
-      news: (DICT[lang] && DICT[lang].news_type_news) || 'Новость',
-      promo: (DICT[lang] && DICT[lang].news_type_promo) || 'Акция'
-    };
 
     // --- main page: compact block (3 → +3 → link) ---
-    var sec = document.getElementById('news');
-    var list = document.getElementById('newsList');
+    var sec = document.getElementById('feed');
+    var list = document.getElementById('feedList');
     if (sec && list) {
       list.textContent = '';
       if (!visible.length) {
@@ -331,65 +318,36 @@
       } else {
         sec.hidden = false;
         visible.slice(0, 6).forEach(function (it, i) {
-          var card = newsCard(it, lang, labels);
-          if (i >= 3 && !newsExpanded) card.classList.add('news-hidden');
+          var card = feedCard(it, lang);
+          if (i >= 3 && !feedExpanded) card.classList.add('news-hidden');
           list.appendChild(card);
         });
-        var moreBtn = document.getElementById('newsMore');
-        if (moreBtn) moreBtn.hidden = (visible.length <= 3) || newsExpanded;
-        var allLink = document.getElementById('newsAll');
-        if (allLink) allLink.hidden = false;
+        // "Показать ещё" while collapsed and there are more than 3 items;
+        // "Смотреть всё" once expanded (or when everything already fits).
+        var moreBtn = document.getElementById('feedMore');
+        if (moreBtn) moreBtn.hidden = (visible.length <= 3) || feedExpanded;
+        var allLink = document.getElementById('feedAll');
+        if (allLink) allLink.hidden = !(feedExpanded || visible.length <= 3);
       }
     }
 
     // --- archive page: the whole feed ---
-    var arch = document.getElementById('newsArchiveList');
+    var arch = document.getElementById('feedArchiveList');
     if (arch) {
       arch.textContent = '';
-      var emptyEl = document.getElementById('newsArchiveEmpty');
+      var emptyEl = document.getElementById('feedArchiveEmpty');
       if (!visible.length) {
         if (emptyEl) emptyEl.hidden = false;
       } else {
         if (emptyEl) emptyEl.hidden = true;
-        visible.forEach(function (it) { arch.appendChild(newsCard(it, lang, labels)); });
+        visible.forEach(function (it) { arch.appendChild(feedCard(it, lang)); });
       }
     }
-  }
-  function renderEvents(lang) {
-    // event cards in «Радость — каждый день», from content/joy.json (CMS-editable).
-    // A card with no photo shows a «?» placeholder until a real photo is added.
-    var grid = document.getElementById('evGrid');
-    if (!grid || !CONTENT || !Array.isArray(CONTENT.events)) return;
-    grid.textContent = '';
-    CONTENT.events.forEach(function (ev, i) {
-      var art = document.createElement('article');
-      // No 'reveal' here: these cards are built after the reveal observer has
-      // already scanned the page, so a reveal class would leave them stuck at
-      // opacity:0 (invisible). They're shown immediately, like the news cards.
-      art.className = 'ev-card';
-      var photo = document.createElement('div');
-      var src = String(ev.photo || '').replace(/^\//, '');
-      if (src) {
-        photo.className = 'ev-photo';
-        var img = document.createElement('img');
-        img.src = src; img.alt = tr(ev.title, lang); img.loading = 'lazy';
-        photo.appendChild(img);
-      } else {
-        photo.className = 'ev-photo ev-ph';
-        var q = document.createElement('span'); q.className = 'ev-q'; q.setAttribute('aria-hidden', 'true'); q.textContent = '?';
-        photo.appendChild(q);
-      }
-      var h3 = document.createElement('h3'); h3.textContent = tr(ev.title, lang);
-      var p = document.createElement('p'); p.textContent = tr(ev.text, lang);
-      art.appendChild(photo); art.appendChild(h3); art.appendChild(p);
-      grid.appendChild(art);
-    });
   }
   function renderDynamic(lang) {
     renderTeachers(lang);
     renderFaq(lang);
-    renderNews(lang);
-    renderEvents(lang);
+    renderFeed(lang);
   }
 
   function setLang(lang) {
@@ -417,15 +375,15 @@
   document.querySelectorAll('.lang button').forEach(function (b) {
     b.addEventListener('click', function () { setLang(b.getAttribute('data-lang')); });
   });
-  // "Показать ещё" on the main-page news block: reveal cards 4–6
-  var newsMoreBtn = document.getElementById('newsMore');
-  if (newsMoreBtn) newsMoreBtn.addEventListener('click', function () { newsExpanded = true; renderNews(currentLang); });
+  // "Показать ещё" on the main-page «Актуальное» block: reveal cards 4–6
+  var feedMoreBtn = document.getElementById('feedMore');
+  if (feedMoreBtn) feedMoreBtn.addEventListener('click', function () { feedExpanded = true; renderFeed(currentLang); });
   var saved; try { saved = localStorage.getItem('fs-lang'); } catch (e) {}
   if (saved && saved !== 'ru') setLang(saved);
 
   /* load editable content, then render the data-driven sections in the current language */
   (function loadContent() {
-    var files = ['content/teachers.json', 'content/faq.json', 'content/news.json', 'content/joy.json'];
+    var files = ['content/teachers.json', 'content/faq.json', 'content/news.json'];
     Promise.all(files.map(function (f) {
       return fetch(f, { cache: 'no-cache' })
         .then(function (r) { return r.ok ? r.json() : null; })

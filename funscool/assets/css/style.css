@@ -508,6 +508,9 @@ h1, h2, h3, h4 {
 .joy-sec .ev-card p { margin: 0 20px 20px; font-size: 14.5px; color: var(--muted); line-height: 1.55; }
 .joy-sec .ev-photo.ev-ph { display: grid; place-items: center; background: var(--cream-2); }
 .joy-sec .ev-q { font-family: 'Lora', Georgia, serif; font-weight: 700; font-size: clamp(46px, 7vw, 72px); color: var(--muted-2); line-height: 1; }
+.joy-sec .ev-date { display: block; font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 12px; letter-spacing: .04em; text-transform: uppercase; color: var(--purple); margin: 18px 20px 0; }
+.joy-sec .ev-date + h3 { margin-top: 4px; }
+#feed[hidden] { display: none !important; }
 .joy-end { text-align: center; font-family: 'Lora', Georgia, serif; font-style: italic; font-size: clamp(19px, 2.4vw, 24px); color: var(--ink-soft); margin: 42px auto 0; max-width: 640px; text-wrap: balance; }
 @media (max-width: 900px) { .joy-sec .ev-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 560px) { .joy-sec .ev-grid { grid-template-columns: 1fr; } }
@@ -750,6 +753,7 @@ body.intro-lock { overflow: hidden; }
 .news-hidden { display: none !important; }
 .news-actions { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 14px; margin-top: 30px; }
 .news-actions .btn svg { width: 18px; height: 18px; }
+.news-actions .btn[hidden] { display: none !important; } /* .btn's display:inline-flex would otherwise defeat the hidden attribute */
 .news-more[hidden], .news-all[hidden] { display: none !important; }
 
 /* news archive page (news.html) */

@@ -53,7 +53,6 @@
         <li><a href="#programs" data-i18n="nav_programs">Программы</a></li>
         <li><a href="#sreda" data-i18n="nav_env">Среда</a></li>
         <li><a href="#day" data-i18n="nav_parents">Для родителей</a></li>
-        <li><a href="news.html" data-i18n="nav_news">Новости</a></li>
         <li><a href="#footer" data-i18n="nav_contacts">Контакты</a></li>
       </ul>
     </nav>
@@ -76,7 +75,6 @@
   <a href="#sreda" data-i18n="nav_env">Среда</a>
   <a href="#day" data-i18n="nav_parents">Для родителей</a>
   <a href="#teachers" data-i18n="nav_teachers">Педагоги</a>
-  <a href="news.html" data-i18n="nav_news">Новости</a>
   <a href="#footer" data-i18n="nav_contacts">Контакты</a>
   <a class="btn btn-purple" href="#contact" data-i18n="cta_book">Записаться на экскурсию</a>
 </div>
@@ -392,38 +390,25 @@
     </div>
   </div>
 </section>
-<!-- ============ JOY ============ -->
-<section class="section joy-sec" style="padding-top:0">
+<!-- ============ АКТУАЛЬНОЕ (новости + жизнь сада, из content/news.json) ============ -->
+<section class="section joy-sec" id="feed" style="padding-top:0" hidden>
   <img class="doodle doodle-art drift-anim" src="assets/img/doodles/heart.png" alt="" aria-hidden="true" style="top:9%;left:2%;width:54px">
   <img class="doodle doodle-art float-anim" src="assets/img/doodles/star2.png" alt="" aria-hidden="true" style="top:6%;right:2%;width:52px">
   <div class="container">
-    <div class="joy-top reveal">
-      <div class="joy-intro">
-        <h2 class="section-title" data-i18n="joy_title">Радость — каждый день</h2>
-        <p class="section-sub" data-i18n="joy_sub">Жизнь детского сада FunsCool в Белграде — это не только занятия и привычный режим дня. Дети участвуют в праздниках и театральных постановках, готовят вместе с педагогами, создают проекты, отправляются на экскурсии и знакомятся с традициями разных культур.</p>
-      </div>
-      <div class="joy-photo">
-        <img class="joy-egg" src="assets/img/extra/girl-joy.jpg" alt="Счастливые дети на празднике в детском саду FunsCool" loading="lazy">
-      </div>
+    <div class="section-head center">
+      <h2 class="section-title" data-i18n="feed_title">Актуальное</h2>
     </div>
-    <div class="ev-grid" id="evGrid">
-      <article class="ev-card reveal">
-        <div class="ev-photo ev-ph"><span class="ev-q" aria-hidden="true">?</span></div>
-        <h3 data-i18n="ev1_t">Праздники и традиции</h3>
-        <p data-i18n="ev1_d">Сезонные праздники, культурные традиции и события сообщества.</p>
-      </article>
-      <article class="ev-card reveal d1">
-        <div class="ev-photo ev-ph"><span class="ev-q" aria-hidden="true">?</span></div>
-        <h3 data-i18n="ev2_t">Театр и сцена</h3>
-        <p data-i18n="ev2_d">Играем роли, выступаем, придумываем и проживаем истории.</p>
-      </article>
-      <article class="ev-card reveal d2">
-        <div class="ev-photo ev-ph"><span class="ev-q" aria-hidden="true">?</span></div>
-        <h3 data-i18n="ev3_t">Весёлый поварёнок</h3>
-        <p data-i18n="ev3_d">Готовим вместе, пробуем и учимся самостоятельности через практику.</p>
-      </article>
+    <div class="ev-grid" id="feedList"></div>
+    <div class="news-actions">
+      <button type="button" class="btn btn-ghost" id="feedMore" hidden>
+        <span data-i18n="feed_more">Показать ещё</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </button>
+      <a class="btn btn-yellow" id="feedAll" href="news.html" hidden>
+        <span data-i18n="feed_all">Смотреть всё</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
     </div>
-    <p class="joy-end reveal" data-i18n="joy_end">Детство складывается из моментов, которые хочется вспоминать.</p>
   </div>
 </section>
 
@@ -473,28 +458,6 @@
 
 
 
-
-<!-- ============ NEWS & PROMOTIONS (auto-hidden until content is added in the admin) ============ -->
-<section class="section news-sec" id="news" style="padding-top:0" hidden>
-  <div class="container">
-    <div class="section-head center">
-      <span class="eyebrow y" data-i18n="news_eyebrow">Новости</span>
-      <h2 class="section-title" data-i18n="news_title">Новости</h2>
-      <p class="section-sub" data-i18n="news_sub">Свежие события, праздники и специальные предложения нашего детского сада.</p>
-    </div>
-    <div class="news-grid" id="newsList"></div>
-    <div class="news-actions">
-      <button type="button" class="btn btn-ghost news-more" id="newsMore" hidden>
-        <span data-i18n="news_more">Показать ещё</span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
-      </button>
-      <a class="btn btn-yellow news-all" id="newsAll" href="news.html" hidden>
-        <span data-i18n="news_all">Все новости</span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </a>
-    </div>
-  </div>
-</section>
 
 </main>
 

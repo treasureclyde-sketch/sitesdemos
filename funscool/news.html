@@ -27,7 +27,6 @@
         <li><a href="index.html#programs" data-i18n="nav_programs">Программы</a></li>
         <li><a href="index.html#sreda" data-i18n="nav_env">Среда</a></li>
         <li><a href="index.html#day" data-i18n="nav_parents">Для родителей</a></li>
-        <li><a href="news.html" class="active" data-i18n="nav_news">Новости</a></li>
         <li><a href="index.html#footer" data-i18n="nav_contacts">Контакты</a></li>
       </ul>
     </nav>
@@ -50,7 +49,6 @@
   <a href="index.html#sreda" data-i18n="nav_env">Среда</a>
   <a href="index.html#day" data-i18n="nav_parents">Для родителей</a>
   <a href="index.html#teachers" data-i18n="nav_teachers">Педагоги</a>
-  <a href="news.html" data-i18n="nav_news">Новости</a>
   <a href="index.html#footer" data-i18n="nav_contacts">Контакты</a>
   <a class="btn btn-purple" href="#contact" data-i18n="cta_book">Записаться на экскурсию</a>
 </div>
@@ -61,35 +59,16 @@
   <section class="news-hero">
     <div class="container">
       <a class="news-back" href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg><span data-i18n="news_back">На главную</span></a>
-      <span class="eyebrow y" data-i18n="news_eyebrow">Новости</span>
-      <h1 class="news-hero-title" data-i18n="news_arch_title">Новости детского сада FunsCool в Белграде</h1>
-      <p class="news-hero-sub" data-i18n="news_arch_sub">Чем живёт наш детский сад: события, праздники, проекты и специальные предложения.</p>
+      <h1 class="news-hero-title" data-i18n="feed_arch_title">Актуальное — жизнь детского сада FunsCool</h1>
+      <p class="news-hero-sub" data-i18n="feed_arch_sub">Новости, события, праздники и всё, чем живёт наш сад.</p>
     </div>
   </section>
 
-  <!-- ===== pinned "Радость — каждый день" (same cards as on the main site) ===== -->
-  <section class="section joy-sec news-joy" style="padding-top:6px">
+  <!-- ===== all items (feed), from content/news.json ===== -->
+  <section class="section joy-sec" style="padding-top:14px">
     <div class="container">
-      <div class="section-head center">
-        <h2 class="section-title" data-i18n="joy_title">Радость — каждый день</h2>
-        <p class="section-sub" data-i18n="joy_sub">Жизнь детского сада FunsCool в Белграде — это не только занятия и привычный режим дня. Дети участвуют в праздниках и театральных постановках, готовят вместе с педагогами, создают проекты, отправляются на экскурсии и знакомятся с традициями разных культур.</p>
-      </div>
-      <div class="ev-grid" id="evGrid">
-        <article class="ev-card"><div class="ev-photo ev-ph"><span class="ev-q" aria-hidden="true">?</span></div><h3 data-i18n="ev1_t">Праздники и традиции</h3><p data-i18n="ev1_d">Сезонные праздники, культурные традиции и события сообщества.</p></article>
-        <article class="ev-card"><div class="ev-photo ev-ph"><span class="ev-q" aria-hidden="true">?</span></div><h3 data-i18n="ev2_t">Театр и сцена</h3><p data-i18n="ev2_d">Играем роли, выступаем, придумываем и проживаем истории.</p></article>
-        <article class="ev-card"><div class="ev-photo ev-ph"><span class="ev-q" aria-hidden="true">?</span></div><h3 data-i18n="ev3_t">Весёлый поварёнок</h3><p data-i18n="ev3_d">Готовим вместе, пробуем и учимся самостоятельности через практику.</p></article>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== all news feed ===== -->
-  <section class="section news-archive" style="padding-top:0">
-    <div class="container">
-      <div class="section-head center">
-        <h2 class="section-title" data-i18n="news_all_title">Все новости</h2>
-      </div>
-      <div class="news-grid" id="newsArchiveList"></div>
-      <p class="news-empty" id="newsArchiveEmpty" data-i18n="news_empty" hidden>Пока новостей нет — заглядывайте позже.</p>
+      <div class="ev-grid" id="feedArchiveList"></div>
+      <p class="news-empty" id="feedArchiveEmpty" data-i18n="feed_empty" hidden>Пока пусто — заглядывайте позже.</p>
     </div>
   </section>
 
