@@ -300,35 +300,42 @@
     return art;
   }
   function renderFeed(lang) {
-    // «Актуальное» — the unified news + «Радость» feed from content/news.json
-    // (CMS-editable). Order = order in the admin (newest on top). Two surfaces:
+    // «Актуальное» — the unified «Радость — каждый день» + news feed from
+    // content/news.json (CMS-editable). Each item has a type: "joy" (Радость —
+    // каждый день, pinned first) or "news" (a regular news item, shown after).
+    // «joy» items are stable-sorted to the front so they stay the pinned cards
+    // even if the admin order changes. Two surfaces:
     //   #feedList          — main page: 3 cards, "показать ещё" reveals up to 6,
     //                        then a link to the archive page (news.html).
-    //   #feedArchiveList   — archive page: every item, newest first.
+    //   #feedArchiveList   — archive page: every item (joy first, then news).
     var items = (CONTENT && Array.isArray(CONTENT.news)) ? CONTENT.news : [];
     var visible = items.filter(function (it) { return it && (tr(it.title, lang) || tr(it.text, lang)); });
+    // stable sort: joy (0) before news (1); unknown types are treated as news
+    visible = visible
+      .map(function (it, idx) { return { it: it, idx: idx, rank: (it.type === 'joy') ? 0 : 1 }; })
+      .sort(function (a, b) { return (a.rank - b.rank) || (a.idx - b.idx); })
+      .map(function (o) { return o.it; });
 
     // --- main page: compact block (3 → +3 → link) ---
+    // The «Радость — каждый день» intro (heading + photo) is static, so the
+    // section stays visible even before/without cards; we only fill the grid
+    // and toggle the buttons.
     var sec = document.getElementById('feed');
     var list = document.getElementById('feedList');
     if (sec && list) {
+      sec.hidden = false;
       list.textContent = '';
-      if (!visible.length) {
-        sec.hidden = true;
-      } else {
-        sec.hidden = false;
-        visible.slice(0, 6).forEach(function (it, i) {
-          var card = feedCard(it, lang);
-          if (i >= 3 && !feedExpanded) card.classList.add('news-hidden');
-          list.appendChild(card);
-        });
-        // "Показать ещё" while collapsed and there are more than 3 items;
-        // "Смотреть всё" once expanded (or when everything already fits).
-        var moreBtn = document.getElementById('feedMore');
-        if (moreBtn) moreBtn.hidden = (visible.length <= 3) || feedExpanded;
-        var allLink = document.getElementById('feedAll');
-        if (allLink) allLink.hidden = !(feedExpanded || visible.length <= 3);
-      }
+      visible.slice(0, 6).forEach(function (it, i) {
+        var card = feedCard(it, lang);
+        if (i >= 3 && !feedExpanded) card.classList.add('news-hidden');
+        list.appendChild(card);
+      });
+      // "Показать ещё" while collapsed and there are more than 3 items;
+      // "Смотреть всё" once expanded (or when everything already fits).
+      var moreBtn = document.getElementById('feedMore');
+      if (moreBtn) moreBtn.hidden = !(visible.length > 3) || feedExpanded;
+      var allLink = document.getElementById('feedAll');
+      if (allLink) allLink.hidden = !visible.length || !(feedExpanded || visible.length <= 3);
     }
 
     // --- archive page: the whole feed ---

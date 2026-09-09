@@ -395,18 +395,26 @@ function renderFaq(){
 }
 
 /* ---------- «Актуальное» (новости + жизнь сада, единый блок) ---------- */
+function typeOpts(v){ return [['joy','🎈 Радость — каждый день'],['news','📰 Новость']].map(function(o){ return '<option value="'+o[0]+'"'+(v===o[0]?' selected':'')+'>'+o[1]+'</option>'; }).join(''); }
 function renderNews(){
   var items=store.news.items;
-  var html='<p class="page-intro">Единый блок «Актуальное» на сайте: новости, праздники, события и всё, чем живёт сад. На главной показываются первые 3 записи (кнопка «Показать ещё» открывает до 6, «Смотреть всё» ведёт в архив). Порядок = порядок на сайте, новые — сверху. Без фото карточка показывает «?».</p>';
+  var html='<p class="page-intro">Единый раздел «Актуальное». У каждой записи есть <b>тип</b>:<br>'+
+    '• <b>🎈 Радость — каждый день</b> — постоянные карточки о жизни сада (праздники, театр, поварёнок). Они закреплены и показываются <b>первыми</b> в блоке «Радость — каждый день» на главной.<br>'+
+    '• <b>📰 Новость</b> — обычные новости и объявления. Идут <b>после</b> «Радости».<br>'+
+    'На главной видны первые 3 карточки, «Показать ещё» открывает до 6, «Смотреть всё» ведёт в архив. Порядок внутри каждого типа = порядок здесь. Без фото карточка показывает «?».</p>';
   items.forEach(function(it,i){
     var photo=String(it.photo||'').replace(/^\//,'');
+    var isJoy=(it.type==='joy');
     html+='<div class="card" data-i="'+i+'">'+
       '<div class="itemhead"><span class="num">'+(i+1)+'</span>'+
         '<img class="thumb" src="'+esc('../'+photo)+'" alt="" onerror="this.style.visibility=\'hidden\'">'+
-        '<span class="t">'+esc((it.title&&it.title.ru)||'Новая запись')+'</span>'+
+        '<span class="t">'+(isJoy?'🎈 ':'📰 ')+esc((it.title&&it.title.ru)||'Новая запись')+'</span>'+
         '<span class="acts">'+moveBtns(i,items.length)+'<button class="btn icon" data-del title="Удалить">🗑️</button></span>'+
       '</div>'+
-      '<div class="field"><label>Дата (необязательно)</label><input data-bind="date" value="'+esc(it.date||'')+'" placeholder="напр. 1 сентября"></div>'+
+      '<div class="grid3" style="grid-template-columns:1fr 1fr">'+
+        '<div class="field"><label>Тип записи</label><select data-bind="type">'+typeOpts(it.type)+'</select></div>'+
+        '<div class="field"><label>Дата (необязательно)</label><input data-bind="date" value="'+esc(it.date||'')+'" placeholder="напр. 1 сентября"></div>'+
+      '</div>'+
       photoControl(it.photo)+
       '<div class="field"><label>Заголовок</label>'+langBlock('title', it.title, 'str')+'</div>'+
       '<div class="field"><label>Текст</label>'+langBlock('text', it.text, 'text')+'</div>'+
@@ -428,7 +436,9 @@ $('#content').addEventListener('input', function(e){
     setPath(item.tags[ti], b.slice(4), e.target.value);
   } else { setPath(item, b, e.target.value); }
   // live-update the header title
-  if(b==='name.ru'||b==='q.ru'||b==='title.ru'){ var t=card.querySelector('.itemhead .t'); if(t) t.textContent=e.target.value||(current==='faq'?'Новый вопрос':current==='news'?'Новая запись':'Без имени'); }
+  if(b==='name.ru'||b==='q.ru'||b==='title.ru'){ var t=card.querySelector('.itemhead .t'); if(t){ var pre=(current==='news')?((item.type==='joy')?'🎈 ':'📰 '):''; t.textContent=pre+(e.target.value||(current==='faq'?'Новый вопрос':current==='news'?'Новая запись':'Без имени')); } }
+  // changing the type re-renders so the header icon updates
+  if(b==='type'){ markDirty(); renderPage(current); return; }
   markDirty();
 });
 $('#content').addEventListener('click', function(e){
@@ -436,7 +446,7 @@ $('#content').addEventListener('click', function(e){
   var card=e.target.closest('.card'); var items=store[current].items;
   if(btn.hasAttribute('data-add')){
     var blank = current==='teachers' ? {photo:'',color:'purple',name:{},tags:[],bio:{}}
-              : current==='news' ? {photo:'',date:'',title:{},text:{}}
+              : current==='news' ? {type:'news',photo:'',date:'',title:{},text:{}}
               : {q:{},a:{}};
     items.push(blank); markDirty(); renderPage(current); return;
   }
