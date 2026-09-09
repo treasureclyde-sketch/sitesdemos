@@ -620,11 +620,11 @@
     if (pin) pin.addEventListener('input', sync);
     if (cc) cc.addEventListener('change', function () { if (pin) { pin.placeholder = ccOpt().getAttribute('data-ph') || ''; sync(); } });
 
-    /* ----- submit → Netlify function (branded Gmail email); WhatsApp fallback ----- */
-    // Письмо отправляет serverless-функция на Netlify — GitHub Pages сам серверный
-    // код не запускает. Если адрес Netlify-сайта другой, поменяй ТОЛЬКО эту строку
-    // (и такую же в group.html). Подробности — в MAIL-SETUP.md.
-    var LEAD_ENDPOINT = 'https://regal-starburst-6fc954.netlify.app/.netlify/functions/lead';
+    /* ----- submit → Google Apps Script (branded Gmail email); WhatsApp fallback ----- */
+    // Письмо отправляет Google Apps Script с почты сада (GitHub Pages серверный код
+    // не запускает). Чтобы сменить адрес — поменяй ТОЛЬКО эту строку (и action у
+    // <form> в index.html / group.html / news.html). Подробности — в MAIL-SETUP.md.
+    var LEAD_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwZzChpd-rgbdyskw3TQKpzum99TVH9AkPGCte5RAbzMQKcppXCvsoFYEliE24L2O1b7A/exec';
     var form = document.getElementById('leadForm');
     if (!form) return;
     var emailInput = document.getElementById('emailInput');
@@ -676,7 +676,8 @@
       var wa = document.getElementById('waFallback');
       var btn = form.querySelector('button[type="submit"]');
       if (btn) btn.disabled = true;
-      fetch(LEAD_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
+      // text/plain — «простой» запрос без CORS-preflight (Apps Script не отвечает на OPTIONS)
+      fetch(LEAD_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload) })
         .then(function (r) {
           if (!r.ok) throw new Error('http ' + r.status);
           if (ok) ok.classList.add('show');
