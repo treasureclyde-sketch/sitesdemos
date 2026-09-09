@@ -4,29 +4,46 @@
       "type": "joy",
       "photo": "",
       "date": "",
-      "title": { "ru": "Праздники и традиции", "sr": "Praznici i tradicije", "en": "Celebrations & traditions" },
-      "text": { "ru": "Сезонные праздники, культурные традиции и события сообщества.", "sr": "Sezonski praznici, kulturne tradicije i događaji zajednice.", "en": "Seasonal holidays, cultural traditions and community events." }
+      "title": {
+        "ru": "Праздники и традиции",
+        "sr": "Praznici i tradicije",
+        "en": "Celebrations & traditions"
+      },
+      "text": {
+        "ru": "Сезонные праздники, культурные традиции и события сообщества.",
+        "sr": "Sezonski praznici, kulturne tradicije i događaji zajednice.",
+        "en": "Seasonal holidays, cultural traditions and community events."
+      }
     },
     {
       "type": "joy",
       "photo": "",
       "date": "",
-      "title": { "ru": "Театр и сцена", "sr": "Pozorište i scena", "en": "Theatre & stage" },
-      "text": { "ru": "Играем роли, выступаем, придумываем и проживаем истории.", "sr": "Igramo uloge, nastupamo, smišljamo i proživljavamo priče.", "en": "Playing roles, performing and living out stories together." }
+      "title": {
+        "ru": "Театр и сцена",
+        "sr": "Pozorište i scena",
+        "en": "Theatre & stage"
+      },
+      "text": {
+        "ru": "Играем роли, выступаем, придумываем и проживаем истории.",
+        "sr": "Igramo uloge, nastupamo, smišljamo i proživljavamo priče.",
+        "en": "Playing roles, performing and living out stories together."
+      }
     },
     {
       "type": "joy",
       "photo": "",
       "date": "",
-      "title": { "ru": "Весёлый поварёнок", "sr": "Veseli kuvarčić", "en": "Little chef" },
-      "text": { "ru": "Готовим вместе, пробуем и учимся самостоятельности через практику.", "sr": "Kuvamo zajedno, probamo i učimo samostalnost kroz praksu.", "en": "Cooking together, tasting and learning independence through practice." }
-    },
-    {
-      "type": "news",
-      "photo": "",
-      "date": "03.09.26",
-      "title": { "ru": "День открытых дверей" },
-      "text": {}
+      "title": {
+        "ru": "Весёлый поварёнок",
+        "sr": "Veseli kuvarčić",
+        "en": "Little chef"
+      },
+      "text": {
+        "ru": "Готовим вместе, пробуем и учимся самостоятельности через практику.",
+        "sr": "Kuvamo zajedno, probamo i učimo samostalnost kroz praksu.",
+        "en": "Cooking together, tasting and learning independence through practice."
+      }
     }
   ]
 }
