@@ -498,7 +498,10 @@ h1, h2, h3, h4 {
 .joy p { margin: 0; font-size: 14.5px; color: var(--muted); }
 /* event photo-album — «Радость — каждый день» */
 .joy-sec .ev-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-.joy-sec .ev-card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); transition: transform .3s var(--ease), box-shadow .3s var(--ease); }
+/* display:block + padding:0 make the feed card self-contained: the generic
+   .ev-card (day-clock callout) is flex and turns row on mobile — we must not
+   inherit that here */
+.joy-sec .ev-card { display: block; padding: 0; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); transition: transform .3s var(--ease), box-shadow .3s var(--ease); }
 .joy-sec .ev-card:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
 .joy-sec .ev-photo { position: relative; aspect-ratio: 4 / 3; overflow: hidden; background: var(--cream-2); }
 .joy-sec .ev-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
@@ -506,7 +509,8 @@ h1, h2, h3, h4 {
 .joy-sec .ev-ic svg { width: 23px; height: 23px; color: #fff; }
 .joy-sec .ev-card h3 { font-family: 'Nunito'; font-weight: 800; font-size: 18px; margin: 30px 20px 6px; }
 .joy-sec .ev-card p { margin: 0 20px 20px; font-size: 14.5px; color: var(--muted); line-height: 1.55; }
-.joy-sec .ev-photo.ev-ph { display: grid; place-items: center; background: var(--cream-2); }
+.joy-sec .ev-photo.ev-ph { display: grid; place-items: center; background: linear-gradient(135deg, var(--cream-2), var(--cream)); }
+.joy-sec .ev-ph-ic { width: clamp(46px, 7vw, 64px); height: auto; color: var(--muted-2); opacity: .55; }
 .joy-sec .ev-q { font-family: 'Lora', Georgia, serif; font-weight: 700; font-size: clamp(46px, 7vw, 72px); color: var(--muted-2); line-height: 1; }
 .joy-sec .ev-date { display: block; font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 12px; letter-spacing: .04em; text-transform: uppercase; color: var(--purple); margin: 18px 20px 0; }
 .joy-sec .ev-date + h3 { margin-top: 4px; }
@@ -873,24 +877,23 @@ body.intro-lock { overflow: hidden; }
 .slider-nav {
   position: absolute; top: calc(50% - 10px); transform: translateY(-50%); z-index: 6;
   width: 48px; height: 48px; border-radius: 50%;
-  /* liquid glass: translucent so it never blocks the card behind it */
-  background: rgba(255,255,255,.28);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
-  backdrop-filter: blur(16px) saturate(180%);
-  border: 1px solid rgba(255,255,255,.55);
-  box-shadow: 0 8px 26px -12px rgba(44,39,35,.35), inset 0 1px 0 rgba(255,255,255,.7);
+  /* solid control with a clear ring + shadow so it reads as a button and text
+     behind it never bleeds through */
+  background: #fff;
+  border: 1px solid rgba(44,39,35,.14);
+  box-shadow: 0 6px 20px -6px rgba(44,39,35,.4), 0 1px 3px rgba(44,39,35,.18);
   display: grid; place-items: center; color: var(--ink); cursor: pointer;
   transition: opacity .25s var(--ease), box-shadow .2s, transform .15s, background .2s;
 }
-.slider-nav svg { filter: drop-shadow(0 1px 1.5px rgba(255,255,255,.65)); }
-.slider-nav:hover { background: rgba(255,255,255,.42); box-shadow: 0 10px 30px -12px rgba(44,39,35,.42), inset 0 1px 0 rgba(255,255,255,.85); }
+.slider-nav:hover { background: var(--cream); box-shadow: 0 10px 26px -8px rgba(44,39,35,.48), 0 1px 3px rgba(44,39,35,.2); }
 .slider-nav:active { transform: translateY(-50%) scale(.94); }
 .slider-nav svg { width: 22px; height: 22px; }
 .slider-nav.prev { left: 5px; }
 .slider-nav.next { right: 5px; }
 .slider-nav[disabled] { opacity: 0; pointer-events: none; }
 @media (max-width: 900px) {
-  .slider-nav { width: 40px; height: 40px; }
+  /* sit the arrows on the card photo (not centered over the text below it) */
+  .slider-nav { width: 40px; height: 40px; top: 120px; }
   .slider-nav.prev { left: 3px; }
   .slider-nav.next { right: 3px; }
   /* mobile: one card per view, a small consistent sliver of the next peeks */
@@ -987,6 +990,18 @@ body.modal-open { overflow: hidden; }
 .modal-x svg { width: 18px; height: 18px; }
 .modal-card h3 { font-family: 'Nunito'; font-weight: 800; font-size: 22px; color: var(--ink); margin: 0 40px 6px 0; }
 .modal-sub { font-size: 14.5px; color: var(--muted); margin: 0 0 20px; }
+/* phones: tighten the booking modal so the whole form fits without scrolling */
+@media (max-width: 600px) {
+  .modal-card { padding: 20px 18px; }
+  .modal-card h3 { font-size: 20px; }
+  .modal-card .modal-sub { margin-bottom: 14px; }
+  .modal-card .field { margin-bottom: 9px; }
+  .modal-card .field input, .modal-card .field select, .modal-card .field textarea { padding: 12px 15px; border-radius: 12px; }
+  .modal-card .field textarea { min-height: 58px; }
+  .modal-card .child-row { margin-bottom: 11px; }
+  .modal-card .contact-hint { margin: 2px 0 8px; }
+  .modal-card .form-card .btn { margin-top: 2px; }
+}
 
 /* ---- promo: "Актуальные предложения" button + offers window ---- */
 .promo-cta { display: flex; justify-content: center; }
@@ -1222,6 +1237,9 @@ body.modal-open { overflow: hidden; }
   .gp-advs { grid-template-columns: repeat(2, 1fr); }
   .gp-cta-in { grid-template-columns: 1fr; }
   .gp-cta-photo { order: -1; max-width: 460px; }
+  /* keep the CTA card inside the same side gutter as every other block
+     (its own padding otherwise overrides the container gutter → edge-to-edge) */
+  .gp-cta { padding-left: 18px; padding-right: 18px; }
 }
 @media (max-width: 520px) {
   .gp-stats { grid-template-columns: repeat(2, 1fr); gap: 22px 10px; }

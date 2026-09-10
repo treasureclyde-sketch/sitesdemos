@@ -96,6 +96,7 @@
     offer3_t:"Popust 5% za braću i sestre", offer3_d:"Ako vrtić pohađa dvoje ili više dece iz iste porodice, važi popust od 5%.",
     offers_cta:"Zakažite obilazak", offers_note:"Ponude se ne sabiraju. Detalje proverite kod administratora.",
     footer_tagline:"Razvijamo sa ljubavlju i brigom svakog dana.", footer_nav:"Navigacija", footer_programs:"Programi",
+    foot_p1:"Bebi-Fan · 1,5–2,5", foot_p2:"Enerdži-Fan · 2,5–3,5", foot_p3:"Diskaveri-Fan · 3,5–4,5", foot_p4:"Kreativ-Fan · 4,5–6", foot_p5:"Preskul · 5,5–7",
     footer_contacts:"Kontakt", footer_rights:"Sva prava zadržana"
   };
 
@@ -179,6 +180,7 @@
     offer3_t:"5% sibling discount", offer3_d:"If two or more children from one family attend, a 5% discount applies.",
     offers_cta:"Book a tour", offers_note:"Offers can't be combined. Ask our administrator for details.",
     footer_tagline:"Growing with love and care every day.", footer_nav:"Navigation", footer_programs:"Programs",
+    foot_p1:"Baby-Fun · 1.5–2.5", foot_p2:"Energy-Fun · 2.5–3.5", foot_p3:"Discovery-Fun · 3.5–4.5", foot_p4:"Creative-Fun · 4.5–6", foot_p5:"Pre-school · 5.5–7",
     footer_contacts:"Contacts", footer_rights:"All rights reserved"
   };
 
@@ -284,9 +286,10 @@
       img.src = src; img.alt = tr(it.title, lang); img.loading = 'lazy';
       photo.appendChild(img);
     } else {
+      // intentional "photo coming soon" placeholder (a soft picture icon),
+      // instead of a stark "?" that reads like a broken/failed image
       photo.className = 'ev-photo ev-ph';
-      var q = document.createElement('span'); q.className = 'ev-q'; q.setAttribute('aria-hidden', 'true'); q.textContent = '?';
-      photo.appendChild(q);
+      photo.innerHTML = '<svg class="ev-ph-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4.5" width="18" height="15" rx="3"/><circle cx="8.5" cy="10" r="1.7"/><path d="M3.5 17.5 8.6 12.9a2 2 0 0 1 2.7 0l3.4 3.1"/><path d="m13.5 15.2 1.7-1.6a2 2 0 0 1 2.7-.05l2.6 2.3"/></svg>';
     }
     art.appendChild(photo);
     if (it.date) {
