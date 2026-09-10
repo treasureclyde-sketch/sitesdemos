@@ -233,6 +233,8 @@ h1, h2, h3, h4 {
 /* rating + address band */
 .info-band { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 14px; }
 .info-pill { display: flex; align-items: center; gap: 12px; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 18px; box-shadow: var(--shadow-sm); flex: 1; min-width: 260px; }
+a.info-pill { color: inherit; text-decoration: none; transition: border-color .2s, box-shadow .2s, transform .2s; }
+a.info-pill:hover { border-color: var(--coral); box-shadow: var(--shadow); transform: translateY(-2px); }
 .info-pill .pin { width: 22px; height: 22px; color: var(--coral); flex-shrink: 0; }
 .info-pill b { font-family: 'Nunito'; font-weight: 800; color: var(--ink); display: block; font-size: 15.5px; line-height: 1.25; }
 .info-pill span { font-size: 13.5px; color: var(--muted); }
@@ -784,6 +786,7 @@ body.intro-lock { overflow: hidden; }
 .footer-col ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 11px; }
 .footer-col a { color: var(--ink-soft); font-size: 14.5px; font-weight: 600; transition: color .2s; }
 .footer-col a:hover { color: var(--yellow-d); }
+.footer-col a[data-i18n^="foot_p"] { white-space: nowrap; } /* keep "Name · age" on one line — no mid-range break */
 .footer-bottom { padding-top: 26px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; color: var(--muted); font-size: 13.5px; }
 
 /* ============================================================
@@ -841,6 +844,11 @@ body.intro-lock { overflow: hidden; }
 @media (max-width: 860px) {
   .footer-top { grid-template-columns: 1fr 1fr; gap: 30px 20px; }
   .footer-brand { grid-column: 1 / -1; }
+}
+@media (max-width: 560px) {
+  /* stack footer columns full-width so program entries fit on one line */
+  .footer-top { grid-template-columns: 1fr; gap: 26px; }
+  .footer-brand { grid-column: auto; }
 }
 @media (max-width: 620px) {
   body { font-size: 16px; }
