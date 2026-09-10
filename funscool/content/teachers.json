@@ -103,17 +103,21 @@
       "photo": "assets/img/teachers/1789056250432-orig.webp",
       "color": "teal",
       "name": {
-        "ru": "Арсений",
-        "sr": "Arseniy",
-        "en": "Arseniy"
+        "ru": "Лев",
+        "sr": "Lev",
+        "en": "Lev"
       },
       "tags": [
         {
-          "ru": "Тестировщик"
+          "ru": "Test",
+          "sr": "Test1",
+          "en": "Test2"
         }
       ],
       "bio": {
-        "ru": "тест"
+        "ru": "тест1",
+        "sr": "test12",
+        "en": "Test4"
       }
     }
   ]
