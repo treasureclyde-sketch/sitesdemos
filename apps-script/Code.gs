@@ -81,7 +81,7 @@ function buildHtml_(d) {
     + '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;margin:0 auto;background:#fff;border-radius:16px;overflow:hidden">'
     + '<tr><td style="background:#F5B301;padding:22px 26px">'
     + '<div style="font:800 20px sans-serif;color:#2C2723;letter-spacing:-.02em">funscool · детский сад</div>'
-    + '<div style="font:700 13px sans-serif;color:#5c4a12;margin-top:2px">🔔 Новая заявка с сайта</div>'
+    + '<div style="font:700 13px sans-serif;color:#5c4a12;margin-top:4px"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#2C2723;vertical-align:middle;margin-right:7px"></span>Новая заявка с сайта</div>'
     + '</td></tr>'
     + '<tr><td style="padding:24px 26px 6px">'
     + '<h2 style="font:800 18px sans-serif;color:#2C2723;margin:0 0 4px">Заявка на экскурсию</h2>'
