@@ -54,8 +54,8 @@
     baby: {
       accent: '#78B15A', accentSoft: '#E9F1DE', accentDark: '#5c8a3f',
       name: 'Baby-Fun',
-      photo: 'assets/img/groups/baby-hero.jpg',
-      ctaPhoto: 'assets/img/interiors/baby.jpg',
+      photo: 'assets/img/groups/baby-hero.webp',
+      ctaPhoto: 'assets/img/interiors/baby.webp',
       badge: { ru: 'от 1 года', sr: 'od 1 godine', en: 'from age 1' },
       subtitle: { ru: 'Мягкая адаптация\nв русскоязычной среде', sr: 'Nežna adaptacija\nu okruženju na ruskom jeziku', en: 'Gentle adaptation\nin a Russian-speaking environment' },
       intro: {
@@ -117,8 +117,8 @@
     energy: {
       accent: '#F5871F', accentSoft: '#FBE8D6', accentDark: '#cf6d0c',
       name: 'Energy-Fun',
-      photo: 'assets/img/extra/girl-joy.jpg',
-      ctaPhoto: 'assets/img/interiors/energy.jpg',
+      photo: 'assets/img/extra/girl-joy.webp',
+      ctaPhoto: 'assets/img/interiors/energy.webp',
       badge: { ru: 'от 2,5 лет', sr: 'od 2,5 godine', en: 'from age 2.5' },
       subtitle: { ru: 'Учимся быть вместе\nи познаём мир в движении', sr: 'Učimo da budemo zajedno\ni upoznajemo svet u pokretu', en: 'Learning to be together\nand exploring the world in motion' },
       intro: {
@@ -181,8 +181,8 @@
     discovery: {
       accent: '#8B6BD9', accentSoft: '#EDE5F8', accentDark: '#7451c9',
       name: 'Discovery-Fun',
-      photo: 'assets/img/kids/k4.jpg',
-      ctaPhoto: 'assets/img/interiors/discovery.jpg',
+      photo: 'assets/img/kids/k4.webp',
+      ctaPhoto: 'assets/img/interiors/discovery.webp',
       badge: { ru: 'от 3,5 лет', sr: 'od 3,5 godine', en: 'from age 3.5' },
       subtitle: { ru: 'Возраст почемучек:\nисследуем и открываем мир', sr: 'Uzrast pitalica:\nistražujemo i otkrivamo svet', en: 'The age of "why?":\nexploring and discovering the world' },
       intro: {
@@ -245,8 +245,8 @@
     creative: {
       accent: '#F0685F', accentSoft: '#FBE6EE', accentDark: '#d64e45',
       name: 'Creative-Fun',
-      photo: 'assets/img/kids/k2.jpg',
-      ctaPhoto: 'assets/img/interiors/creative.jpg',
+      photo: 'assets/img/kids/k2.webp',
+      ctaPhoto: 'assets/img/interiors/creative.webp',
       badge: { ru: 'от 4,5 лет', sr: 'od 4,5 godine', en: 'from age 4.5' },
       subtitle: { ru: 'Творчество, речь\nи первый шаг к школе', sr: 'Stvaralaštvo, govor\ni prvi korak ka školi', en: 'Creativity, speech\nand the first step to school' },
       intro: {
@@ -309,8 +309,8 @@
     preschool: {
       accent: '#4FA79B', accentSoft: '#E1F0EC', accentDark: '#3d857b',
       name: 'Preschool',
-      photo: 'assets/img/kids/k1.jpg',
-      ctaPhoto: 'assets/img/interiors/preschool.jpg',
+      photo: 'assets/img/kids/k1.webp',
+      ctaPhoto: 'assets/img/interiors/preschool.webp',
       badge: { ru: 'Дополнительная программа · 5,5–7 лет', sr: 'Dodatni program · 5,5–7 godina', en: 'Additional program · ages 5.5–7' },
       subtitle: { ru: 'Одна готовность к школе —\nтри образовательные траектории', sr: 'Jedna spremnost za školu —\ntri obrazovne putanje', en: 'One school readiness —\nthree learning tracks' },
       intro: {
@@ -400,8 +400,14 @@
   var root = document.getElementById('gp');
   if (!root) return;
   var params = new URLSearchParams(location.search);
-  var slug = params.get('g') || 'baby';
-  var g = GROUPS[slug] || GROUPS.baby;
+  var slug = params.get('g');
+  // unknown / empty group → send to the programs section instead of silently
+  // serving Baby-Fun under a bogus URL (QA BUG-12)
+  if (!slug || !Object.prototype.hasOwnProperty.call(GROUPS, slug)) {
+    location.replace('index.html#programs');
+    return;
+  }
+  var g = GROUPS[slug];
 
   function lang() { try { return localStorage.getItem('fs-lang') || 'ru'; } catch (e) { return 'ru'; } }
   function t(o) { var L = lang(); return (o && (o[L] != null ? o[L] : o.ru)) || ''; }
@@ -505,6 +511,17 @@
     root.style.setProperty('--gas', g.accentSoft);
     root.style.setProperty('--gad', g.accentDark);
     document.title = g.name + ' — Funscool';
+    // localized meta so the tab/preview isn't stuck in one language (QA BUG-06)
+    var desc = t(g.intro) || t(g.subtitle) || '';
+    function setMeta(sel, attr, key) {
+      var el = document.head.querySelector(sel);
+      if (!el) { el = document.createElement('meta'); el.setAttribute(attr, key); document.head.appendChild(el); }
+      return el;
+    }
+    setMeta('meta[name="description"]', 'name', 'description').setAttribute('content', desc);
+    setMeta('meta[property="og:title"]', 'property', 'og:title').setAttribute('content', g.name + ' — Funscool');
+    setMeta('meta[property="og:description"]', 'property', 'og:description').setAttribute('content', desc);
+    document.documentElement.setAttribute('lang', lang());
   }
 
   render();

@@ -23,7 +23,7 @@
     cta_programs:"Naši programi", addr:"Dorćol, Popovićeva 14A, Beograd", addr_sub:"Mirno centralno mesto, sigurno okruženje",
     rating:"Ocena ustanove na Yandex-u",
     f1_t:"Male grupe", f1_d:"do 15 dece", f2_t:"Blaga adaptacija", f2_d:"bez stresa i suza",
-    f3_t:"Višejezično okruženje", f3_d:"ruski, srpski, engleski", f4_t:"Autorski program", f4_d:"zasnovan na Montessori i Waldorf pristupima",
+    f3_t:"Višejezično okruženje", f3_d:"ruski, srpski, engleski", f4_t:"Autorski program", f4_d:"zasnovan na Montessori i Waldorf pristupima", feat_h:"Zašto FunsCool",
     sreda_eyebrow:"Bezbedan razvoj svakog dana", sreda_title:"Razvojno okruženje vrtića koje raste zajedno sa detetom",
     sreda_text:"Osmišljeni prostori, boje, materijali i zone pomažu deci da rastu samopouzdano, samostalno i srećno.",
     sreda_1:"Boje i junaci po Waldorf sistemu za svaki uzrast", sreda_2:"7–8 razvojnih zona u svakoj grupi u zavisnosti od uzrasta",
@@ -107,7 +107,7 @@
     cta_programs:"Our programs", addr:"Dorćol, Popovića 14A, Belgrade", addr_sub:"Quiet central location, safe neighborhood",
     rating:"Rated on Yandex",
     f1_t:"Small groups", f1_d:"up to 15 children", f2_t:"Gentle adaptation", f2_d:"a stress-free start",
-    f3_t:"Multilingual environment", f3_d:"Russian, Serbian, English", f4_t:"Exclusive curriculum", f4_d:"based on Montessori and Waldorf approach",
+    f3_t:"Multilingual environment", f3_d:"Russian, Serbian, English", f4_t:"Exclusive curriculum", f4_d:"based on Montessori and Waldorf approach", feat_h:"Why FunsCool",
     sreda_eyebrow:"Safe development every day", sreda_title:"A preschool environment designed to grow with your child",
     sreda_text:"Thoughtful spaces, colors, materials and zones help children grow confident, independent and happy.",
     sreda_1:"Colors and characters by the Waldorf system for each age", sreda_2:"7–8 developmental zones in each group depending on age",
@@ -188,7 +188,39 @@
   var PH = { ru: RU_PH,
     sr: { form_name:"Ime roditelja", form_phone:"Telefon", form_child:"Ime deteta", form_email:"E-mail", form_question_ph:"Vaše pitanje (po želji)" },
     en: { form_name:"Parent's name", form_phone:"Phone number", form_child:"Child's name", form_email:"E-mail", form_question_ph:"Your question (optional)" } };
-  var PHONE = { ru:["+7 (499) 283-46-28","+74992834628"], en:["+7 (499) 283-46-28","+74992834628"], sr:["+381 (69) 283-46-28","+381692834628"] };
+  // EN audience for a Belgrade kindergarten = expats in Belgrade → Serbian number
+  var PHONE = { ru:["+7 (499) 283-46-28","+74992834628"], en:["+381 (69) 283-46-28","+381692834628"], sr:["+381 (69) 283-46-28","+381692834628"] };
+
+  /* per-page <title>/description/OG, localized (QA BUG-06). Group page titles are
+     set by group.js. */
+  var META = {
+    index: {
+      ru: { t: "Частный международный детский сад FunsCool в Белграде · 1,5–7 лет", d: "Частный международный детский сад FunsCool в центре Белграда (Дорчол) для детей от 1,5 до 7 лет. Мини-группы, русский, сербский и английский языки каждый день, бережная адаптация и авторская программа на основе Montessori и Waldorf. Запишитесь на экскурсию." },
+      sr: { t: "Privatni međunarodni vrtić FunsCool u Beogradu · 1,5–7 godina", d: "Privatni međunarodni vrtić FunsCool u centru Beograda (Dorćol) za decu od 1,5 do 7 godina. Male grupe, ruski, srpski i engleski svaki dan, blaga adaptacija i autorski program po Montessori i Waldorf pristupu. Zakažite obilazak." },
+      en: { t: "FunsCool International Preschool in Belgrade · ages 1.5–7", d: "Private international preschool FunsCool in central Belgrade (Dorćol) for ages 1.5–7. Small groups, Russian, Serbian and English every day, gentle adaptation and a Montessori & Waldorf-based curriculum. Book a tour." }
+    },
+    news: {
+      ru: { t: "Актуальное — жизнь детского сада FunsCool", d: "Новости, события, праздники и жизнь детского сада FunsCool. Архив всех записей раздела «Актуальное»." },
+      sr: { t: "Aktuelno — život vrtića FunsCool", d: "Novosti, događaji, praznici i život vrtića FunsCool. Arhiva svih objava u odeljku «Aktuelno»." },
+      en: { t: "What’s on — life at FunsCool kindergarten", d: "News, events, celebrations and daily life of FunsCool kindergarten. Archive of all posts." }
+    }
+  };
+  var PAGE = (document.body && document.body.getAttribute('data-page')) || 'index';
+  function metaEl(sel, attr, key) {
+    var el = document.head.querySelector(sel);
+    if (!el) { el = document.createElement('meta'); el.setAttribute(attr, key); document.head.appendChild(el); }
+    return el;
+  }
+  function updateMeta(lang) {
+    var m = META[PAGE] && (META[PAGE][lang] || META[PAGE].ru);
+    if (!m) return; // group page — group.js owns the title
+    document.title = m.t;
+    metaEl('meta[name="description"]', 'name', 'description').setAttribute('content', m.d);
+    metaEl('meta[property="og:title"]', 'property', 'og:title').setAttribute('content', m.t);
+    metaEl('meta[property="og:description"]', 'property', 'og:description').setAttribute('content', m.d);
+    var ol = document.head.querySelector('meta[property="og:locale"]');
+    if (ol) ol.setAttribute('content', lang === 'sr' ? 'sr_RS' : lang === 'en' ? 'en_RS' : 'ru_RS');
+  }
 
   /* ---------- content rendered from data (editable in the CMS) ---------- */
   function tr(obj, lang) {
@@ -337,8 +369,10 @@
       // "Смотреть всё" once expanded (or when everything already fits).
       var moreBtn = document.getElementById('feedMore');
       if (moreBtn) moreBtn.hidden = !(visible.length > 3) || feedExpanded;
+      // "Смотреть всё" only when the archive holds more than the main block shows —
+      // never with ≤3 records (archive would be identical). QA BUG-15.
       var allLink = document.getElementById('feedAll');
-      if (allLink) allLink.hidden = !visible.length || !(feedExpanded || visible.length <= 3);
+      if (allLink) allLink.hidden = !(visible.length > 3) || (!feedExpanded && visible.length <= 6);
     }
 
     // --- archive page: the whole feed ---
@@ -378,6 +412,7 @@
     var pt = document.querySelector('[data-phone-text]'); if (pt) pt.textContent = ph[0];
     var pp = document.querySelector('[data-phone-pill]'); if (pp) pp.setAttribute('href', 'tel:' + ph[1]);
     document.documentElement.setAttribute('lang', lang);
+    updateMeta(lang);
     document.querySelectorAll('.lang button').forEach(function (b) { b.classList.toggle('active', b.getAttribute('data-lang') === lang); });
     try { localStorage.setItem('fs-lang', lang); } catch (e) {}
     renderDynamic(lang);
@@ -484,7 +519,17 @@
       stop(); clearTimeout(resumeT);      // hold on the chosen step, then resume drifting
       if (inView) resumeT = setTimeout(startInterval, 5000);
     }
-    dots.forEach(function (d, j) { d.addEventListener('click', function () { goTo(j); }); });
+    // make the clock dots real keyboard controls (QA BUG-22)
+    function dotLabel(j) {
+      var it = items[j]; if (!it) return 'Пункт ' + (j + 1);
+      var time = it.querySelector('.clk-time, .ev-time'), txt = it.querySelector('h4, .clk-text, p');
+      return [time && time.textContent.trim(), txt && txt.textContent.trim()].filter(Boolean).join(' — ') || ('Пункт ' + (j + 1));
+    }
+    dots.forEach(function (d, j) {
+      d.setAttribute('tabindex', '0'); d.setAttribute('role', 'button'); d.setAttribute('aria-label', dotLabel(j));
+      d.addEventListener('click', function () { goTo(j); });
+      d.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') { e.preventDefault(); goTo(j); } });
+    });
     items.forEach(function (el, j) { el.addEventListener('click', function () { goTo(j); }); });
 
     function apply() {
@@ -704,7 +749,33 @@
     });
   })();
 
+  /* keep Tab inside an open modal so focus can't wander to the page behind it (QA BUG-09) */
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Tab') return;
+    var open = document.querySelector('.modal.open');
+    if (!open) return;
+    var card = open.querySelector('.modal-card') || open;
+    var nodes = card.querySelectorAll('a[href], button:not([disabled]), input:not([disabled]):not([type=hidden]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])');
+    var f = Array.prototype.filter.call(nodes, function (el) { return el.offsetWidth || el.offsetHeight || el.getClientRects().length; });
+    if (!f.length) return;
+    var first = f[0], last = f[f.length - 1];
+    if (!card.contains(document.activeElement)) { e.preventDefault(); first.focus(); }
+    else if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  });
+
   var y = document.getElementById('year'); if (y) y.textContent = new Date().getFullYear();
+
+  /* hide the WhatsApp FAB while the hero (and its «Записаться» CTA) is on screen,
+     so on small phones the FAB never overlaps the main button (QA BUG-08) */
+  (function () {
+    var fab = document.querySelector('.wa-fab');
+    var hero = document.querySelector('.hero');
+    if (!fab || !hero || !('IntersectionObserver' in window)) return;
+    new IntersectionObserver(function (es) {
+      es.forEach(function (e) { fab.classList.toggle('fab-hidden', e.isIntersecting); });
+    }, { threshold: 0.05 }).observe(hero);
+  })();
 
   /* ---------- horizontal sliders (groups / teachers): swipe + arrows + gentle autoplay ---------- */
   function initSliders() {

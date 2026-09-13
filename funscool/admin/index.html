@@ -24,11 +24,6 @@
   --shadow-sm:0 6px 20px -12px rgba(80,60,30,.20); --shadow:0 22px 50px -28px rgba(90,66,30,.30);
   --ease:cubic-bezier(.22,1,.36,1); --ok:#2f9e63; --danger:#e0574c; --sidebar:250px;
 }
-:root[data-theme="dark"]{
-  --cream:#1c1a18; --cream-2:#232019; --card:#26231f; --card-2:#2b2823;
-  --ink:#f2ece2; --ink-soft:#d9d2c6; --muted:#a79d90; --line:#3a352e; --line-2:#443e35;
-  --t-yellow:#3a3320; --t-lav:#2e2840; --t-green:#233524; --t-pink:#3a2530; --t-teal:#1f2f3c;
-}
 *{box-sizing:border-box} html,body{margin:0}
 body{font-family:'Nunito',system-ui,-apple-system,Segoe UI,Roboto,sans-serif; background:var(--cream); color:var(--ink); -webkit-font-smoothing:antialiased; line-height:1.5}
 h1,h2,h3{font-family:'Lora',Georgia,serif}
@@ -76,6 +71,9 @@ details.adv{margin:10px 0 16px} details.adv summary{cursor:pointer; font-weight:
 .nav a .ic{width:20px; text-align:center; font-size:17px}
 .nav a:hover{background:var(--cream-2); color:var(--ink)}
 .nav a.active{background:var(--t-yellow); color:var(--ink)}
+.nav a{position:relative}
+.nav a.has-dirty::after{content:""; width:8px; height:8px; border-radius:50%; background:var(--yellow); box-shadow:0 0 0 3px var(--t-yellow); margin-left:auto; flex:none}
+.nav a:focus-visible{outline:2px solid var(--yellow); outline-offset:2px}
 .side-foot{margin-top:auto; padding-top:14px; border-top:1px solid var(--line); display:flex; flex-direction:column; gap:8px}
 .who{font-size:12.5px; color:var(--muted); font-weight:700; padding:0 4px}
 .main{min-width:0; display:flex; flex-direction:column}
@@ -114,8 +112,13 @@ details.adv{margin:10px 0 16px} details.adv summary{cursor:pointer; font-weight:
   .app.nav-open .sidebar{transform:translateX(0)}
   .scrim{display:block; position:fixed; inset:0; background:rgba(20,16,12,.4); z-index:45; opacity:0; pointer-events:none; transition:opacity .2s}
   .app.nav-open .scrim{opacity:1; pointer-events:auto}
-  .burger{display:inline-flex}
+  .burger{display:inline-flex; flex:none}
   .content{padding:16px}
+  /* keep the toolbar inside the viewport so «Сохранить» is always reachable (QA BUG-02) */
+  .topbar{padding:12px 14px; gap:8px}
+  .topbar h2{min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+  .topbar .open-site{display:none}
+  #saveBtn{flex:none}
 }
 </style>
 </head>
@@ -165,9 +168,9 @@ details.adv{margin:10px 0 16px} details.adv summary{cursor:pointer; font-weight:
   <aside class="sidebar">
     <a class="brand" href="../index.html"><span class="dot">f</span>funscool</a>
     <nav class="nav" id="nav">
-      <a data-page="teachers" class="active"><span class="ic">👩‍🏫</span>Воспитатели</a>
-      <a data-page="faq"><span class="ic">❓</span>Вопросы (FAQ)</a>
-      <a data-page="news"><span class="ic">✨</span>Актуальное</a>
+      <a href="#teachers" data-page="teachers" class="active" aria-current="page"><span class="ic">👩‍🏫</span>Воспитатели</a>
+      <a href="#faq" data-page="faq"><span class="ic">❓</span>Вопросы (FAQ)</a>
+      <a href="#news" data-page="news"><span class="ic">✨</span>Актуальное</a>
     </nav>
     <div class="side-foot">
       <span class="who" id="who"></span>
@@ -176,11 +179,11 @@ details.adv{margin:10px 0 16px} details.adv summary{cursor:pointer; font-weight:
   </aside>
   <div class="main">
     <div class="topbar">
-      <button class="btn icon burger" id="burger" aria-label="Меню">☰</button>
+      <button class="btn icon burger" id="burger" aria-label="Меню" aria-expanded="false" aria-controls="nav">☰</button>
       <h2 id="pageTitle">Воспитатели</h2>
       <span class="dirty-dot" id="dirtyDot" hidden title="Есть несохранённые изменения"></span>
       <div class="spacer"></div>
-      <a class="btn ghost sm" href="../index.html" target="_blank" rel="noopener">Открыть сайт ↗</a>
+      <a class="btn ghost sm open-site" href="../index.html" target="_blank" rel="noopener">Открыть сайт ↗</a>
       <button class="btn sm" id="saveBtn" disabled>Сохранить</button>
     </div>
     <div class="content" id="content"></div>
@@ -263,11 +266,17 @@ $('#loginForm').addEventListener('submit', function(e){
   var err=$('#loginErr'); err.hidden=true;
   token=$('#tok').value.trim();
   cfg.owner=$('#cfgOwner').value.trim(); cfg.repo=$('#cfgRepo').value.trim(); cfg.branch=$('#cfgBranch').value.trim();
-  if(!token){ return; }
+  // whitespace-only / newline-pasted token → tell the user instead of doing nothing (QA BUG-13)
+  if(!token){ err.textContent='Вставьте токен — поле пустое.'; err.hidden=false; $('#tok').focus(); return; }
   var btn=$('#loginBtn'); btn.disabled=true; btn.textContent='Проверяю…';
   api('/user').then(function(u){
-    // persist if allowed
-    try{ if($('#remember').checked){ localStorage.setItem(LS_TOK, token); localStorage.setItem(LS_CFG, JSON.stringify(cfg)); } else { localStorage.removeItem(LS_TOK); } }catch(e){}
+    // token → sessionStorage (dies with the tab, not readable by other Pages sites
+    // sharing this origin); config (non-secret) → localStorage. QA BUG-01.
+    try{
+      localStorage.removeItem(LS_TOK); // migrate away any previously-stored token
+      localStorage.setItem(LS_CFG, JSON.stringify(cfg));
+      if($('#remember').checked){ sessionStorage.setItem(LS_TOK, token); } else { sessionStorage.removeItem(LS_TOK); }
+    }catch(e){}
     $('#who').textContent='@'+(u.login||'GitHub');
     showApp();
   }).catch(function(ex){
@@ -277,31 +286,34 @@ $('#loginForm').addEventListener('submit', function(e){
 });
 $('#logoutBtn').addEventListener('click', function(){
   if(anyDirty() && !confirm('Есть несохранённые изменения. Выйти без сохранения?')) return;
-  try{ localStorage.removeItem(LS_TOK); }catch(e){}
+  try{ sessionStorage.removeItem(LS_TOK); localStorage.removeItem(LS_TOK); }catch(e){}
   location.reload();
 });
 
 function showApp(){ $('#view-login').hidden=true; $('#app').hidden=false; go('teachers'); }
 
 /* ---------- nav ---------- */
-$('#nav').addEventListener('click', function(e){ var a=e.target.closest('a[data-page]'); if(a) go(a.getAttribute('data-page')); });
-$('#burger').addEventListener('click', function(){ $('#app').classList.toggle('nav-open'); });
-$('#scrim').addEventListener('click', function(){ $('#app').classList.remove('nav-open'); });
+$('#nav').addEventListener('click', function(e){ var a=e.target.closest('a[data-page]'); if(a){ e.preventDefault(); go(a.getAttribute('data-page')); } });
+function setNavOpen(o){ $('#app').classList.toggle('nav-open', o); $('#burger').setAttribute('aria-expanded', o?'true':'false'); }
+$('#burger').addEventListener('click', function(){ setNavOpen(!$('#app').classList.contains('nav-open')); });
+$('#scrim').addEventListener('click', function(){ setNavOpen(false); });
 $('#saveBtn').addEventListener('click', saveCurrent);
 
 function go(page){
   current=page;
-  $$('#nav a').forEach(function(a){ a.classList.toggle('active', a.getAttribute('data-page')===page); });
+  $$('#nav a').forEach(function(a){ var on=a.getAttribute('data-page')===page; a.classList.toggle('active', on); if(on){ a.setAttribute('aria-current','page'); } else { a.removeAttribute('aria-current'); } });
   $('#pageTitle').textContent=COLL[page].title;
-  $('#app').classList.remove('nav-open');
+  setNavOpen(false);
   loadAndRender(page);
   syncBar();
 }
 function anyDirty(){ return Object.keys(store).some(function(k){ return store[k] && store[k].dirty; }); }
 function syncBar(){
-  var s=store[current];
-  $('#saveBtn').disabled = !(s && s.dirty);
-  $('#dirtyDot').hidden = !(s && s.dirty);
+  // reflect unsaved state across ALL sections, not just the current one (QA BUG-05)
+  var dirty = anyDirty();
+  $('#saveBtn').disabled = !dirty;
+  $('#dirtyDot').hidden = !dirty;
+  $$('#nav a').forEach(function(a){ var p=a.getAttribute('data-page'); a.classList.toggle('has-dirty', !!(store[p] && store[p].dirty)); });
 }
 function markDirty(){ if(store[current]) store[current].dirty=true; syncBar(); }
 
@@ -357,7 +369,7 @@ function renderTeachers(){
     var photo=String(t.photo||'').replace(/^\//,'');
     html+='<div class="card" data-i="'+i+'">'+
       '<div class="itemhead"><span class="num">'+(i+1)+'</span>'+
-        '<img class="thumb" src="'+esc('../'+photo)+'" alt="" onerror="this.style.visibility=\'hidden\'">'+
+        (photo ? '<img class="thumb" src="'+esc('../'+photo)+'" alt="" loading="lazy" onerror="this.style.visibility=\'hidden\'">' : '')+
         '<span class="t">'+esc((t.name&&t.name.ru)||'Без имени')+'</span>'+
         '<span class="acts">'+moveBtns(i,items.length)+'<button class="btn icon" data-del title="Удалить">🗑️</button></span>'+
       '</div>'+
@@ -407,7 +419,7 @@ function renderNews(){
     var isJoy=(it.type==='joy');
     html+='<div class="card" data-i="'+i+'">'+
       '<div class="itemhead"><span class="num">'+(i+1)+'</span>'+
-        '<img class="thumb" src="'+esc('../'+photo)+'" alt="" onerror="this.style.visibility=\'hidden\'">'+
+        (photo ? '<img class="thumb" src="'+esc('../'+photo)+'" alt="" loading="lazy" onerror="this.style.visibility=\'hidden\'">' : '')+
         '<span class="t">'+(isJoy?'🎈 ':'📰 ')+esc((it.title&&it.title.ru)||'Новая запись')+'</span>'+
         '<span class="acts">'+moveBtns(i,items.length)+'<button class="btn icon" data-del title="Удалить">🗑️</button></span>'+
       '</div>'+
@@ -437,8 +449,9 @@ $('#content').addEventListener('input', function(e){
   } else { setPath(item, b, e.target.value); }
   // live-update the header title
   if(b==='name.ru'||b==='q.ru'||b==='title.ru'){ var t=card.querySelector('.itemhead .t'); if(t){ var pre=(current==='news')?((item.type==='joy')?'🎈 ':'📰 '):''; t.textContent=pre+(e.target.value||(current==='faq'?'Новый вопрос':current==='news'?'Новая запись':'Без имени')); } }
-  // changing the type re-renders so the header icon updates
-  if(b==='type'){ markDirty(); renderPage(current); return; }
+  // changing the type: update just the header icon in place — re-rendering would
+  // recreate the <select> and drop keyboard focus to <body> (QA BUG-14)
+  if(b==='type'){ var th=card.querySelector('.itemhead .t'); if(th){ var pf=(item.type==='joy')?'🎈 ':'📰 '; th.textContent=pf+((item.title&&item.title.ru)||'Новая запись'); } }
   markDirty();
 });
 $('#content').addEventListener('click', function(e){
@@ -473,24 +486,43 @@ $('#content').addEventListener('change', function(e){
   }).catch(function(ex){
     if(btn){ btn.disabled=false; btn.textContent='📷 Загрузить фото'; }
     try{ fi.value=''; }catch(_){}
-    toast('Не удалось загрузить: '+ex.message, true);
+    // human-readable messages instead of raw GitHub API text (QA BUG-20)
+    var msg;
+    if(ex.status===422){ msg='Файл с таким именем уже есть — переименуйте и попробуйте снова.'; }
+    else if(ex.status===403 || ex.status===404){ msg='Нет прав на загрузку. Нужен токен с правом Contents: Read and write.'; }
+    else if(/не изображение|не картинк/i.test(ex.message||'')){ msg='Это не изображение — выберите файл JPG, PNG или WebP.'; }
+    else if(/5 ?МБ|больше/i.test(ex.message||'')){ msg='Файл больше 5 МБ — сожмите или выберите другой.'; }
+    else { msg='Не удалось загрузить, попробуйте ещё раз.'; }
+    toast(msg, true);
   });
 });
 
 /* ---------- save ---------- */
 function saveCurrent(){
-  var page=current, s=store[page]; if(!s||!s.dirty) return;
-  var obj={}; obj[COLL[page].key]=s.items;
-  var json=JSON.stringify(obj, null, 2)+'\n';
+  // save EVERY dirty section in one click, not just the current one (QA BUG-05)
+  var pages=Object.keys(store).filter(function(p){ return store[p] && store[p].dirty; });
+  if(!pages.length) return;
   var btn=$('#saveBtn'); btn.disabled=true; btn.textContent='Сохраняю…';
-  putFile(COLL[page].path, json, s.sha, 'admin: обновление раздела «'+COLL[page].title+'»')
-    .then(function(res){ s.sha=res.content.sha; s.dirty=false; syncBar(); toast('Сохранено ✓ Сайт обновится за ~1 минуту'); })
-    .catch(function(ex){
-      if(ex.status===409){ toast('Файл изменился на GitHub. Обнови страницу перед сохранением.', true); }
-      else if(ex.status===403 || ex.status===404){ toast('У токена нет прав на запись. Нужен fine-grained токен: Repository access → выбрать sitesdemos, Permissions → Contents → Read and write.', true); }
-      else { toast('Ошибка сохранения: '+ex.message, true); }
-    })
-    .then(function(){ btn.textContent='Сохранить'; syncBar(); });
+  var fail=0;
+  (function next(i){
+    if(i>=pages.length){
+      btn.textContent='Сохранить'; syncBar();
+      if(!fail) toast('Сохранено ✓ Сайт обновится за ~1 минуту');
+      return;
+    }
+    var page=pages[i], s=store[page];
+    var obj={}; obj[COLL[page].key]=s.items;
+    var json=JSON.stringify(obj, null, 2)+'\n';
+    putFile(COLL[page].path, json, s.sha, 'admin: обновление раздела «'+COLL[page].title+'»')
+      .then(function(res){ s.sha=res.content.sha; s.dirty=false; })
+      .catch(function(ex){
+        fail++;
+        if(ex.status===409){ toast('«'+COLL[page].title+'»: файл изменился на GitHub, обнови страницу.', true); }
+        else if(ex.status===403 || ex.status===404){ toast('Нет прав на запись (раздел «'+COLL[page].title+'»). Нужен токен Contents: Read and write.', true); }
+        else { toast('«'+COLL[page].title+'»: ошибка сохранения — '+ex.message, true); }
+      })
+      .then(function(){ syncBar(); next(i+1); });
+  })(0);
 }
 window.addEventListener('beforeunload', function(e){ if(anyDirty()){ e.preventDefault(); e.returnValue=''; } });
 
@@ -498,7 +530,7 @@ window.addEventListener('beforeunload', function(e){ if(anyDirty()){ e.preventDe
 (function(){
   try{ var c=localStorage.getItem(LS_CFG); if(c){ var o=JSON.parse(c); cfg.owner=o.owner||cfg.owner; cfg.repo=o.repo||cfg.repo; cfg.branch=o.branch||cfg.branch;
     $('#cfgOwner').value=cfg.owner; $('#cfgRepo').value=cfg.repo; $('#cfgBranch').value=cfg.branch; } }catch(e){}
-  var t; try{ t=localStorage.getItem(LS_TOK); }catch(e){}
+  var t; try{ t=sessionStorage.getItem(LS_TOK) || localStorage.getItem(LS_TOK); }catch(e){}
   if(t){ token=t; api('/user').then(function(u){ $('#who').textContent='@'+(u.login||'GitHub'); showApp(); }).catch(function(){ /* stale token → show login */ }); }
 })();
 })();
