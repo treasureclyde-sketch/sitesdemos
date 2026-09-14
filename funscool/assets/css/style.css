@@ -72,7 +72,7 @@ body {
   overflow-x: hidden;
 }
 
-img { max-width: 100%; display: block; }
+img { max-width: 100%; height: auto; display: block; } /* height:auto so width/height attrs set ratio only, letting CSS aspect-ratio/object-fit control the box */
 a { color: inherit; text-decoration: none; }
 button { font-family: inherit; cursor: pointer; }
 
