@@ -114,28 +114,7 @@
     <p class="modal-sub" data-i18n="form_card_sub">Заполните форму — свяжемся с вами в ближайшее время.</p>
     <form id="leadForm" name="lead" method="POST" action="https://script.google.com/macros/s/AKfycbwZzChpd-rgbdyskw3TQKpzum99TVH9AkPGCte5RAbzMQKcppXCvsoFYEliE24L2O1b7A/exec">
       <p class="hp" aria-hidden="true"><label>Оставьте это поле пустым <input name="_honey" tabindex="-1" autocomplete="off"></label></p>
-      <div id="childList">
-        <div class="child-row">
-          <div class="field"><input type="text" class="c-name" data-i18n-ph="form_child" placeholder="Имя ребёнка"></div>
-          <div class="field child-group">
-            <select class="c-group" aria-label="Группа">
-              <option value="" data-i18n="form_group_ph">Выберите группу</option>
-              <option value="Беби-Фан" data-i18n="p1_name">Беби-Фан</option>
-              <option value="Энерджи-Фан" data-i18n="p2_name">Энерджи-Фан</option>
-              <option value="Дискавери-Фан" data-i18n="p3_name">Дискавери-Фан</option>
-              <option value="Креатив-Фан" data-i18n="p4_name">Креатив-Фан</option>
-              <option value="Прескул" data-i18n="p5_name">Прескул</option>
-            </select>
-            <span class="c-age" aria-hidden="true"></span>
-          </div>
-          <button type="button" class="child-remove" aria-label="Убрать ребёнка" hidden>&times;</button>
-        </div>
-      </div>
-      <button type="button" id="addChild" class="add-child">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
-        <span data-i18n="form_add_child">Добавить ребёнка</span>
-      </button>
-      <div class="field"><input name="parent" type="text" data-i18n-ph="form_name" placeholder="Имя родителя" autocomplete="name"></div>
+      <div class="field"><input name="parent" type="text" data-i18n-ph="form_name" placeholder="Ваше имя" autocomplete="name"></div>
       <div class="field phone-field">
         <select id="phoneCC" aria-label="Код страны">
           <option value="ru" data-dial="+7" data-ph="(999) 123-45-67">🇷🇺 +7</option>
@@ -147,7 +126,7 @@
       <div class="field"><input name="email" id="emailInput" type="email" data-i18n-ph="form_email" placeholder="E-mail" autocomplete="email"></div>
       <p class="contact-hint" data-i18n="form_contact_hint">Оставьте телефон или e-mail — как вам удобнее.</p>
       <div class="field"><textarea name="question" id="questionInput" rows="3" data-i18n-ph="form_question_ph" placeholder="Ваш вопрос (по желанию)"></textarea></div>
-      <button class="btn btn-yellow btn-lg" type="submit" data-i18n="form_submit">Получить информацию</button>
+      <button class="btn btn-yellow btn-lg" type="submit" data-i18n="form_submit">Оставить контакты</button>
       <div class="form-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg><span data-i18n="form_privacy">Мы ценим вашу конфиденциальность и не передаём данные третьим лицам.</span></div>
       <div class="form-success" id="formSuccess" data-i18n="form_ok">Спасибо! Заявка принята — мы свяжемся с вами в ближайшее время.</div>
       <div class="form-error" id="formError" hidden><span data-i18n="form_err">Не удалось отправить. Напишите нам в WhatsApp:</span></div>

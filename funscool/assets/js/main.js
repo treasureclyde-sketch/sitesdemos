@@ -43,10 +43,10 @@
     play_eyebrow:"Svež vazduh", play_title:"Sopstveno bezbedno dvorište i vrtić u centru srpske prestonice",
     play_1:"Šetnje dva puta dnevno na sopstvenom igralištu vrtića", play_2:"Ograđeno i potpuno bezbedno",
     play_3:"Puno pokreta, igre i otkrića svakog dana", play_4:"Čist vazduh i zelenilo u mirnom centru Dorćola",
-    about_eyebrow:"Kuća sa istorijom", about_title:"Kuća sa istorijom u srcu Beograda",
+    about_eyebrow:"U mirnom centru Dorćola", about_title:"Kuća sa istorijom u srcu Beograda",
     about_text:"Funscool je licencirani vrtić koji radi po državnom programu i savremenim pedagoškim pristupima. Cenimo tradiciju, profesionalizam i individualni pristup svakom detetu.",
     about_b1:"Licencirani vrtić", about_b2:"Državni program", about_b3:"Profesionalni tim",
-    day_eyebrow:"Kako izgleda dan", day_title:"Kako izgleda dan u vrtiću FunsCool",
+    day_eyebrow:"Osmišljen raspored dana", day_title:"Kako izgleda dan u vrtiću FunsCool",
     day_text:"Osmislili smo svaki sat dana da se dete razvija skladno, sa zadovoljstvom i svojim tempom.",
     day_quote_t:"Svaki trenutak je važan", day_quote_d:"Briga, pažnja i podrška — osnova srećnog detinjstva.",
     day_hours:"07:00 – 18:00", day_meals:"5 obroka dnevno",
@@ -68,7 +68,7 @@
     joy3_t:"Događaji koji se pamte", joy3_d:"Kvizovi, proslave i prave avanture — ono što deca čekaju i rado prepričavaju.",
     joy4_t:"Samopouzdanje i radost pobeda", joy4_d:"Vaspitači podržavaju i primećuju uspehe deteta, pomažući mu da veruje u sebe.",
     team_eyebrow:"Sa ljubavlju i brigom", team_title:"Vaspitači vrtića FunsCool",
-    team_sub:"Četiri vaspitača i administrator koji dan deteta drže mirnim, toplim i razumljivim.", team_ask:"Postavite pitanje",
+    team_sub:"Četiri vaspitača i administrator koji svakodnevno neguju mirnu, toplu i razumljivu atmosferu.", team_ask:"Postavite pitanje",
     feed_title:"Aktuelno", feed_more:"Prikaži još", feed_all:"Prikaži sve", news_back:"Na početnu", feed_empty:"Još nema objava — navratite kasnije.",
     feed_arch_title:"Aktuelno — život vrtića FunsCool", feed_arch_sub:"Novosti, događaji, praznici i sve čime živi naš vrtić.",
     /* teacher cards are rendered from content/teachers.json */
@@ -85,7 +85,7 @@
     form_title:"Želite da vidite vrtić svojim očima?", form_text:"Ostavite zahtev — pokazaćemo prostor, odgovoriti na pitanja i pronaći grupu za vaše dete. Poslaćemo raspored, događaje i dnevni režim.",
     form_call:"Pozovite nas", form_card_title:"Zakažite obilazak", form_card_sub:"Popunite formu — javićemo vam se u najkraćem roku.",
     cta_rating:"Ocena na Yandexu", cta_c1:"Male grupe do 15", cta_c2:"Licencirani vrtić", intro_skip:"Preskoči →",
-    form_name:"Ime roditelja", form_phone:"Telefon", form_age:"Uzrast deteta", form_submit:"Dobijte informacije",
+    form_name:"Vaše ime", form_phone:"Telefon", form_age:"Uzrast deteta", form_submit:"Ostavite kontakt",
     form_privacy:"Poštujemo vašu privatnost i ne delimo podatke sa trećim licima.", form_ok:"Hvala! Zahtev je primljen — javićemo vam se uskoro.",
     form_group:"Grupa", form_group_ph:"Izaberite grupu", form_age_lbl:"Uzrast", form_child:"Ime deteta", form_wa:"Pošalji na WhatsApp", form_err:"Slanje nije uspelo. Pišite nam na WhatsApp:",
     form_add_child:"Dodaj dete", form_contact_hint:"Ostavite telefon ili e-mail — kako vam odgovara.",
@@ -127,10 +127,10 @@
     play_eyebrow:"Fresh air", play_title:"Our own safe playground and a preschool in the heart of the Serbian capital",
     play_1:"Walks twice a day on the preschool's own playground", play_2:"Fenced and completely safe",
     play_3:"Plenty of movement, play and discovery every day", play_4:"Clean air and greenery in quiet central Dorćol",
-    about_eyebrow:"A house with history", about_title:"A house with history in the heart of Belgrade",
+    about_eyebrow:"In the quiet centre of Dorćol", about_title:"A house with history in the heart of Belgrade",
     about_text:"Funscool is a licensed preschool operating under the state program and modern pedagogical approaches. We value tradition, professionalism and an individual approach to every child.",
     about_b1:"Licensed preschool", about_b2:"State program", about_b3:"Professional team",
-    day_eyebrow:"How the day goes", day_title:"A day at FunsCool preschool",
+    day_eyebrow:"A well-planned daily rhythm", day_title:"A day at FunsCool preschool",
     day_text:"We've thought through every hour of the day so that a child develops harmoniously, with joy and at their own pace.",
     day_quote_t:"Every moment matters", day_quote_d:"Care, attention and support — the foundation of a happy childhood.",
     day_hours:"07:00 – 18:00", day_meals:"5 meals a day",
@@ -152,7 +152,7 @@
     joy3_t:"Memorable events", joy3_d:"Quests, celebrations and real adventures — what children look forward to and love to share.",
     joy4_t:"Confidence and the joy of wins", joy4_d:"Teachers support and notice each child's progress, helping them believe in themselves.",
     team_eyebrow:"With love and care", team_title:"The team at FunsCool preschool",
-    team_sub:"Four teachers and an administrator who keep a child's day calm, warm and clear.", team_ask:"Ask a question",
+    team_sub:"Four teachers and an administrator who nurture a calm, warm and caring atmosphere every day.", team_ask:"Ask a question",
     feed_title:"What's on", feed_more:"Show more", feed_all:"See all", news_back:"Home", feed_empty:"Nothing here yet — check back soon.",
     feed_arch_title:"What's on — life at FunsCool kindergarten", feed_arch_sub:"News, events, celebrations and everything our kindergarten lives by.",
     /* teacher cards are rendered from content/teachers.json */
@@ -169,7 +169,7 @@
     form_title:"Want to see the preschool with your own eyes?", form_text:"Leave a request — we'll show the space, answer your questions and find the right group for your child. We'll send the schedule, events and daily routine.",
     form_call:"Call us", form_card_title:"Book a Tour", form_card_sub:"Fill out the form — we'll get back to you shortly.",
     cta_rating:"Rating on Yandex", cta_c1:"Small groups up to 15", cta_c2:"Licensed kindergarten", intro_skip:"Skip →",
-    form_name:"Parent's name", form_phone:"Phone number", form_age:"Child's age", form_submit:"Get Information",
+    form_name:"Your name", form_phone:"Phone number", form_age:"Child's age", form_submit:"Leave your contacts",
     form_privacy:"We value your privacy and never share your data with third parties.", form_ok:"Thank you! Your request has been received — we'll be in touch soon.",
     form_group:"Group", form_group_ph:"Choose a group", form_age_lbl:"Age", form_child:"Child's name", form_wa:"Send via WhatsApp", form_err:"Couldn't send. Message us on WhatsApp:",
     form_add_child:"Add child", form_contact_hint:"Leave a phone or e-mail — whichever suits you.",
@@ -186,8 +186,8 @@
 
   var DICT = { ru: RU, sr: SR, en: EN };
   var PH = { ru: RU_PH,
-    sr: { form_name:"Ime roditelja", form_phone:"Telefon", form_child:"Ime deteta", form_email:"E-mail", form_question_ph:"Vaše pitanje (po želji)" },
-    en: { form_name:"Parent's name", form_phone:"Phone number", form_child:"Child's name", form_email:"E-mail", form_question_ph:"Your question (optional)" } };
+    sr: { form_name:"Vaše ime", form_phone:"Telefon", form_child:"Ime deteta", form_email:"E-mail", form_question_ph:"Vaše pitanje (po želji)" },
+    en: { form_name:"Your name", form_phone:"Phone number", form_child:"Child's name", form_email:"E-mail", form_question_ph:"Your question (optional)" } };
   // EN audience for a Belgrade kindergarten = expats in Belgrade → Serbian number
   var PHONE = { ru:["+7 (499) 283-46-28","+74992834628"], en:["+381 (69) 283-46-28","+381692834628"], sr:["+381 (69) 283-46-28","+381692834628"] };
 
@@ -394,6 +394,35 @@
     renderFeed(lang);
   }
 
+  /* ---------- typography: smoother line breaks (RU/SR/EN) ----------
+     Russian/Serbian rule: a short function word (в, и, к, с, для…) must not be
+     left hanging at the end of a line, and short hyphenated names (Baby-Fun,
+     мини-группы) must not split. We glue those with a non-breaking space /
+     non-breaking hyphen. Works on text nodes only, so inline <b>/<span> are
+     preserved; re-running is idempotent. Runs on load and after every render. */
+  var TYPO_GLUE = /(^|[\s(«"„'—–‒])([A-Za-zА-Яа-яЁёЈјЉљЊњЋћЂђЏџ]{1,2}|для|или|под|над|при|про|без|что|как|это|над|the|and|for|but|per|via|iz|od|sa|za|na|po|do|uz|ka)(\s)/gi;
+  function fixTypography(root) {
+    if (!root) return;
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
+    var nodes = [], n;
+    while ((n = walker.nextNode())) nodes.push(n);
+    nodes.forEach(function (node) {
+      var p = node.parentNode; if (!p) return;
+      var tag = p.nodeName;
+      if (tag === 'SCRIPT' || tag === 'STYLE' || tag === 'TEXTAREA' || tag === 'CODE') return;
+      var t = node.nodeValue;
+      if (!t || t.length < 2 || (t.indexOf(' ') === -1 && t.indexOf('-') === -1)) return;
+      var glue = function (m, pre, w) { return pre + w + ' '; };
+      // glue short function words to the next word; run twice for chains like "и в"
+      var out = t.replace(TYPO_GLUE, glue).replace(TYPO_GLUE, glue);
+      // keep short hyphenated names together (Baby-Fun, Беби-Фан, мини-группы, 5-разовое)
+      out = out.replace(/([A-Za-zА-Яа-яЁё0-9]{1,7})-([A-Za-zА-Яа-яЁё]{2,8})/g, function (m, a, b) {
+        return (m.length <= 14) ? (a + '‑' + b) : m;
+      });
+      if (out !== t) node.nodeValue = out;
+    });
+  }
+
   function setLang(lang) {
     if (!DICT[lang]) lang = 'ru';
     currentLang = lang;
@@ -416,6 +445,7 @@
     document.querySelectorAll('.lang button').forEach(function (b) { b.classList.toggle('active', b.getAttribute('data-lang') === lang); });
     try { localStorage.setItem('fs-lang', lang); } catch (e) {}
     renderDynamic(lang);
+    fixTypography(document.body);
   }
   document.querySelectorAll('.lang button').forEach(function (b) {
     b.addEventListener('click', function () { setLang(b.getAttribute('data-lang')); });
@@ -425,6 +455,7 @@
   if (feedMoreBtn) feedMoreBtn.addEventListener('click', function () { feedExpanded = true; renderFeed(currentLang); });
   var saved; try { saved = localStorage.getItem('fs-lang'); } catch (e) {}
   if (saved && saved !== 'ru') setLang(saved);
+  else fixTypography(document.body);   // RU (inline) has no setLang pass on load
 
   /* load editable content, then render the data-driven sections in the current language */
   (function loadContent() {
@@ -441,6 +472,7 @@
         }
       });
       renderDynamic(currentLang);
+      fixTypography(document.body);
     });
   })();
 
@@ -618,29 +650,6 @@
     modal.querySelectorAll('[data-close]').forEach(function (el) { el.addEventListener('click', close); });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && modal.classList.contains('open')) close(); });
 
-    /* ----- children: each child has its own group; "+ Добавить ребёнка" adds more ----- */
-    var groupAge = { 'Беби-Фан': '1,5–2,5', 'Энерджи-Фан': '2,5–3,5', 'Дискавери-Фан': '3,5–4,5', 'Креатив-Фан': '4,5–6', 'Прескул': '6–7' };
-    var childList = document.getElementById('childList');
-    var addChildBtn = document.getElementById('addChild');
-    function refreshRemove() {
-      var rows = childList.querySelectorAll('.child-row');
-      rows.forEach(function (r) { var rm = r.querySelector('.child-remove'); if (rm) rm.hidden = rows.length < 2; });
-    }
-    function wireRow(row) {
-      var g = row.querySelector('.c-group'), age = row.querySelector('.c-age');
-      if (g && age) g.addEventListener('change', function () { age.textContent = groupAge[g.value] || ''; });
-      var rm = row.querySelector('.child-remove');
-      if (rm) rm.addEventListener('click', function () { row.remove(); refreshRemove(); });
-    }
-    if (childList) childList.querySelectorAll('.child-row').forEach(wireRow);
-    if (addChildBtn && childList) addChildBtn.addEventListener('click', function () {
-      var clone = childList.querySelector('.child-row').cloneNode(true);
-      clone.querySelectorAll('input, select').forEach(function (el) { el.value = ''; el.style.borderColor = ''; });
-      var age = clone.querySelector('.c-age'); if (age) age.textContent = '';
-      childList.appendChild(clone); wireRow(clone); refreshRemove();
-      var nm = clone.querySelector('.c-name'); if (nm) nm.focus();
-    });
-
     /* phone: country selector + length-aware mask */
     var cc = document.getElementById('phoneCC'), pin = document.getElementById('phoneInput'), pfull = document.getElementById('phoneFull');
     function ccOpt() { return cc.options[cc.selectedIndex]; }
@@ -677,28 +686,16 @@
     if (!form) return;
     var emailInput = document.getElementById('emailInput');
     form.querySelectorAll('input, select').forEach(function (i) { i.addEventListener('input', function () { this.style.borderColor = ''; }); });
-    function collectChildren() {
-      var out = [];
-      childList.querySelectorAll('.child-row').forEach(function (r) {
-        var nm = (r.querySelector('.c-name').value || '').trim();
-        var g = r.querySelector('.c-group').value || '';
-        if (!nm && !g) return;
-        out.push({ name: nm, group: g, age: groupAge[g] || '' });
-      });
-      return out;
-    }
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      var parent = form.querySelector('[name="parent"]');
-      var kids = collectChildren();
+      var nameField = form.querySelector('[name="parent"]');
+      var nameVal = nameField ? nameField.value.trim() : '';
       var digits = pin ? pin.value.replace(/\D/g, '') : '';
       var need = (cc && cc.value === 'rs') ? 8 : 10;
       var phoneOk = digits.length >= need;
       var emailVal = emailInput ? emailInput.value.trim() : '';
       var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal);
-      var firstName = childList.querySelector('.c-name');
-      if (!kids.length || !kids[0].name) { if (firstName) { firstName.focus(); firstName.style.borderColor = 'var(--coral)'; } return; }
-      if (parent && !parent.value.trim()) { parent.focus(); parent.style.borderColor = 'var(--coral)'; return; }
+      if (!nameVal) { if (nameField) { nameField.focus(); nameField.style.borderColor = 'var(--coral)'; } return; }
       if (!phoneOk && !emailOk) {
         if (pin) pin.style.borderColor = 'var(--coral)';
         if (emailInput) emailInput.style.borderColor = 'var(--coral)';
@@ -706,14 +703,11 @@
         return;
       }
       sync();
-      var summary = kids.map(function (k, i) {
-        return (i + 1) + ') ' + (k.name || '—') + (k.group ? ' — ' + k.group + (k.age ? ' (' + k.age + ')' : '') : '');
-      }).join('\n');
       var honey = form.querySelector('[name="_honey"]');
       var question = questionEl ? questionEl.value.trim() : '';
       var payload = {
-        children: kids,
-        parent: parent ? parent.value.trim() : '',
+        children: [],
+        parent: nameVal,
         phone: phoneOk && pfull ? pfull.value : '',
         email: emailOk ? emailVal : '',
         question: question,
@@ -730,15 +724,10 @@
           if (!r.ok) throw new Error('http ' + r.status);
           if (ok) ok.classList.add('show');
           form.reset(); if (pin) pin.value = '';
-          var rows = childList.querySelectorAll('.child-row');
-          for (var i = rows.length - 1; i > 0; i--) rows[i].remove();
-          var f = childList.querySelector('.child-row');
-          if (f) { f.querySelectorAll('input, select').forEach(function (el) { el.value = ''; }); var a = f.querySelector('.c-age'); if (a) a.textContent = ''; }
-          refreshRemove();
         })
         .catch(function () {
-          var text = 'Здравствуйте! Хочу записаться на экскурсию в Funscool.\nДети:\n' + summary + '\n'
-            + (parent && parent.value ? 'Родитель: ' + parent.value + '\n' : '')
+          var text = 'Здравствуйте! Хочу оставить заявку в Funscool.\n'
+            + (nameVal ? 'Имя: ' + nameVal + '\n' : '')
             + (phoneOk && pfull ? 'Телефон: ' + pfull.value + '\n' : '')
             + (emailOk ? 'E-mail: ' + emailVal + '\n' : '')
             + (question ? 'Вопрос: ' + question : '');

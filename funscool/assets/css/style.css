@@ -85,6 +85,10 @@ h1, h2, h3, h4 {
   letter-spacing: -0.01em;
 }
 .hero h1, .section-title, .cta-wrap h2 { font-weight: 500; }
+/* smoother line breaks: balance short headings/labels, avoid ragged orphan
+   last lines in running copy (pairs with the NBSP typography pass in main.js) */
+h1, h2, h3, h4, .section-title, .eyebrow, .hero-tag, blockquote { text-wrap: balance; }
+.hero-lead, .section-sub, .prog-desc, p, li { text-wrap: pretty; }
 ::selection { background: rgba(245, 179, 1, 0.3); }
 
 /* ---------- layout ---------- */
@@ -829,7 +833,10 @@ body.intro-lock { overflow: hidden; }
   .hero-media { order: -1; max-width: none; margin: 0; }
   .hero-media .blob { width: 100%; aspect-ratio: 4 / 3; }
   .split, .split.rev { grid-template-columns: 1fr; }
-  .split-media { min-height: 240px; order: -1; }
+  /* mobile: cap the split photo (e.g. the tall portrait building shot) to a tidy
+     landscape crop instead of letting it render full-height and overscroll */
+  .split-media { aspect-ratio: 4 / 3; min-height: 0; order: -1; }
+  .split-media img { height: 100%; }
   .cta-wrap { text-align: center; }
   .gallery-strip {
     overflow-x: auto; justify-content: flex-start; gap: 14px;
