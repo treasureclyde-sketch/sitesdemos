@@ -46,6 +46,8 @@
     about_eyebrow:"U mirnom centru Dorćola", about_title:"Kuća sa istorijom u srcu Beograda",
     about_text:"Funscool je licencirani vrtić koji radi po državnom programu i savremenim pedagoškim pristupima. Cenimo tradiciju, profesionalizam i individualni pristup svakom detetu.",
     about_b1:"Licencirani vrtić", about_b2:"Državni program", about_b3:"Profesionalni tim",
+    net_eyebrow:"Međunarodna mreža", net_title:"FunsCool je mreža vrtića", net_photo:"Kipar", net_cta:"Više o Kipru",
+    net_text:"Rastemo i van Beograda. FunsCool je međunarodna mreža, a jedan od naših vrtića radi i na Kipru: iste vrednosti, nežna adaptacija i autorski program — u toploj mediteranskoj atmosferi.",
     day_eyebrow:"Osmišljen raspored dana", day_title:"Kako izgleda dan u vrtiću FunsCool",
     day_text:"Osmislili smo svaki sat dana da se dete razvija skladno, sa zadovoljstvom i svojim tempom.",
     day_quote_t:"Svaki trenutak je važan", day_quote_d:"Briga, pažnja i podrška — osnova srećnog detinjstva.",
@@ -97,7 +99,7 @@
     offers_cta:"Zakažite obilazak", offers_note:"Ponude se ne sabiraju. Detalje proverite kod administratora.",
     footer_tagline:"Razvijamo sa ljubavlju i brigom svakog dana.", footer_nav:"Navigacija", footer_programs:"Programi",
     foot_p1:"Bebi-Fan · 1,2–2,5", foot_p2:"Enerdži-Fan · 2,5–3,5", foot_p3:"Diskaveri-Fan · 3,5–4,5", foot_p4:"Kreativ-Fan · 4,5–6", foot_p5:"Preskul · 5,5–7",
-    footer_contacts:"Kontakt", footer_rights:"Sva prava zadržana"
+    footer_contacts:"Kontakt", footer_rights:"Sva prava zadržana", footer_privacy:"Politika privatnosti"
   };
 
   var EN = {
@@ -130,6 +132,8 @@
     about_eyebrow:"In the quiet centre of Dorćol", about_title:"A house with history in the heart of Belgrade",
     about_text:"Funscool is a licensed preschool operating under the state program and modern pedagogical approaches. We value tradition, professionalism and an individual approach to every child.",
     about_b1:"Licensed preschool", about_b2:"State program", about_b3:"Professional team",
+    net_eyebrow:"An international network", net_title:"FunsCool is a network of preschools", net_photo:"Cyprus", net_cta:"More about Cyprus",
+    net_text:"We're growing beyond Belgrade. FunsCool is an international network, and one of our preschools is in Cyprus — the same values, gentle adaptation and signature programme, in a warm Mediterranean setting.",
     day_eyebrow:"A well-planned daily rhythm", day_title:"A day at FunsCool preschool",
     day_text:"We've thought through every hour of the day so that a child develops harmoniously, with joy and at their own pace.",
     day_quote_t:"Every moment matters", day_quote_d:"Care, attention and support — the foundation of a happy childhood.",
@@ -181,7 +185,7 @@
     offers_cta:"Book a tour", offers_note:"Offers can't be combined. Ask our administrator for details.",
     footer_tagline:"Growing with love and care every day.", footer_nav:"Navigation", footer_programs:"Programs",
     foot_p1:"Baby-Fun · 1.2–2.5", foot_p2:"Energy-Fun · 2.5–3.5", foot_p3:"Discovery-Fun · 3.5–4.5", foot_p4:"Creative-Fun · 4.5–6", foot_p5:"Pre-school · 5.5–7",
-    footer_contacts:"Contacts", footer_rights:"All rights reserved"
+    footer_contacts:"Contacts", footer_rights:"All rights reserved", footer_privacy:"Privacy policy"
   };
 
   var DICT = { ru: RU, sr: SR, en: EN };

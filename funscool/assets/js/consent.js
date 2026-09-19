@@ -17,11 +17,11 @@
 
   var T = {
     ru: { text: 'Мы используем файлы cookie для аналитики и улучшения сайта. Вы можете принять их или отказаться.',
-          ok: 'Принять', no: 'Отклонить' },
+          more: 'Подробнее', ok: 'Принять', no: 'Отклонить' },
     sr: { text: 'Koristimo kolačiće za analitiku i poboljšanje sajta. Možete ih prihvatiti ili odbiti.',
-          ok: 'Prihvatam', no: 'Odbijam' },
+          more: 'Više', ok: 'Prihvatam', no: 'Odbijam' },
     en: { text: 'We use cookies for analytics and to improve the site. You can accept or decline.',
-          ok: 'Accept', no: 'Decline' }
+          more: 'Learn more', ok: 'Accept', no: 'Decline' }
   };
 
   /* ---- analytics loaders (only run after consent AND if an id is set) ---- */
@@ -68,7 +68,11 @@
         '<button type="button" class="btn btn-ghost cookie-no"></button>' +
         '<button type="button" class="btn btn-yellow cookie-ok"></button>' +
       '</div>';
-    el.querySelector('.cookie-text').textContent = t.text;
+    var textEl = el.querySelector('.cookie-text');
+    textEl.textContent = t.text + ' ';
+    var more = document.createElement('a');
+    more.href = 'privacy.html'; more.className = 'cookie-more'; more.textContent = t.more;
+    textEl.appendChild(more);
     el.querySelector('.cookie-ok').textContent = t.ok;
     el.querySelector('.cookie-no').textContent = t.no;
     document.body.appendChild(el);
