@@ -19,7 +19,7 @@
   var SR = {
     brand_sub:"predškolska ustanova", nav_about:"O nama", nav_programs:"Programi", nav_env:"Okruženje",
     nav_parents:"Za roditelje", nav_contacts:"Kontakt", nav_teachers:"Vaspitači", cta_book:"Zakažite obilazak", cta_book_short:"Zakažite",
-    hero_title:"Međunarodni vrtić FunsCool u Beogradu", hero_tag:"Srećno detinjstvo — svakog dana", hero_sub:"Boutique vrtić za decu 1,5–7 godina u centru Beograda (Dorćol): male grupe, tri jezika svakog dana, nežna adaptacija, Montessori i Waldorf.",
+    hero_title:"Međunarodni vrtić FunsCool u Beogradu", hero_tag:"Srećno detinjstvo — svakog dana", hero_sub:"Boutique vrtić za decu 1,2–7 godina u centru Beograda (Dorćol): male grupe, tri jezika svakog dana, nežna adaptacija, Montessori i Waldorf.",
     cta_programs:"Naši programi", addr:"Dorćol, Popovićeva 14A, Beograd", addr_sub:"Mirno centralno mesto, sigurno okruženje",
     rating:"Ocena ustanove na Yandex-u",
     f1_t:"Male grupe", f1_d:"do 15 dece", f2_t:"Blaga adaptacija", f2_d:"bez stresa i suza",
@@ -28,8 +28,8 @@
     sreda_text:"Osmišljeni prostori, boje, materijali i zone pomažu deci da rastu samopouzdano, samostalno i srećno.",
     sreda_1:"Boje i junaci po Waldorf sistemu za svaki uzrast", sreda_2:"7–8 razvojnih zona u svakoj grupi u zavisnosti od uzrasta",
     sreda_3:"Bezbedni materijali i prostor za slobodno istraživanje", sreda_4:"Razvoj u svakoj fazi — od senzorike do stvaralaštva i projekata",
-    prog_eyebrow:"Uzrasne grupe", prog_title:"Grupe vrtića FunsCool — od 1,5 do 7 godina", prog_sub:"Svaka grupa je važna faza u razvoju vašeg deteta.",
-    p1_name:"Bebi-Fan", p1_age:"1,5–2,5 godine", p1_desc:"Prvi koraci ka samostalnosti u atmosferi brige i sigurnosti.",
+    prog_eyebrow:"Uzrasne grupe", prog_title:"Grupe vrtića FunsCool — od 1,2 do 7 godina", prog_sub:"Svaka grupa je važna faza u razvoju vašeg deteta.",
+    p1_name:"Bebi-Fan", p1_age:"1,2–2,5 godine", p1_desc:"Prvi koraci ka samostalnosti u atmosferi brige i sigurnosti.",
     p1_l1:"Senzorni zidovi", p1_l2:"Zona vode i peska", p1_l3:"Velike bezbedne igračke", p1_l4:"Ogledala i gimnastika", p1_l5:"Razvoj govora kroz igru",
     p2_name:"Enerdži-Fan", p2_age:"2,5–3,5 godine", p2_desc:"Pokret, red i samostalnost kroz igru.",
     p2_l1:"Zona za pokret", p2_l2:"Konstruktorska", p2_l3:"Crtanje i stvaralaštvo", p2_l4:"Kuća, prodavnica, pospremanje", p2_l5:"Čitanje i mirne igre",
@@ -81,7 +81,7 @@
     faq_q3:"Koji jezici se koriste?", faq_a3:"Ruski, srpski i engleski koriste se svakodnevno. Deca prirodno usvajaju višejezično okruženje — kroz igru, aktivnosti, pesme, čitanje i živu komunikaciju.",
     faq_q4:"Kako je organizovana ishrana?", faq_a4:"Pet obroka dnevno: doručak, voćna užina, ručak, užina i večera. Uravnotežen jelovnik; vodimo računa o posebnostima i alergijama.",
     faq_q5:"Koliko dece ima u grupi?", faq_a5:"Male grupe do 15 dece — tako svako dete dobija dovoljno pažnje vaspitača.",
-    faq_q6:"Kako možemo zakazati posetu?", faq_a6:"Ostavite prijavu u formi ispod ili nas pozovite — dogovorićemo termin obilaska.", faq_q7:"Od kog uzrasta primate decu?", faq_a7:"Decu primamo otprilike od 1 godine — kada dete sigurno hoda, jede kašikom i pije iz šolje. Za najmlađe postoji adaptaciona grupa Baby-Fun.", faq_q8:"Da li postoje šetnje i sopstveno dvorište?", faq_a8:"Da. Deca borave napolju dva puta dnevno u sopstvenom, ograđenom dvorištu uz vrtić — bez odlaska na javna igrališta i prelaska ulica.",
+    faq_q6:"Kako možemo zakazati posetu?", faq_a6:"Ostavite prijavu u formi ispod ili nas pozovite — dogovorićemo termin obilaska.", faq_q7:"Od kog uzrasta primate decu?", faq_a7:"Decu primamo otprilike od 1,2 godine — kada dete sigurno hoda, jede kašikom i pije iz šolje. Za najmlađe postoji adaptaciona grupa Baby-Fun.", faq_q8:"Da li postoje šetnje i sopstveno dvorište?", faq_a8:"Da. Deca borave napolju dva puta dnevno u sopstvenom, ograđenom dvorištu uz vrtić — bez odlaska na javna igrališta i prelaska ulica.",
     form_title:"Želite da vidite vrtić svojim očima?", form_text:"Ostavite zahtev — pokazaćemo prostor, odgovoriti na pitanja i pronaći grupu za vaše dete. Poslaćemo raspored, događaje i dnevni režim.",
     form_call:"Pozovite nas", form_card_title:"Zakažite obilazak", form_card_sub:"Popunite formu — javićemo vam se u najkraćem roku.",
     cta_rating:"Ocena na Yandexu", cta_c1:"Male grupe do 15", cta_c2:"Licencirani vrtić", intro_skip:"Preskoči →",
@@ -96,14 +96,14 @@
     offer3_t:"Popust 5% za braću i sestre", offer3_d:"Ako vrtić pohađa dvoje ili više dece iz iste porodice, važi popust od 5%.",
     offers_cta:"Zakažite obilazak", offers_note:"Ponude se ne sabiraju. Detalje proverite kod administratora.",
     footer_tagline:"Razvijamo sa ljubavlju i brigom svakog dana.", footer_nav:"Navigacija", footer_programs:"Programi",
-    foot_p1:"Bebi-Fan · 1,5–2,5", foot_p2:"Enerdži-Fan · 2,5–3,5", foot_p3:"Diskaveri-Fan · 3,5–4,5", foot_p4:"Kreativ-Fan · 4,5–6", foot_p5:"Preskul · 5,5–7",
+    foot_p1:"Bebi-Fan · 1,2–2,5", foot_p2:"Enerdži-Fan · 2,5–3,5", foot_p3:"Diskaveri-Fan · 3,5–4,5", foot_p4:"Kreativ-Fan · 4,5–6", foot_p5:"Preskul · 5,5–7",
     footer_contacts:"Kontakt", footer_rights:"Sva prava zadržana"
   };
 
   var EN = {
     brand_sub:"preschool", nav_about:"About", nav_programs:"Programs", nav_env:"Environment",
     nav_parents:"For parents", nav_contacts:"Contacts", nav_teachers:"Teachers", cta_book:"Book a Tour", cta_book_short:"Book a Tour",
-    hero_title:"FunsCool International Preschool in Belgrade", hero_tag:"A happy childhood — every day", hero_sub:"A boutique preschool for children 1.5–7 in central Belgrade (Dorćol): small groups, three languages every day, gentle adaptation, Montessori &amp; Waldorf.",
+    hero_title:"FunsCool International Preschool in Belgrade", hero_tag:"A happy childhood — every day", hero_sub:"A boutique preschool for children 1.2–7 in central Belgrade (Dorćol): small groups, three languages every day, gentle adaptation, Montessori &amp; Waldorf.",
     cta_programs:"Our programs", addr:"Dorćol, Popovića 14A, Belgrade", addr_sub:"Quiet central location, safe neighborhood",
     rating:"Rated on Yandex",
     f1_t:"Small groups", f1_d:"up to 15 children", f2_t:"Gentle adaptation", f2_d:"a stress-free start",
@@ -112,8 +112,8 @@
     sreda_text:"Thoughtful spaces, colors, materials and zones help children grow confident, independent and happy.",
     sreda_1:"Colors and characters by the Waldorf system for each age", sreda_2:"7–8 developmental zones in each group depending on age",
     sreda_3:"Safe materials and space for free exploration", sreda_4:"Development at every stage — from sensory play to creativity and projects",
-    prog_eyebrow:"Age groups", prog_title:"FunsCool preschool groups — from 1.5 to 7 years", prog_sub:"Each group is an important stage in your child's development.",
-    p1_name:"Baby-Fun", p1_age:"1.5–2.5 years", p1_desc:"First steps toward independence in an atmosphere of care and safety.",
+    prog_eyebrow:"Age groups", prog_title:"FunsCool preschool groups — from 1.2 to 7 years", prog_sub:"Each group is an important stage in your child's development.",
+    p1_name:"Baby-Fun", p1_age:"1.2–2.5 years", p1_desc:"First steps toward independence in an atmosphere of care and safety.",
     p1_l1:"Sensory walls", p1_l2:"Water and sand area", p1_l3:"Large safe toys", p1_l4:"Mirrors and gymnastics", p1_l5:"Speech development through play",
     p2_name:"Energy-Fun", p2_age:"2.5–3.5 years", p2_desc:"Movement, order and independence through play.",
     p2_l1:"Movement zone", p2_l2:"Construction area", p2_l3:"Drawing and creativity", p2_l4:"Home, shop, tidying up", p2_l5:"Reading and calm games",
@@ -165,7 +165,7 @@
     faq_q3:"Which languages are used?", faq_a3:"Russian, Serbian and English are used every day. Children absorb the multilingual environment naturally — through play, activities, songs, reading and real conversation.",
     faq_q4:"How are meals organised?", faq_a4:"Five meals a day: breakfast, a fruit snack, lunch, a snack and dinner. A balanced menu; we account for special needs and allergies.",
     faq_q5:"How many children are in a group?", faq_a5:"Small groups of up to 15 children — so each child gets enough of the teacher's attention.",
-    faq_q6:"How can we book a visit?", faq_a6:"Leave a request in the form below or give us a call — we'll arrange a convenient time for a tour.", faq_q7:"From what age do you accept children?", faq_a7:"We welcome children from around age 1 — once a child walks confidently, eats with a spoon and drinks from a cup. For the youngest there is the Baby-Fun adaptation group.", faq_q8:"Are there walks and an own playground?", faq_a8:"Yes. Children spend time outdoors twice a day in our own enclosed playground on the preschool grounds — no public playgrounds and no road crossings.",
+    faq_q6:"How can we book a visit?", faq_a6:"Leave a request in the form below or give us a call — we'll arrange a convenient time for a tour.", faq_q7:"From what age do you accept children?", faq_a7:"We welcome children from around age 1.2 — once a child walks confidently, eats with a spoon and drinks from a cup. For the youngest there is the Baby-Fun adaptation group.", faq_q8:"Are there walks and an own playground?", faq_a8:"Yes. Children spend time outdoors twice a day in our own enclosed playground on the preschool grounds — no public playgrounds and no road crossings.",
     form_title:"Want to see the preschool with your own eyes?", form_text:"Leave a request — we'll show the space, answer your questions and find the right group for your child. We'll send the schedule, events and daily routine.",
     form_call:"Call us", form_card_title:"Book a Tour", form_card_sub:"Fill out the form — we'll get back to you shortly.",
     cta_rating:"Rating on Yandex", cta_c1:"Small groups up to 15", cta_c2:"Licensed kindergarten", intro_skip:"Skip →",
@@ -180,7 +180,7 @@
     offer3_t:"5% sibling discount", offer3_d:"If two or more children from one family attend, a 5% discount applies.",
     offers_cta:"Book a tour", offers_note:"Offers can't be combined. Ask our administrator for details.",
     footer_tagline:"Growing with love and care every day.", footer_nav:"Navigation", footer_programs:"Programs",
-    foot_p1:"Baby-Fun · 1.5–2.5", foot_p2:"Energy-Fun · 2.5–3.5", foot_p3:"Discovery-Fun · 3.5–4.5", foot_p4:"Creative-Fun · 4.5–6", foot_p5:"Pre-school · 5.5–7",
+    foot_p1:"Baby-Fun · 1.2–2.5", foot_p2:"Energy-Fun · 2.5–3.5", foot_p3:"Discovery-Fun · 3.5–4.5", foot_p4:"Creative-Fun · 4.5–6", foot_p5:"Pre-school · 5.5–7",
     footer_contacts:"Contacts", footer_rights:"All rights reserved"
   };
 
@@ -195,9 +195,9 @@
      set by group.js. */
   var META = {
     index: {
-      ru: { t: "Частный международный детский сад FunsCool в Белграде · 1,5–7 лет", d: "Частный международный детский сад FunsCool в центре Белграда (Дорчол) для детей от 1,5 до 7 лет. Мини-группы, русский, сербский и английский языки каждый день, бережная адаптация и авторская программа на основе Montessori и Waldorf. Запишитесь на экскурсию." },
-      sr: { t: "Privatni međunarodni vrtić FunsCool u Beogradu · 1,5–7 godina", d: "Privatni međunarodni vrtić FunsCool u centru Beograda (Dorćol) za decu od 1,5 do 7 godina. Male grupe, ruski, srpski i engleski svaki dan, blaga adaptacija i autorski program po Montessori i Waldorf pristupu. Zakažite obilazak." },
-      en: { t: "FunsCool International Preschool in Belgrade · ages 1.5–7", d: "Private international preschool FunsCool in central Belgrade (Dorćol) for ages 1.5–7. Small groups, Russian, Serbian and English every day, gentle adaptation and a Montessori & Waldorf-based curriculum. Book a tour." }
+      ru: { t: "Частный международный детский сад FunsCool в Белграде · 1,2–7 лет", d: "Частный международный детский сад FunsCool в центре Белграда (Дорчол) для детей от 1,2 до 7 лет. Мини-группы, русский, сербский и английский языки каждый день, бережная адаптация и авторская программа на основе Montessori и Waldorf. Запишитесь на экскурсию." },
+      sr: { t: "Privatni međunarodni vrtić FunsCool u Beogradu · 1,2–7 godina", d: "Privatni međunarodni vrtić FunsCool u centru Beograda (Dorćol) za decu od 1,2 do 7 godina. Male grupe, ruski, srpski i engleski svaki dan, blaga adaptacija i autorski program po Montessori i Waldorf pristupu. Zakažite obilazak." },
+      en: { t: "FunsCool International Preschool in Belgrade · ages 1.2–7", d: "Private international preschool FunsCool in central Belgrade (Dorćol) for ages 1.2–7. Small groups, Russian, Serbian and English every day, gentle adaptation and a Montessori & Waldorf-based curriculum. Book a tour." }
     },
     news: {
       ru: { t: "Актуальное — жизнь детского сада FunsCool", d: "Новости, события, праздники и жизнь детского сада FunsCool. Архив всех записей раздела «Актуальное»." },
@@ -723,6 +723,7 @@
         .then(function (r) {
           if (!r.ok) throw new Error('http ' + r.status);
           if (ok) ok.classList.add('show');
+          try { if (window.fsTrackLead) window.fsTrackLead(); } catch (_) {}  // mark the form as a Meta/GA event
           form.reset(); if (pin) pin.value = '';
         })
         .catch(function () {

@@ -998,6 +998,25 @@ body.intro-lock { overflow: hidden; }
 }
 @media (prefers-reduced-motion: reduce) { .wa-fab::after { animation: none; } }
 
+/* ---- cookie consent banner ---- */
+.cookie-banner {
+  position: fixed; left: 50%; bottom: 18px; transform: translate(-50%, 150%);
+  z-index: 150; width: min(680px, calc(100% - 24px));
+  display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
+  background: var(--card); border: 1px solid var(--line); border-radius: 18px;
+  box-shadow: var(--shadow-lg); padding: 15px 20px;
+  opacity: 0; transition: transform .45s var(--ease), opacity .35s var(--ease);
+}
+.cookie-banner.show { transform: translate(-50%, 0); opacity: 1; }
+.cookie-text { margin: 0; flex: 1; min-width: 200px; font-size: 13.5px; color: var(--ink-soft); line-height: 1.45; }
+.cookie-actions { display: flex; gap: 10px; flex-shrink: 0; }
+.cookie-actions .btn { padding: 11px 22px; font-size: 14.5px; }
+@media (max-width: 560px) {
+  .cookie-banner { flex-direction: column; align-items: stretch; text-align: center; bottom: 12px; gap: 12px; }
+  .cookie-actions .btn { flex: 1; }
+}
+@media (prefers-reduced-motion: reduce) { .cookie-banner { transition: opacity .2s; transform: translate(-50%, 0); } }
+
 /* ============================================================
    Booking modal
    ============================================================ */

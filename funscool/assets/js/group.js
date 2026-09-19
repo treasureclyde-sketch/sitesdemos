@@ -56,12 +56,12 @@
       name: 'Baby-Fun',
       photo: 'assets/img/groups/baby-hero.webp',
       ctaPhoto: 'assets/img/interiors/baby.webp',
-      badge: { ru: 'от 1 года', sr: 'od 1 godine', en: 'from age 1' },
+      badge: { ru: 'от 1,2 года', sr: 'od 1,2 godine', en: 'from age 1.2' },
       subtitle: { ru: 'Мягкая адаптация\nв русскоязычной среде', sr: 'Nežna adaptacija\nu okruženju na ruskom jeziku', en: 'Gentle adaptation\nin a Russian-speaking environment' },
       intro: {
-        ru: 'Адаптационная группа для малышей от 1 года. Мы создаём безопасную и тёплую среду, где ваш ребёнок спокойно привыкает к детскому саду, развивается и делает первые шаги в английском языке.',
-        sr: 'Adaptaciona grupa za mališane od 1 godine. Stvaramo sigurno i toplo okruženje u kome se vaše dete mirno navikava na vrtić, razvija se i pravi prve korake u engleskom jeziku.',
-        en: 'An adaptation group for little ones from age 1. We create a safe, warm environment where your child calmly settles into preschool, develops and takes their first steps in English.'
+        ru: 'Адаптационная группа для малышей от 1,2 года. Мы создаём безопасную и тёплую среду, где ваш ребёнок спокойно привыкает к детскому саду, развивается и делает первые шаги в английском языке.',
+        sr: 'Adaptaciona grupa za mališane od 1,2 godine. Stvaramo sigurno i toplo okruženje u kome se vaše dete mirno navikava na vrtić, razvija se i pravi prve korake u engleskom jeziku.',
+        en: 'An adaptation group for little ones from age 1.2. We create a safe, warm environment where your child calmly settles into preschool, develops and takes their first steps in English.'
       },
       stats: [
         { icon: 'kids', v: { ru: 'до 12 детей', sr: 'do 12 dece', en: 'up to 12 children' }, l: { ru: 'в группе', sr: 'u grupi', en: 'in a group' } },
@@ -97,7 +97,7 @@
       ],
       advTitle: { ru: 'Преимущества Baby-Fun', sr: 'Prednosti Baby-Fun', en: 'Baby-Fun advantages' },
       adv: [
-        { icon: 'heart', t: { ru: 'Принимаем детей от 1 года', sr: 'Primamo decu od 1 godine', en: 'Children from age 1' } },
+        { icon: 'heart', t: { ru: 'Принимаем детей от 1,2 года', sr: 'Primamo decu od 1,2 godine', en: 'Children from age 1.2' } },
         { icon: 'kids', t: { ru: 'Малочисленная группа: до 12 детей', sr: 'Mala grupa: do 12 dece', en: 'A small group: up to 12 children' } },
         { icon: 'teacher', t: { ru: 'Воспитатель и ассистент в группе', sr: 'Vaspitač i asistent u grupi', en: 'A teacher and an assistant' } },
         { icon: 'shield', t: { ru: 'Охраняемая территория и безопасная среда', sr: 'Obezbeđena teritorija i sigurno okruženje', en: 'A secured, safe environment' } },
@@ -107,7 +107,7 @@
       ctaText: { ru: 'Запишитесь на экскурсию и познакомьтесь с нашей Baby-Fun-группой.', sr: 'Zakažite obilazak i upoznajte našu Baby-Fun grupu.', en: 'Book a tour and meet our Baby-Fun group.' },
       faq: [
         { q: { ru: 'Как проходит адаптация малыша?', sr: 'Kako teče adaptacija mališana?', en: 'How does a little one settle in?' }, a: { ru: 'Наша программа адаптации мягкая: в течение недели в группу приходит только один новый ребёнок. Мы поддерживаем малыша и родителей на каждом шаге и ведём «Дневник адаптации».', sr: 'Naš program adaptacije je nežan: tokom nedelje u grupu dolazi samo jedno novo dete. Podržavamo i dete i roditelje na svakom koraku i vodimo „Dnevnik adaptacije“.', en: 'Our adaptation program is gentle: only one new child joins the group each week. We support the child and the parents at every step and keep an “Adaptation Diary”.' } },
-        { q: { ru: 'С какого возраста берёте в Baby-Fun?', sr: 'Od kog uzrasta primate u Baby-Fun?', en: 'From what age do you accept children into Baby-Fun?' }, a: { ru: 'Примерно с 1 года — когда ребёнок уверенно ходит, ест ложкой и пьёт из кружки.', sr: 'Otprilike od 1 godine — kada dete sigurno hoda, jede kašikom i pije iz šolje.', en: 'From about age 1 — once a child walks confidently, eats with a spoon and drinks from a cup.' } },
+        { q: { ru: 'С какого возраста берёте в Baby-Fun?', sr: 'Od kog uzrasta primate u Baby-Fun?', en: 'From what age do you accept children into Baby-Fun?' }, a: { ru: 'Примерно с 1,2 года — когда ребёнок уверенно ходит, ест ложкой и пьёт из кружки.', sr: 'Otprilike od 1,2 godine — kada dete sigurno hoda, jede kašikom i pije iz šolje.', en: 'From about age 1 — once a child walks confidently, eats with a spoon and drinks from a cup.' } },
         { q: { ru: 'Ребёнок почти не говорит — это нормально?', sr: 'Dete skoro da ne govori — je li to normalno?', en: 'My child barely talks yet — is that normal?' }, a: { ru: 'Да. В этом возрасте речь только формируется; мы развиваем её каждый день через игру, песни, чтение и общение.', sr: 'Da. Na ovom uzrastu se govor tek formira; razvijamo ga svakog dana kroz igru, pesme, čitanje i komunikaciju.', en: 'Yes. At this age speech is only forming; we develop it every day through play, songs, reading and conversation.' } },
         { q: { ru: 'Сколько детей и взрослых в группе?', sr: 'Koliko dece i odraslih je u grupi?', en: 'How many children and adults are in the group?' }, a: { ru: 'До 12 детей, с ними постоянно воспитатель и ассистент. Также 5-разовое питание, дневной сон и две прогулки в день.', sr: 'Do 12 dece, uz njih su stalno vaspitač i asistent. Uz to pet obroka dnevno, dnevni san i dve šetnje dnevno.', en: 'Up to 12 children, always with a teacher and an assistant. Plus five meals a day, a nap and two walks a day.' } }
       ]
