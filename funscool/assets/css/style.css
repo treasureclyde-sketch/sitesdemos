@@ -852,6 +852,15 @@ body.intro-lock { overflow: hidden; }
   .joy-egg { max-width: 280px; }
   .cta-wrap.has-photo::before { background: linear-gradient(180deg, rgba(28,24,20,.82) 0%, rgba(28,24,20,.66) 46%, rgba(28,24,20,.5) 100%); }
   .cta-bg { object-position: 30% 60%; }
+
+  /* unify section alignment on phones: every section intro reads centered
+     (the split sections — hero, «Среда», «Дом», «Как проходит день» — used to
+     stay left while Programs/Teachers/FAQ were centered). Only the intro
+     elements move; card and list bodies keep their natural left alignment. */
+  .eyebrow, .hero h1, .section-title, .section-sub, .hero-lead { text-align: center; }
+  .eyebrow { display: flex; width: fit-content; margin-left: auto; margin-right: auto; }
+  .section-sub, .hero-lead { margin-left: auto; margin-right: auto; }
+  .hero-cta, .info-band, .badges-3 { justify-content: center; }
 }
 @media (max-width: 860px) {
   .footer-top { grid-template-columns: 1fr 1fr; gap: 30px 20px; }
