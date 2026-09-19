@@ -114,6 +114,13 @@ h1, h2, h3, h4, .section-title, .eyebrow, .hero-tag, blockquote { text-wrap: bal
 
 .section-head { max-width: 640px; margin-bottom: 44px; }
 .section-head.center { margin-left: auto; margin-right: auto; }
+/* alignment: every section intro is centered across the whole site (mobile +
+   desktop) — eyebrow, heading, subtitle/lead and the button/badge/pill rows
+   beneath them. Card and list bodies keep their natural left alignment. */
+.eyebrow, .hero h1, .section-title, .section-sub, .hero-lead { text-align: center; }
+.eyebrow { display: flex; width: fit-content; margin-left: auto; margin-right: auto; }
+.section-sub, .hero-lead { margin-left: auto; margin-right: auto; }
+.hero-cta, .info-band, .badges-3, .day-pills { justify-content: center; }
 .section-title { font-size: clamp(30px, 4.6vw, 50px); margin: 16px 0 14px; }
 .section-sub { color: var(--muted); font-size: clamp(16px, 1.7vw, 19px); }
 .wavy { display: block; width: 120px; height: 12px; margin-top: 8px; color: var(--yellow); }
@@ -858,15 +865,6 @@ body.intro-lock { overflow: hidden; }
   .joy-egg { max-width: 280px; }
   .cta-wrap.has-photo::before { background: linear-gradient(180deg, rgba(28,24,20,.82) 0%, rgba(28,24,20,.66) 46%, rgba(28,24,20,.5) 100%); }
   .cta-bg { object-position: 30% 60%; }
-
-  /* unify section alignment on phones: every section intro reads centered
-     (the split sections — hero, «Среда», «Дом», «Как проходит день» — used to
-     stay left while Programs/Teachers/FAQ were centered). Only the intro
-     elements move; card and list bodies keep their natural left alignment. */
-  .eyebrow, .hero h1, .section-title, .section-sub, .hero-lead { text-align: center; }
-  .eyebrow { display: flex; width: fit-content; margin-left: auto; margin-right: auto; }
-  .section-sub, .hero-lead { margin-left: auto; margin-right: auto; }
-  .hero-cta, .info-band, .badges-3 { justify-content: center; }
 }
 @media (max-width: 860px) {
   .footer-top { grid-template-columns: 1fr 1fr; gap: 30px 20px; }
