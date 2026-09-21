@@ -8,7 +8,7 @@
 (function () {
   'use strict';
   var GA_ID = '';          // <-- put your GA4 id here, e.g. 'G-XXXXXXXXXX'
-  var FB_PIXEL_ID = '';    // <-- put your Meta Pixel id here, e.g. '123456789012345'
+  var FB_PIXEL_ID = '4490692144582887';    // Meta (Facebook) Pixel
 
   var STORE = 'fs-consent';
   function get() { try { return localStorage.getItem(STORE); } catch (e) { return null; } }
