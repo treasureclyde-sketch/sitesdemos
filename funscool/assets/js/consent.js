@@ -1,13 +1,8 @@
-/* FUNSCOOL — cookie consent + analytics (GA4 + Meta Pixel), GDPR-friendly.
-   Nothing loads or tracks until the visitor accepts. Analytics stay inert until
-   the two IDs below are filled in — so this file is safe to ship as-is.
-
-   TO ACTIVATE ANALYTICS: paste the real IDs here and redeploy.
-   - GA_ID        : Google Analytics 4 measurement id, looks like "G-XXXXXXXXXX"
-   - FB_PIXEL_ID  : Meta (Facebook) Pixel id, a number like "123456789012345"      */
+/* FUNSCOOL — cookie consent + Meta Pixel, GDPR-friendly.
+   The pixel loads only after the visitor accepts cookies.
+   FB_PIXEL_ID — Meta (Facebook) Pixel id, a number like "123456789012345".      */
 (function () {
   'use strict';
-  var GA_ID = '';          // <-- put your GA4 id here, e.g. 'G-XXXXXXXXXX'
   var FB_PIXEL_ID = '4490692144582887';    // Meta (Facebook) Pixel
 
   var STORE = 'fs-consent';
@@ -24,19 +19,10 @@
           more: 'Learn more', ok: 'Accept', no: 'Decline' }
   };
 
-  /* ---- analytics loaders (only run after consent AND if an id is set) ---- */
+  /* ---- Meta Pixel loader (only runs after consent AND if an id is set) ---- */
   var loaded = false;
   function loadAnalytics() {
     if (loaded) return; loaded = true;
-    if (GA_ID) {
-      var s = document.createElement('script'); s.async = true;
-      s.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(GA_ID);
-      document.head.appendChild(s);
-      window.dataLayer = window.dataLayer || [];
-      window.gtag = function () { window.dataLayer.push(arguments); };
-      window.gtag('js', new Date());
-      window.gtag('config', GA_ID);
-    }
     if (FB_PIXEL_ID) {
       /* Meta Pixel base code */
       !function (f, b, e, v, n, t, s) {
@@ -52,7 +38,6 @@
   /* Called by the lead form on a successful submit (see main.js). Safe no-op
      until analytics is loaded, so every form counts as a trackable event. */
   window.fsTrackLead = function () {
-    try { if (window.gtag) window.gtag('event', 'generate_lead', { form: 'lead' }); } catch (e) {}
     try { if (window.fbq) window.fbq('track', 'Lead'); } catch (e) {}
   };
 
