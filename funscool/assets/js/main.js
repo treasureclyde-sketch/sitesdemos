@@ -853,4 +853,31 @@
   initSliders();
   // teacher cards render asynchronously → re-scan once content is in
   document.addEventListener('fs:teachers-rendered', initSliders);
+
+  /* ---------- reviews: click a review to see it larger in a floating window
+     (desktop / large screens only; on phones the card is already big) ---------- */
+  (function () {
+    var box = null;
+    function close() { if (box) { box.classList.remove('open'); document.body.classList.remove('modal-open'); } }
+    function open(src, alt) {
+      if (!box) {
+        box = document.createElement('div');
+        box.className = 'rev-lightbox';
+        box.innerHTML = '<button class="rev-lightbox-x" type="button" aria-label="Закрыть">&times;</button><img alt="">';
+        box.addEventListener('click', function (e) { if (e.target === box || e.target.closest('.rev-lightbox-x')) close(); });
+        document.body.appendChild(box);
+      }
+      var img = box.querySelector('img');
+      img.src = src; img.alt = alt || '';
+      box.classList.add('open');
+      document.body.classList.add('modal-open');
+    }
+    document.addEventListener('click', function (e) {
+      var img = e.target.closest && e.target.closest('.rev-card img');
+      if (!img) return;
+      if (window.matchMedia && !window.matchMedia('(min-width: 901px)').matches) return; // large screens only
+      open(img.currentSrc || img.src, img.alt);
+    });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+  })();
 })();

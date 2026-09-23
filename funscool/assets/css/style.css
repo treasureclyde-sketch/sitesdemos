@@ -919,6 +919,26 @@ body.intro-lock { overflow: hidden; }
 .rev-card { margin: 0; width: clamp(230px, 24vw, 300px); }
 .rev-card img { width: 100%; height: auto; display: block; border-radius: 20px; box-shadow: var(--shadow); background: var(--card); }
 @media (max-width: 900px) { .rev-card { width: min(76vw, 300px); } }
+@media (min-width: 901px) { .rev-card img { cursor: zoom-in; } }
+/* click a review to view it larger in a floating window (desktop) */
+.rev-lightbox {
+  position: fixed; inset: 0; z-index: 210; display: grid; place-items: center; padding: 24px;
+  background: rgba(30,24,18,.72); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
+  opacity: 0; visibility: hidden; transition: opacity .22s var(--ease), visibility .22s var(--ease);
+}
+.rev-lightbox.open { opacity: 1; visibility: visible; }
+.rev-lightbox img {
+  max-width: min(92vw, 560px); max-height: 92vh; width: auto; height: auto;
+  border-radius: 20px; box-shadow: var(--shadow-lg); transform: scale(.96); transition: transform .22s var(--ease);
+}
+.rev-lightbox.open img { transform: scale(1); }
+.rev-lightbox-x {
+  position: absolute; top: 18px; right: 22px; width: 44px; height: 44px; border-radius: 50%;
+  background: #fff; border: none; font-size: 26px; line-height: 1; color: var(--ink);
+  cursor: pointer; display: grid; place-items: center; box-shadow: var(--shadow);
+}
+.rev-lightbox-x:hover { background: var(--cream); }
+@media (prefers-reduced-motion: reduce) { .rev-lightbox, .rev-lightbox img { transition: none; } }
 
 .slider-nav {
   position: absolute; top: calc(50% - 10px); transform: translateY(-50%); z-index: 6;
