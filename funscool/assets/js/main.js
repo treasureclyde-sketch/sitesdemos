@@ -18,7 +18,7 @@
 
   var SR = {
     brand_sub:"predškolska ustanova", nav_about:"O nama", nav_programs:"Programi", nav_env:"Okruženje",
-    nav_parents:"Za roditelje", nav_contacts:"Kontakt", nav_teachers:"Vaspitači", cta_book:"Zakažite obilazak", cta_book_short:"Zakažite",
+    nav_parents:"Za roditelje", nav_contacts:"Kontakt", nav_teachers:"Vaspitači", nav_reviews:"Utisci", cta_book:"Zakažite obilazak", cta_book_short:"Zakažite",
     hero_title:"Međunarodni vrtić FunsCool u Beogradu", hero_tag:"Srećno detinjstvo — svakog dana", hero_sub:"Boutique vrtić za decu 1,2–7 godina u centru Beograda (Dorćol): male grupe, tri jezika svakog dana, nežna adaptacija, Montessori i Waldorf.",
     cta_programs:"Naši programi", addr:"Dorćol, Popovićeva 14A, Beograd", addr_sub:"Mirno centralno mesto, sigurno okruženje",
     rating:"Ocena ustanove na Yandex-u",
@@ -105,7 +105,7 @@
 
   var EN = {
     brand_sub:"preschool", nav_about:"About", nav_programs:"Programs", nav_env:"Environment",
-    nav_parents:"For parents", nav_contacts:"Contacts", nav_teachers:"Teachers", cta_book:"Book a Tour", cta_book_short:"Book a Tour",
+    nav_parents:"For parents", nav_contacts:"Contacts", nav_teachers:"Teachers", nav_reviews:"Reviews", cta_book:"Book a Tour", cta_book_short:"Book a Tour",
     hero_title:"FunsCool International Preschool in Belgrade", hero_tag:"A happy childhood — every day", hero_sub:"A boutique preschool for children 1.2–7 in central Belgrade (Dorćol): small groups, three languages every day, gentle adaptation, Montessori &amp; Waldorf.",
     cta_programs:"Our programs", addr:"Dorćol, Popovića 14A, Belgrade", addr_sub:"Quiet central location, safe neighborhood",
     rating:"Rated on Yandex",
