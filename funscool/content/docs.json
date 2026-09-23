@@ -1,0 +1,24 @@
+{
+  "docs": [
+    {
+      "photo": "assets/img/docs/doc-1.jpg",
+      "alt": "Официальный документ детского сада FunsCool"
+    },
+    {
+      "photo": "assets/img/docs/doc-2.jpg",
+      "alt": "Официальный документ детского сада FunsCool"
+    },
+    {
+      "photo": "assets/img/docs/doc-3.jpg",
+      "alt": "Официальный документ детского сада FunsCool"
+    },
+    {
+      "photo": "assets/img/docs/doc-4.jpg",
+      "alt": "Официальный документ детского сада FunsCool"
+    },
+    {
+      "photo": "assets/img/docs/doc-5.jpg",
+      "alt": "Официальный документ детского сада FunsCool"
+    }
+  ]
+}

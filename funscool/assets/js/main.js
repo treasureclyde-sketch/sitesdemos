@@ -72,6 +72,7 @@
     team_eyebrow:"Sa ljubavlju i brigom", team_title:"Vaspitači vrtića FunsCool",
     team_sub:"Četiri vaspitača i administrator koji svakodnevno neguju mirnu, toplu i razumljivu atmosferu.", team_ask:"Postavite pitanje",
     rev_eyebrow:"Utisci roditelja", rev_title:"Šta roditelji kažu o nama", rev_sub:"Pravi utisci porodica vrtića FunsCool.",
+    doc_eyebrow:"Zvanična dokumenta", doc_title:"Dokumenta i registracija", doc_sub:"Zvanična registracija, ugovori i rešenja — otvoreno i transparentno.",
     feed_title:"Aktuelno", feed_more:"Prikaži još", feed_all:"Prikaži sve", news_back:"Na početnu", feed_empty:"Još nema objava — navratite kasnije.",
     feed_arch_title:"Aktuelno — život vrtića FunsCool", feed_arch_sub:"Novosti, događaji, praznici i sve čime živi naš vrtić.",
     /* teacher cards are rendered from content/teachers.json */
@@ -159,6 +160,7 @@
     team_eyebrow:"With love and care", team_title:"The team at FunsCool preschool",
     team_sub:"Four teachers and an administrator who nurture a calm, warm and caring atmosphere every day.", team_ask:"Ask a question",
     rev_eyebrow:"Parents' reviews", rev_title:"What parents say about us", rev_sub:"Real reviews from FunsCool families.",
+    doc_eyebrow:"Official documents", doc_title:"Documents & registration", doc_sub:"Official registration, contracts and decisions — open and transparent.",
     feed_title:"What's on", feed_more:"Show more", feed_all:"See all", news_back:"Home", feed_empty:"Nothing here yet — check back soon.",
     feed_arch_title:"What's on — life at FunsCool kindergarten", feed_arch_sub:"News, events, celebrations and everything our kindergarten lives by.",
     /* teacher cards are rendered from content/teachers.json */
@@ -308,6 +310,26 @@
     });
     try { document.dispatchEvent(new Event('fs:teachers-rendered')); } catch (e) {} // re-scan sliders
   }
+  function renderDocs(lang) {
+    // document cards are images/scans (content/docs.json, editable in the CMS)
+    var grid = document.getElementById('docGrid');
+    if (!grid || !CONTENT || !Array.isArray(CONTENT.docs)) return;
+    grid.textContent = '';
+    CONTENT.docs.forEach(function (r) {
+      var src = String((r && r.photo) || '').replace(/^\//, '');
+      if (!src) return;
+      var fig = document.createElement('figure');
+      fig.className = 'doc-card';
+      var img = document.createElement('img');
+      img.src = src;
+      img.alt = (typeof r.alt === 'string' && r.alt) ? r.alt : 'Официальный документ FunsCool';
+      img.loading = 'lazy';
+      img.width = 720; img.height = 1280;
+      fig.appendChild(img);
+      grid.appendChild(fig);
+    });
+    try { document.dispatchEvent(new Event('fs:teachers-rendered')); } catch (e) {} // re-scan sliders
+  }
   function renderFaq(lang) {
     // FAQ accordion rendered from content/faq.json (CMS-editable). The static
     // markup in index.html stays as a no-JS / crawler fallback; this replaces it.
@@ -417,6 +439,7 @@
   function renderDynamic(lang) {
     renderTeachers(lang);
     renderReviews(lang);
+    renderDocs(lang);
     renderFaq(lang);
     renderFeed(lang);
   }
@@ -486,7 +509,7 @@
 
   /* load editable content, then render the data-driven sections in the current language */
   (function loadContent() {
-    var files = ['content/teachers.json', 'content/faq.json', 'content/news.json', 'content/reviews.json'];
+    var files = ['content/teachers.json', 'content/faq.json', 'content/news.json', 'content/reviews.json', 'content/docs.json'];
     Promise.all(files.map(function (f) {
       return fetch(f, { cache: 'no-cache' })
         .then(function (r) { return r.ok ? r.json() : null; })
@@ -873,7 +896,7 @@
       document.body.classList.add('modal-open');
     }
     document.addEventListener('click', function (e) {
-      var img = e.target.closest && e.target.closest('.rev-card img');
+      var img = e.target.closest && e.target.closest('.rev-card img, .doc-card img');
       if (!img) return;
       if (window.matchMedia && !window.matchMedia('(min-width: 901px)').matches) return; // large screens only
       open(img.currentSrc || img.src, img.alt);

@@ -920,6 +920,16 @@ body.intro-lock { overflow: hidden; }
 .rev-card img { width: 100%; height: auto; display: block; border-radius: 20px; box-shadow: var(--shadow); background: var(--card); }
 @media (max-width: 900px) { .rev-card { width: min(76vw, 300px); } }
 @media (min-width: 901px) { .rev-card img { cursor: zoom-in; } }
+
+/* documents: same carousel, but a more formal / official presentation */
+.docs-sec { background: var(--cream-2); padding: clamp(42px, 6vw, 74px) 0 !important; }
+.docs-eyebrow { color: var(--ink-soft); background: var(--card); border: 1px solid var(--line-2); }
+.docs-eyebrow .ic { width: 16px; height: 16px; color: #5c8a3f; }
+.doc-card { margin: 0; width: clamp(230px, 24vw, 300px); }
+.doc-card img { width: 100%; height: auto; display: block; border: 1px solid var(--line-2); border-radius: 8px; box-shadow: var(--shadow-sm); background: #fff; }
+@media (max-width: 900px) { .doc-card { width: min(76vw, 300px); } }
+@media (min-width: 901px) { .doc-card img { cursor: zoom-in; } }
+
 /* click a review to view it larger in a floating window (desktop) */
 .rev-lightbox {
   position: fixed; inset: 0; z-index: 210; display: grid; place-items: center; padding: 24px;
