@@ -171,6 +171,7 @@ details.adv{margin:10px 0 16px} details.adv summary{cursor:pointer; font-weight:
       <a href="#teachers" data-page="teachers" class="active" aria-current="page"><span class="ic">👩‍🏫</span>Воспитатели</a>
       <a href="#faq" data-page="faq"><span class="ic">❓</span>Вопросы (FAQ)</a>
       <a href="#news" data-page="news"><span class="ic">✨</span>Актуальное</a>
+      <a href="#reviews" data-page="reviews"><span class="ic">💬</span>Отзывы</a>
     </nav>
     <div class="side-foot">
       <span class="who" id="who"></span>
@@ -205,7 +206,8 @@ var token='';
 var COLL={
   teachers:{ title:'Воспитатели', path:'funscool/content/teachers.json', key:'teachers' },
   faq:{ title:'Вопросы (FAQ)', path:'funscool/content/faq.json', key:'faq' },
-  news:{ title:'Актуальное', path:'funscool/content/news.json', key:'news' }
+  news:{ title:'Актуальное', path:'funscool/content/news.json', key:'news' },
+  reviews:{ title:'Отзывы', path:'funscool/content/reviews.json', key:'reviews' }
 };
 var store={}; // page -> { sha, items:[...] , dirty:false }
 var current='teachers';
@@ -340,7 +342,7 @@ function loadAndRender(page){
     el.innerHTML='<div class="card"><b>Не удалось загрузить.</b><p class="hint">'+esc(ex.message)+'</p></div>';
   });
 }
-function renderPage(page){ current=page; if(page==='teachers') renderTeachers(); else if(page==='news') renderNews(); else renderFaq(); syncBar(); }
+function renderPage(page){ current=page; if(page==='teachers') renderTeachers(); else if(page==='news') renderNews(); else if(page==='reviews') renderReviews(); else renderFaq(); syncBar(); }
 
 function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
 function langBlock(prefix, obj, kind){
@@ -436,6 +438,25 @@ function renderNews(){
   $('#content').innerHTML=html;
 }
 
+/* ---------- отзывы (картинки) ---------- */
+function renderReviews(){
+  var items=store.reviews.items;
+  var html='<p class="page-intro">Отзывы — это картинки, они листаются каруселью на главной (после блока «Педагоги»). Загрузите готовое изображение отзыва; порядок = порядок на сайте. Лучше вертикальные картинки, примерно 720×1280.</p>';
+  items.forEach(function(it,i){
+    var photo=String(it.photo||'').replace(/^\//,'');
+    html+='<div class="card" data-i="'+i+'">'+
+      '<div class="itemhead"><span class="num">'+(i+1)+'</span>'+
+        (photo ? '<img class="thumb" src="'+esc('../'+photo)+'" alt="" loading="lazy" onerror="this.style.visibility=\'hidden\'">' : '')+
+        '<span class="t">Отзыв '+(i+1)+'</span>'+
+        '<span class="acts">'+moveBtns(i,items.length)+'<button class="btn icon" data-del title="Удалить">🗑️</button></span>'+
+      '</div>'+
+      photoControl(it.photo)+
+    '</div>';
+  });
+  html+='<div class="addbar"><button class="btn" data-add>+ Добавить отзыв</button></div>';
+  $('#content').innerHTML=html;
+}
+
 /* ---------- editing (event delegation) ---------- */
 function setPath(obj, path, val){ var p=path.split('.'); while(p.length>1){ var k=p.shift(); if(typeof obj[k]!=='object'||obj[k]==null) obj[k]={}; obj=obj[k]; } obj[p[0]]=val; }
 $('#content').addEventListener('input', function(e){
@@ -460,6 +481,7 @@ $('#content').addEventListener('click', function(e){
   if(btn.hasAttribute('data-add')){
     var blank = current==='teachers' ? {photo:'',color:'purple',name:{},tags:[],bio:{}}
               : current==='news' ? {type:'news',photo:'',date:'',title:{},text:{}}
+              : current==='reviews' ? {photo:''}
               : {q:{},a:{}};
     items.push(blank); markDirty(); renderPage(current); return;
   }
@@ -478,7 +500,7 @@ $('#content').addEventListener('change', function(e){
   var file=fi.files&&fi.files[0]; if(!file) return;
   var card=fi.closest('.card'); if(!card) return;
   var i=+card.getAttribute('data-i'); var item=store[current].items[i]; if(!item) return;
-  var dir = current==='news' ? 'assets/img/news' : 'assets/img/teachers';
+  var dir = current==='news' ? 'assets/img/news' : current==='reviews' ? 'assets/img/reviews' : 'assets/img/teachers';
   var btn=card.querySelector('[data-upload]');
   if(btn){ btn.disabled=true; btn.textContent='Загружаю…'; }
   uploadImage(dir, file).then(function(stored){

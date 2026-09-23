@@ -71,6 +71,7 @@
     joy4_t:"Samopouzdanje i radost pobeda", joy4_d:"Vaspitači podržavaju i primećuju uspehe deteta, pomažući mu da veruje u sebe.",
     team_eyebrow:"Sa ljubavlju i brigom", team_title:"Vaspitači vrtića FunsCool",
     team_sub:"Četiri vaspitača i administrator koji svakodnevno neguju mirnu, toplu i razumljivu atmosferu.", team_ask:"Postavite pitanje",
+    rev_eyebrow:"Utisci roditelja", rev_title:"Šta roditelji kažu o nama", rev_sub:"Pravi utisci porodica vrtića FunsCool.",
     feed_title:"Aktuelno", feed_more:"Prikaži još", feed_all:"Prikaži sve", news_back:"Na početnu", feed_empty:"Još nema objava — navratite kasnije.",
     feed_arch_title:"Aktuelno — život vrtića FunsCool", feed_arch_sub:"Novosti, događaji, praznici i sve čime živi naš vrtić.",
     /* teacher cards are rendered from content/teachers.json */
@@ -157,6 +158,7 @@
     joy4_t:"Confidence and the joy of wins", joy4_d:"Teachers support and notice each child's progress, helping them believe in themselves.",
     team_eyebrow:"With love and care", team_title:"The team at FunsCool preschool",
     team_sub:"Four teachers and an administrator who nurture a calm, warm and caring atmosphere every day.", team_ask:"Ask a question",
+    rev_eyebrow:"Parents' reviews", rev_title:"What parents say about us", rev_sub:"Real reviews from FunsCool families.",
     feed_title:"What's on", feed_more:"Show more", feed_all:"See all", news_back:"Home", feed_empty:"Nothing here yet — check back soon.",
     feed_arch_title:"What's on — life at FunsCool kindergarten", feed_arch_sub:"News, events, celebrations and everything our kindergarten lives by.",
     /* teacher cards are rendered from content/teachers.json */
@@ -286,6 +288,26 @@
     });
     try { document.dispatchEvent(new Event('fs:teachers-rendered')); } catch (e) {}
   }
+  function renderReviews(lang) {
+    // review cards are images (content/reviews.json, editable in the CMS)
+    var grid = document.getElementById('revGrid');
+    if (!grid || !CONTENT || !Array.isArray(CONTENT.reviews)) return;
+    grid.textContent = '';
+    CONTENT.reviews.forEach(function (r) {
+      var src = String((r && r.photo) || '').replace(/^\//, ''); // keep paths relative to the site root
+      if (!src) return;
+      var fig = document.createElement('figure');
+      fig.className = 'rev-card';
+      var img = document.createElement('img');
+      img.src = src;
+      img.alt = (typeof r.alt === 'string' && r.alt) ? r.alt : 'Отзыв о детском саде FunsCool';
+      img.loading = 'lazy';
+      img.width = 720; img.height = 1280;
+      fig.appendChild(img);
+      grid.appendChild(fig);
+    });
+    try { document.dispatchEvent(new Event('fs:teachers-rendered')); } catch (e) {} // re-scan sliders
+  }
   function renderFaq(lang) {
     // FAQ accordion rendered from content/faq.json (CMS-editable). The static
     // markup in index.html stays as a no-JS / crawler fallback; this replaces it.
@@ -394,6 +416,7 @@
   }
   function renderDynamic(lang) {
     renderTeachers(lang);
+    renderReviews(lang);
     renderFaq(lang);
     renderFeed(lang);
   }
@@ -463,7 +486,7 @@
 
   /* load editable content, then render the data-driven sections in the current language */
   (function loadContent() {
-    var files = ['content/teachers.json', 'content/faq.json', 'content/news.json'];
+    var files = ['content/teachers.json', 'content/faq.json', 'content/news.json', 'content/reviews.json'];
     Promise.all(files.map(function (f) {
       return fetch(f, { cache: 'no-cache' })
         .then(function (r) { return r.ok ? r.json() : null; })

@@ -1,0 +1,24 @@
+{
+  "reviews": [
+    {
+      "photo": "assets/img/reviews/review-1.jpg",
+      "alt": "Отзыв родителей о детском саде FunsCool"
+    },
+    {
+      "photo": "assets/img/reviews/review-2.jpg",
+      "alt": "Отзыв родителей о детском саде FunsCool"
+    },
+    {
+      "photo": "assets/img/reviews/review-3.jpg",
+      "alt": "Отзыв родителей о детском саде FunsCool"
+    },
+    {
+      "photo": "assets/img/reviews/review-4.jpg",
+      "alt": "Отзыв родителей о детском саде FunsCool"
+    },
+    {
+      "photo": "assets/img/reviews/review-5.jpg",
+      "alt": "Отзыв родителей о детском саде FunsCool"
+    }
+  ]
+}
