@@ -410,8 +410,10 @@ a.info-pill:hover { border-color: var(--coral); box-shadow: var(--shadow); trans
 }
 .clk-hand { transform-box: view-box; transform-origin: 50% 50%; }
 .cd { opacity: .32; transition: opacity .5s, transform .5s; transform-box: fill-box; transform-origin: center;
-  cursor: pointer; stroke: transparent; stroke-width: 6; pointer-events: all; }  /* transparent stroke = bigger click target */
+  cursor: pointer; stroke: transparent; stroke-width: 6; pointer-events: all; outline: none; }  /* transparent stroke = bigger click target; outline:none removes the rectangular focus box on the SVG dot */
 .cd:hover { opacity: .8; }
+/* keyboard focus: a soft ROUND halo on the circle instead of a black square */
+.cd:focus-visible { opacity: 1; stroke: color-mix(in srgb, var(--purple) 45%, transparent); }
 .cd.pulse { opacity: 1; transform: scale(1.6); }
 .dayclock .ev { cursor: pointer; }
 
