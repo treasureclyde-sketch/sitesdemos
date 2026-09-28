@@ -44,6 +44,21 @@
         "sr": "Kuvamo zajedno, probamo i učimo samostalnost kroz praksu.",
         "en": "Cooking together, tasting and learning independence through practice."
       }
+    },
+    {
+      "type": "news",
+      "photo": "",
+      "date": "",
+      "title": {
+        "ru": "Срочные новости",
+        "en": "Breaking news",
+        "sr": "Polako vesti"
+      },
+      "text": {
+        "ru": "Срочные новости",
+        "en": "Breaking news",
+        "sr": "Polako vesti"
+      }
     }
   ]
 }
