@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+
+Sitemap: https://treasureclyde-sketch.github.io/sitesdemos/sitemap.xml

@@ -197,7 +197,7 @@
     sr: { form_name:"Vaše ime", form_phone:"Telefon", form_child:"Ime deteta", form_email:"E-mail", form_question_ph:"Vaše pitanje (po želji)" },
     en: { form_name:"Your name", form_phone:"Phone number", form_child:"Child's name", form_email:"E-mail", form_question_ph:"Your question (optional)" } };
   // EN audience for a Belgrade kindergarten = expats in Belgrade → Serbian number
-  var PHONE = { ru:["+7 (499) 283-46-28","+74992834628"], en:["+381 (69) 283-46-28","+381692834628"], sr:["+381 (69) 283-46-28","+381692834628"] };
+  var PHONE = { ru:["+381 64 4445550","+381644445550"], en:["+381 64 4445550","+381644445550"], sr:["+381 64 4445550","+381644445550"] };
 
   /* per-page <title>/description/OG, localized (QA BUG-06). Group page titles are
      set by group.js. */
