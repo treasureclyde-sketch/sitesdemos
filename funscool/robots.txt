@@ -1,3 +1,5 @@
+# robots.txt — FunsCool (детский сад)
+# Разрешаем индексацию всего сайта, кроме админ-панели.
 User-agent: *
 Allow: /
 Disallow: /admin/

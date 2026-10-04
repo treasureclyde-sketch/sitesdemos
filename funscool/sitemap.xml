@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Главная страница -->
   <url>
     <loc>https://treasureclyde-sketch.github.io/sitesdemos/</loc>
+    <lastmod>2026-10-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
+  <!-- Актуальное (новости и жизнь сада) -->
   <url>
     <loc>https://treasureclyde-sketch.github.io/sitesdemos/news.html</loc>
+    <lastmod>2026-10-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
 </urlset>
+<!-- Страницы групп (group.html) и политика (privacy.html) помечены noindex,
+     поэтому в sitemap не включены. При переезде на домен funscool.rs замените
+     здесь и в robots.txt адрес на https://funscool.rs/ -->
