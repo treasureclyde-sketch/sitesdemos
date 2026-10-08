@@ -98,27 +98,6 @@
         "sr": "Prati porodice od prvog poziva do adaptacije: pomaže oko dokumenata, odgovara na pitanja i održava vezu sa roditeljima.",
         "en": "Guides families from the first call through adaptation: helps with paperwork, answers questions and keeps in touch with parents."
       }
-    },
-    {
-      "photo": "assets/img/teachers/1789056250432-orig.webp",
-      "color": "teal",
-      "name": {
-        "ru": "Лев",
-        "sr": "Lev",
-        "en": "Lev"
-      },
-      "tags": [
-        {
-          "ru": "Директор",
-          "sr": "Director",
-          "en": "Director"
-        }
-      ],
-      "bio": {
-        "ru": "тест1",
-        "sr": "test12",
-        "en": "Test4"
-      }
     }
   ]
 }
